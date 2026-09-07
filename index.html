@@ -858,10 +858,12 @@
     text-overflow: ellipsis;
   }
 
-  /* Cuerpo con Textura del Material */
+  /* Cuerpo con Textura del Material (Altura estricta y fija para todos los estratos) */
   .comp-layer-body {
-    flex-grow: 1;
-    min-height: 105px;
+    height: 115px;
+    min-height: 115px;
+    max-height: 115px;
+    flex: 0 0 115px;
     position: relative;
     overflow: hidden;
   }
@@ -894,15 +896,18 @@
     border: 1px solid rgba(255,255,255,0.2);
   }
 
-  /* Ficha Técnica Inferior */
+  /* Ficha Técnica Inferior (Altura homogénea para evitar desniveles) */
   .comp-layer-meta {
-    padding: 6px 6px;
+    padding: 6px 4px;
     background: var(--bg-card);
     border-top: 1px solid var(--border-light);
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    justify-content: flex-start;
+    gap: 3px;
     text-align: center;
+    min-height: 66px;
+    flex-grow: 1;
   }
 
   .comp-layer-title {
@@ -910,16 +915,24 @@
     font-size: 10.5px;
     font-weight: 700;
     color: var(--text-main);
-    line-height: 1.2;
-    white-space: nowrap;
+    line-height: 1.25;
+    height: 26px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    word-break: normal;
+    overflow-wrap: break-word;
   }
 
   .comp-layer-stat {
     font-family: var(--font-mono);
     font-size: 9px;
     color: var(--text-light);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .comp-layer-stat.comp-layer-r {
@@ -974,13 +987,13 @@
   .catalog-modal-content {
     background: var(--bg-card);
     border: 2px solid var(--border-main);
-    border-radius: 6px;
-    max-width: 860px;
+    border-radius: 8px;
+    max-width: 1040px;
     width: 100%;
-    max-height: 90vh;
+    max-height: 88vh;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    box-shadow: 0 24px 48px rgba(0,0,0,0.35);
     overflow: hidden;
   }
 
@@ -988,105 +1001,150 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 18px;
-    border-bottom: 2px solid var(--border-light);
+    padding: 16px 22px;
+    border-bottom: 1.5px solid var(--border-light);
     background: var(--bg-subtle);
+    flex-shrink: 0;
   }
 
   .catalog-modal-header h3 {
     margin: 0;
     font-family: var(--font-serif);
-    font-size: 15px;
+    font-size: 16px;
+    font-weight: 700;
     color: var(--text-main);
   }
 
   .catalog-close-btn {
     background: transparent;
-    border: none;
-    font-size: 24px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 22px;
     cursor: pointer;
     color: var(--text-muted);
     line-height: 1;
-    padding: 0 4px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
   }
 
   .catalog-close-btn:hover {
+    background: var(--box-def-bg);
     color: var(--latex-red);
+    border-color: var(--border-light);
   }
 
   .catalog-modal-body {
-    padding: 16px;
+    padding: 22px;
     overflow-y: auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
+    grid-auto-rows: max-content;
+    align-content: start;
+    gap: 20px;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .catalog-modal-body::-webkit-scrollbar {
+    width: 8px;
+  }
+  .catalog-modal-body::-webkit-scrollbar-track {
+    background: var(--bg-paper);
+  }
+  .catalog-modal-body::-webkit-scrollbar-thumb {
+    background: var(--border-light);
+    border-radius: 4px;
   }
 
   .catalog-card {
-    background: var(--bg-paper);
+    background: var(--bg-card);
     border: 1.5px solid var(--border-light);
-    border-radius: 6px;
+    border-radius: 8px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
   }
 
   .catalog-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
     border-color: var(--latex-blue);
   }
 
   .catalog-card-img {
     width: 100%;
-    height: 90px;
-    background-size: 48px 48px;
+    height: 95px;
+    min-height: 95px;
+    flex-shrink: 0;
+    background-size: 54px 54px;
     background-repeat: repeat;
     border-bottom: 1.5px solid var(--border-light);
+    background-color: var(--bg-paper);
   }
 
   .catalog-card-content {
-    padding: 10px 12px;
+    padding: 14px 16px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
     flex-grow: 1;
   }
 
-  .catalog-card-title {
-    font-family: var(--font-serif);
-    font-weight: 700;
-    font-size: 13px;
-    color: var(--text-main);
+  .catalog-card-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
   }
 
   .catalog-card-badge {
-    align-self: flex-start;
+    display: inline-block;
     font-family: var(--font-sans);
     font-size: 10px;
     font-weight: 700;
-    padding: 2px 6px;
-    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 2.5px 7px;
+    border-radius: 4px;
     background: var(--box-def-bg);
     color: var(--box-def-title);
     border: 1px solid var(--box-def-border);
+    white-space: nowrap;
   }
 
   .catalog-card-k {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 11.5px;
     font-weight: 700;
     color: var(--latex-blue);
-    margin-top: 2px;
+    background: var(--bg-subtle);
+    padding: 2.5px 7px;
+    border-radius: 4px;
+    border: 1px solid var(--border-light);
+    white-space: nowrap;
+  }
+
+  .catalog-card-title {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text-main);
+    line-height: 1.35;
+    margin: 0;
   }
 
   .catalog-card-desc {
     font-family: var(--font-sans);
-    font-size: 11px;
-    color: var(--text-light);
-    line-height: 1.4;
-    margin-top: 4px;
+    font-size: 13px;
+    color: var(--text-main);
+    line-height: 1.55;
+    margin: 0;
   }
 
   tr.highlighted-row {
@@ -1626,23 +1684,108 @@
   }
 
   const materialDetails = {
-    "rev_fino": { name: "Revoque fino", k: 0.70, category: "Terminación", desc: "Mortero de cal aérea y arena fina. Capa de terminación interior o exterior, espesor típico 3 a 5 mm." },
-    "rev_grueso": { name: "Revoque grueso", k: 0.93, category: "Revoques", desc: "Mortero de cemento, cal y arena gruesa. Capa niveladora e hidrófuga de 15 a 25 mm." },
-    "ladrillo_macizo": { name: "Ladrillo cerámico macizo", k: 0.81, category: "Mampostería", desc: "Mampuesto tradicional de arcilla cocida. Gran masa térmica y capacidad portante." },
-    "ladrillo_hueco": { name: "Ladrillo cerámico hueco", k: 0.45, category: "Mampostería", desc: "Bloque cerámico hueco no portante o portante con celdas de aire confinadas." },
-    "hormigon_armado": { name: "Hormigón Armado (Convencional)", k: 1.63, category: "Estructura", desc: "Material compuesto de alta densidad (cemento, áridos pétreos y acero). Alta conductividad." },
-    "hormigon_alivianado": { name: "Hormigón alivianado (Cascote)", k: 0.93, category: "Contrapisos", desc: "Hormigón con agregado de cascote cerámico o arcilla expandida, reduce peso y conductividad." },
-    "hcca": { name: "Hormigón celular HCCA (Retak)", k: 0.13, category: "Mampostería Aislante", desc: "Hormigón celular curado en autoclave con microburbujas cerradas. Excelente aislante masivo." },
-    "yeso": { name: "Placa de Yeso (Durlock / Cielorraso)", k: 0.22, category: "Placas / Cielorraso", desc: "Núcleo de yeso bihidratado con papel kraft. Construcción en seco y cielorrasos." },
-    "osb": { name: "Placa OSB", k: 0.13, category: "Placas Estructurales", desc: "Tablero de virutas de madera orientadas prensadas con resinas. Rigidizador estructural." },
-    "madera": { name: "Madera (Tirantes / Entablarado)", k: 0.20, category: "Madera", desc: "Madera natural de pino, eucalipto o tirantes estructurales. Baja conductividad y calidez." },
-    "eps": { name: "Poliestireno Expandido (EPS / Telgopor)", k: 0.037, category: "Aislante Térmico", desc: "Espuma celular termoplástica (98% aire). Material aislante por excelencia en EIFS y cubiertas." },
-    "xps": { name: "Poliestireno Extruido (XPS)", k: 0.033, category: "Aislante Térmico", desc: "Espuma rígida de celdas cerradas de alta resistencia mecánica y nula absorción de agua." },
-    "pur": { name: "Poliuretano Expandido (PUR)", k: 0.026, category: "Aislante de Alto Rendimiento", desc: "Aislante térmico comercial de menor conductividad (k = 0.026 W/mK), proyectado o inyectado." },
-    "lana_vidrio": { name: "Lana de Vidrio / Mineral", k: 0.038, category: "Aislante Térmico y Acústico", desc: "Manto de filamentos entrelazados de vidrio reciclado. Incombustible y fonoabsorbente." },
-    "losa": { name: "Losa de hormigón", k: 0.83, category: "Cubierta Estructural", desc: "Cerramiento superior macizo o con viguetas y bovedillas para techos planos o azoteas." },
-    "chapa_acero": { name: "Chapa de Acero / Galvanizada", k: 50.0, category: "Cubierta Metálica", desc: "Cubierta metálica acanalada o sinusoidal. Muy alta conductividad; requiere aislación térmica." },
-    "teja_ceramica": { name: "Teja Cerámica / Colonial", k: 1.00, category: "Cubierta Inclinada", desc: "Cubierta tradicional de piezas cerámicas cocidas solapadas con pendientes mayores al 30%." }
+    "rev_fino": {
+      name: "Revoque fino (a la cal)",
+      k: 0.70,
+      category: "Terminación",
+      desc: "Capa fina de terminación (enlucido) para emparejar la pared antes de pintar. Se hace a la cal y casi no influye en la aislación térmica."
+    },
+    "rev_grueso": {
+      name: "Revoque grueso (jaharro)",
+      k: 0.93,
+      category: "Mortero",
+      desc: "Capa base de cemento, cal y arena para tapar y nivelar los ladrillos. En paredes exteriores se le agrega hidrófugo (cerasita) para frenar la humedad de la lluvia."
+    },
+    "ladrillo_macizo": {
+      name: "Ladrillo macizo (común)",
+      k: 0.81,
+      category: "Mampostería",
+      desc: "Ladrillo tradicional de barro cocido. Es pesado y aporta mucha inercia térmica (tarda en calentarse y enfriarse), pero por sí solo no es un buen aislante."
+    },
+    "ladrillo_hueco": {
+      name: "Ladrillo hueco cerámico",
+      k: 0.45,
+      category: "Mampostería",
+      desc: "El ladrillo más usado en paredes y tabiques (típicamente de 12 o 18 cm). Los huecos de aire ayudan a que aísle mejor que el ladrillo macizo."
+    },
+    "hormigon_armado": {
+      name: "Hormigón armado convencional",
+      k: 1.63,
+      category: "Estructura",
+      desc: "Mezcla resistente de cemento, arena, piedra y barras de hierro. Transmite muchísimo el frío y el calor, siendo la principal causa de puentes térmicos si no se lo aísla."
+    },
+    "hormigon_alivianado": {
+      name: "Hormigón alivianado (contrapiso de cascote)",
+      k: 0.93,
+      category: "Rellenos y contrapisos",
+      desc: "Mezcla liviana hecha con pedazos de ladrillos rotos (cascote). Se usa en contrapisos sobre tierra y para dar pendiente de desagüe en techos y terrazas."
+    },
+    "hcca": {
+      name: "Hormigón celular (tipo Retak)",
+      k: 0.13,
+      category: "Mampostería aislante",
+      desc: "Bloque blanco y muy liviano lleno de microburbujas de aire cerradas. Permite levantar paredes que aíslan muy bien del frío y calor sin necesidad de sumar aislantes extra."
+    },
+    "yeso": {
+      name: "Placa de yeso (tipo Durlock)",
+      k: 0.22,
+      category: "Construcción en seco",
+      desc: "Placas de yeso con papel cartón, clásicas en tabiques interiores y cielorrasos suspendidos. Son livianas, rápidas de armar y dejan una terminación bien lisa."
+    },
+    "osb": {
+      name: "Placa OSB (madera prensada)",
+      k: 0.13,
+      category: "Placas estructurales",
+      desc: "Tablero rígido de virutas de madera orientadas y pegadas a presión. Se usa para cerrar y dar firmeza a las paredes y techos en Steel Framing o casas de madera."
+    },
+    "madera": {
+      name: "Madera (tirantes y machimbre)",
+      k: 0.20,
+      category: "Madera",
+      desc: "Madera natural (como pino o eucalipto) usada en tirantes de techo o machimbre. Es cálida al tacto y frena el calor mucho mejor que el hormigón o el metal."
+    },
+    "eps": {
+      name: "Telgopor (poliestireno expandido)",
+      k: 0.037,
+      category: "Aislante térmico",
+      desc: "El clásico aislante liviano blanco de bolitas de telgopor. Casi todo su volumen es aire quieto, por lo que frena el calor de forma excelente con mínimo peso."
+    },
+    "xps": {
+      name: "Poliestireno extruido (espuma rígida)",
+      k: 0.033,
+      category: "Aislante térmico",
+      desc: "Espuma rígida de alta densidad que no chupa nada de agua y no se aplasta. Es parecida al telgopor pero mucho más resistente, ideal para techos y pisos transitables."
+    },
+    "pur": {
+      name: "Poliuretano expandido (espuma PUR)",
+      k: 0.026,
+      category: "Aislante térmico",
+      desc: "Espuma rígida aplicada en spray o en paneles tipo sándwich. Es el aislante térmico más potente: con pocos centímetros de espesor logra frenar muchísimo el calor."
+    },
+    "lana_vidrio": {
+      name: "Lana de vidrio (rollo o manta)",
+      k: 0.038,
+      category: "Aislante térmico",
+      desc: "Manta amarilla de fibras de vidrio. Aísla muy bien del frío, calor y ruidos molestos, y además no se prende fuego. Muy usada sobre cielorrasos y bajo techos de chapa."
+    },
+    "losa": {
+      name: "Losa con viguetas y bovedillas",
+      k: 0.83,
+      category: "Estructura de techo",
+      desc: "El techo tradicional de losa armado con viguetas pretensadas y bloques huecos. Es pesado y junta mucho calor, por lo que necesita sí o sí una buena aislación arriba."
+    },
+    "chapa_acero": {
+      name: "Chapa acanalada o sinusoidal (galvanizada)",
+      k: 50.0,
+      category: "Cubierta liviana",
+      desc: "Chapa metálica para techos. Es económica y rápida de colocar, pero conduce el calor de golpe: si no le ponés un buen aislante abajo, en verano la casa es un horno."
+    },
+    "teja_ceramica": {
+      name: "Teja cerámica (colonial o francesa)",
+      k: 1.00,
+      category: "Cubierta inclinada",
+      desc: "Tejas de barro cocido para techos en pendiente. Dan sombra y frenan el sol directo, pero igual necesitan llevar aislante térmico y membrana impermeable debajo."
+    }
   };
 
   function renderTables() {
@@ -1845,8 +1988,8 @@
 
     if (title) {
       title.textContent = isWall 
-        ? 'Catálogo Técnico de Capas para Paredes y Muros (IRAM 11601)'
-        : (isRoof ? 'Catálogo Técnico de Capas para Techos y Cubiertas (IRAM 11601)' : 'Catálogo General de Materiales (IRAM 11601)');
+        ? 'Catálogo de Materiales para Paredes (Norma IRAM 11601)'
+        : (isRoof ? 'Catálogo de Materiales para Techos (Norma IRAM 11601)' : 'Catálogo de Materiales (Norma IRAM 11601)');
     }
 
     let cardsHtml = '';
@@ -1856,9 +1999,11 @@
         <div class="catalog-card">
           <div class="catalog-card-img" style="background-image: url('assets/materials/${key}.svg');"></div>
           <div class="catalog-card-content">
-            <span class="catalog-card-badge">${d.category}</span>
+            <div class="catalog-card-header-row">
+              <span class="catalog-card-badge">${d.category}</span>
+              <span class="catalog-card-k">λ = ${fmt(d.k, 3)} W/m·K</span>
+            </div>
             <div class="catalog-card-title">${d.name}</div>
-            <div class="catalog-card-k">Conductividad λ = ${fmt(d.k, 3)} W/m·K</div>
             <div class="catalog-card-desc">${d.desc}</div>
           </div>
         </div>
