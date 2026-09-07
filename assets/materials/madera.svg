@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="woodBase" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#bf874d"/>
+      <stop offset="50%" stop-color="#b1773d"/>
+      <stop offset="100%" stop-color="#9e662e"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" fill="url(#woodBase)"/>
+  
+  <!-- Wood grain curves & rings -->
+  <g stroke="#78481b" stroke-width="1.2" fill="none" opacity="0.6">
+    <path d="M-10,15 Q30,22 60,14 T130,18"/>
+    <path d="M-10,25 Q40,30 80,24 T130,32"/>
+    <path d="M-10,40 Q25,48 50,42 T130,45"/>
+    <path d="M-10,55 Q50,65 90,52 T130,60"/>
+    <path d="M-10,70 Q30,82 70,68 T130,76"/>
+    <path d="M-10,85 Q45,95 85,82 T130,90"/>
+    <path d="M-10,102 Q35,110 75,98 T130,106"/>
+    <path d="M-10,115 Q55,120 95,112 T130,118"/>
+  </g>
+  <!-- Fine hair fibers -->
+  <g stroke="#59320e" stroke-width="0.6" fill="none" opacity="0.45">
+    <path d="M-10,8 Q35,12 80,6 T130,10"/>
+    <path d="M-10,32 Q20,38 65,30 T130,36"/>
+    <path d="M-10,48 Q40,56 75,46 T130,52"/>
+    <path d="M-10,64 Q25,72 80,60 T130,68"/>
+    <path d="M-10,78 Q50,86 90,75 T130,82"/>
+    <path d="M-10,94 Q30,102 70,90 T130,98"/>
+  </g>
+  <!-- Wood knot (nudo de madera) -->
+  <ellipse cx="68" cy="62" rx="12" ry="7" fill="#693c14" opacity="0.75" transform="rotate(-10 68 62)"/>
+  <ellipse cx="68" cy="62" rx="7" ry="4" fill="#422208" transform="rotate(-10 68 62)"/>
+  <ellipse cx="68" cy="62" rx="18" ry="11" fill="none" stroke="#78481b" stroke-width="1.2" opacity="0.6" transform="rotate(-10 68 62)"/>
+</svg>

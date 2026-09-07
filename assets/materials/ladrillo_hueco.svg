@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="ceramic" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#df623a"/>
+      <stop offset="50%" stop-color="#cc522b"/>
+      <stop offset="100%" stop-color="#b03e1b"/>
+    </linearGradient>
+    <linearGradient id="hollow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2d130a"/>
+      <stop offset="100%" stop-color="#4e2113"/>
+    </linearGradient>
+  </defs>
+  <!-- Mortar joints between blocks -->
+  <rect width="120" height="120" fill="#d4cec4"/>
+  
+  <!-- Brick body top block -->
+  <rect x="2" y="2" width="116" height="56" rx="2" fill="url(#ceramic)"/>
+  <!-- Hollow cells row 1 (6 cells) -->
+  <rect x="8" y="8" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="27" y="8" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="46" y="8" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="65" y="8" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="84" y="8" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="103" y="8" width="10" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  
+  <!-- Hollow cells row 2 -->
+  <rect x="8" y="32" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="27" y="32" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="46" y="32" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="65" y="32" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="84" y="32" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="103" y="32" width="10" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+
+  <!-- Brick body bottom block -->
+  <rect x="2" y="62" width="116" height="56" rx="2" fill="url(#ceramic)"/>
+  <!-- Hollow cells row 3 -->
+  <rect x="8" y="68" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="27" y="68" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="46" y="68" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="65" y="68" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="84" y="68" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="103" y="68" width="10" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+
+  <!-- Hollow cells row 4 -->
+  <rect x="8" y="92" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="27" y="92" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="46" y="92" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="65" y="92" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="84" y="92" width="14" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+  <rect x="103" y="92" width="10" height="18" rx="2" fill="url(#hollow)" stroke="#9c3415" stroke-width="1.5"/>
+</svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <!-- Wave 3D shading -->
+    <linearGradient id="corrugation" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="25%" stop-color="#94a3b8"/>
+      <stop offset="50%" stop-color="#f8fafc"/>
+      <stop offset="75%" stop-color="#64748b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="120" height="120" fill="#64748b"/>
+
+  <!-- Sinusoidal / trapezoidal wave ridges (Acanalado de chapa) -->
+  <!-- Wave 1 -->
+  <rect x="0" y="0" width="30" height="120" fill="url(#corrugation)"/>
+  <!-- Wave 2 -->
+  <rect x="30" y="0" width="30" height="120" fill="url(#corrugation)"/>
+  <!-- Wave 3 -->
+  <rect x="60" y="0" width="30" height="120" fill="url(#corrugation)"/>
+  <!-- Wave 4 -->
+  <rect x="90" y="0" width="30" height="120" fill="url(#corrugation)"/>
+
+  <!-- Galvanized zinc crystal spangles (Flores de zinc galvanizado) -->
+  <g fill="#e2e8f0" opacity="0.35">
+    <polygon points="12,15 16,10 18,17 14,20"/>
+    <polygon points="45,28 50,22 52,30 47,34"/>
+    <polygon points="76,12 82,8 85,16 79,18"/>
+    <polygon points="102,25 108,20 110,28 105,32"/>
+    <polygon points="18,55 24,50 26,58 20,62"/>
+    <polygon points="42,70 48,65 52,72 45,76"/>
+    <polygon points="72,52 78,48 80,56 75,60"/>
+    <polygon points="106,62 112,58 115,66 109,70"/>
+    <polygon points="14,92 20,86 22,95 16,98"/>
+    <polygon points="46,105 52,98 55,108 49,112"/>
+    <polygon points="78,90 84,85 86,94 80,98"/>
+    <polygon points="102,102 108,96 110,105 105,110"/>
+  </g>
+
+  <!-- Horizontal ridge cross ribs -->
+  <line x1="0" y1="40" x2="120" y2="40" stroke="#1e293b" stroke-width="1.2" opacity="0.3"/>
+  <line x1="0" y1="80" x2="120" y2="80" stroke="#1e293b" stroke-width="1.2" opacity="0.3"/>
+</svg>

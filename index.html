@@ -569,6 +569,537 @@
 
   .footer-section-title.cold { color: var(--latex-blue); }
 
+  .panel-action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+    margin-bottom: 6px;
+  }
+
+  .btn-catalog {
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-light);
+    color: var(--latex-blue);
+    padding: 7px 12px;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 11px;
+    border-radius: 3px;
+    transition: all 0.15s ease;
+    box-shadow: var(--shadow-card);
+    display: inline-flex;
+    align-items: center;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-catalog:hover {
+    background: var(--bg-subtle);
+    border-color: var(--latex-blue);
+  }
+
+  .mat-cell-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mat-thumb {
+    width: 28px;
+    height: 28px;
+    border-radius: 3px;
+    border: 1.5px solid var(--border-light);
+    flex-shrink: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    background: var(--bg-card);
+    object-fit: cover;
+  }
+
+  /* Vista Previa de Composición Constructiva - Corte Técnico */
+  .composition-preview {
+    margin-top: 16px;
+    border: 1.5px solid var(--border-main);
+    border-radius: 4px;
+    background: var(--bg-card);
+    padding: 12px 14px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .comp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1.5px solid var(--border-main);
+  }
+
+  .comp-title {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 11.5px;
+    color: var(--text-main);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .comp-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--latex-blue);
+    font-weight: 700;
+    background: var(--bg-subtle);
+    padding: 2px 8px;
+    border-radius: 3px;
+    border: 1px solid var(--border-light);
+  }
+
+  /* Barra de Orientación Térmica Superior (Permanente, nunca tapada) */
+  .comp-orientation-bar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: 3px;
+    padding: 6px 12px;
+    margin-bottom: 8px;
+  }
+
+  .comp-zone {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .comp-zone.int-zone { align-items: flex-start; text-align: left; }
+  .comp-zone.ext-zone { align-items: flex-end; text-align: right; }
+
+  .zone-pill {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  .int-zone .zone-pill {
+    background: rgba(30, 58, 138, 0.12);
+    color: var(--latex-blue);
+    border: 1px solid var(--latex-blue);
+  }
+
+  .ext-zone .zone-pill {
+    background: rgba(180, 83, 9, 0.12);
+    color: var(--latex-amber);
+    border: 1px solid var(--latex-amber);
+  }
+
+  [data-theme="dark"] .int-zone .zone-pill {
+    background: rgba(96, 165, 250, 0.18);
+    color: #93c5fd;
+    border-color: #60a5fa;
+  }
+
+  [data-theme="dark"] .ext-zone .zone-pill {
+    background: rgba(251, 191, 36, 0.18);
+    color: #fde047;
+    border-color: #fbbf24;
+  }
+
+  .zone-caption {
+    font-family: var(--font-sans);
+    font-size: 9px;
+    color: var(--text-light);
+  }
+
+  .comp-flux-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .flux-label {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 9.5px;
+    color: var(--text-light);
+    white-space: nowrap;
+  }
+
+  .flux-arrow-line {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: var(--text-muted);
+    font-size: 10px;
+  }
+
+  .flux-arrow-line span {
+    flex-grow: 1;
+    height: 1px;
+    background: repeating-linear-gradient(to right, var(--text-muted) 0, var(--text-muted) 4px, transparent 4px, transparent 8px);
+  }
+
+  /* Contenedor del Corte Constructivo */
+  .comp-diagram-wrapper {
+    display: flex;
+    align-items: stretch;
+    background: var(--bg-paper);
+    border: 1.5px solid var(--border-main);
+    border-radius: 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    padding: 0;
+  }
+
+  .comp-boundary-strip {
+    width: 28px;
+    min-width: 28px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    user-select: none;
+  }
+
+  .comp-boundary-strip.int-strip {
+    background: repeating-linear-gradient(45deg, rgba(30,58,138,0.06), rgba(30,58,138,0.06) 4px, transparent 4px, transparent 8px);
+    border-right: 1.5px solid var(--border-main);
+    color: var(--latex-blue);
+  }
+
+  .comp-boundary-strip.ext-strip {
+    background: repeating-linear-gradient(-45deg, rgba(180,83,9,0.08), rgba(180,83,9,0.08) 4px, transparent 4px, transparent 8px);
+    border-left: 1.5px solid var(--border-main);
+    color: var(--latex-amber);
+  }
+
+  [data-theme="dark"] .comp-boundary-strip.int-strip {
+    background: repeating-linear-gradient(45deg, rgba(96,165,250,0.12), rgba(96,165,250,0.12) 4px, transparent 4px, transparent 8px);
+    color: #93c5fd;
+  }
+
+  [data-theme="dark"] .comp-boundary-strip.ext-strip {
+    background: repeating-linear-gradient(-45deg, rgba(251,191,36,0.12), rgba(251,191,36,0.12) 4px, transparent 4px, transparent 8px);
+    color: #fde047;
+  }
+
+  .comp-layers-track {
+    display: flex;
+    align-items: stretch;
+    flex-grow: 1;
+    min-height: 185px;
+  }
+
+  /* Bloque de Capa Individual */
+  .comp-layer-block {
+    display: flex;
+    flex-direction: column;
+    border-right: 1.5px solid var(--border-main);
+    background: var(--bg-card);
+    transition: background-color 0.15s ease;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+  }
+
+  .comp-layer-block:last-child {
+    border-right: none;
+  }
+
+  .comp-layer-block:hover {
+    background-color: var(--bg-subtle);
+    z-index: 2;
+  }
+
+  .comp-layer-block:hover .comp-layer-body {
+    filter: brightness(1.04);
+  }
+
+  /* Línea de Cota Superior */
+  .comp-layer-top-cota {
+    height: 24px;
+    background: var(--bg-subtle);
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  .cota-tick {
+    color: var(--border-light);
+    font-weight: 400;
+  }
+
+  .cota-val {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Cuerpo con Textura del Material */
+  .comp-layer-body {
+    flex-grow: 1;
+    min-height: 105px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .comp-layer-texture {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-size: 48px 48px;
+    background-repeat: repeat;
+    opacity: 0.95;
+  }
+
+  .comp-layer-badge {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    background: rgba(15, 23, 42, 0.85);
+    color: #ffffff;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 2px;
+    z-index: 2;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  }
+
+  [data-theme="dark"] .comp-layer-badge {
+    background: rgba(2, 6, 23, 0.9);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* Ficha Técnica Inferior */
+  .comp-layer-meta {
+    padding: 6px 6px;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-align: center;
+  }
+
+  .comp-layer-title {
+    font-family: var(--font-serif);
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .comp-layer-stat {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--text-light);
+  }
+
+  .comp-layer-stat.comp-layer-r {
+    color: var(--latex-blue);
+    font-weight: 700;
+  }
+
+  /* Barra de Pie y Leyenda */
+  .comp-legend-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border-dashed);
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: var(--text-light);
+  }
+
+  .comp-legend-hint {
+    font-style: italic;
+  }
+
+  .comp-legend-u {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--latex-blue);
+  }
+
+  /* Material Catalog Modal */
+  .catalog-modal-backdrop {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    animation: fadeInModal 0.2s ease;
+  }
+
+  @keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .catalog-modal-content {
+    background: var(--bg-card);
+    border: 2px solid var(--border-main);
+    border-radius: 6px;
+    max-width: 860px;
+    width: 100%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+
+  .catalog-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    border-bottom: 2px solid var(--border-light);
+    background: var(--bg-subtle);
+  }
+
+  .catalog-modal-header h3 {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 15px;
+    color: var(--text-main);
+  }
+
+  .catalog-close-btn {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-muted);
+    line-height: 1;
+    padding: 0 4px;
+  }
+
+  .catalog-close-btn:hover {
+    color: var(--latex-red);
+  }
+
+  .catalog-modal-body {
+    padding: 16px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+  }
+
+  .catalog-card {
+    background: var(--bg-paper);
+    border: 1.5px solid var(--border-light);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .catalog-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    border-color: var(--latex-blue);
+  }
+
+  .catalog-card-img {
+    width: 100%;
+    height: 90px;
+    background-size: 48px 48px;
+    background-repeat: repeat;
+    border-bottom: 1.5px solid var(--border-light);
+  }
+
+  .catalog-card-content {
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-grow: 1;
+  }
+
+  .catalog-card-title {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text-main);
+  }
+
+  .catalog-card-badge {
+    align-self: flex-start;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: var(--box-def-bg);
+    color: var(--box-def-title);
+    border: 1px solid var(--box-def-border);
+  }
+
+  .catalog-card-k {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--latex-blue);
+    margin-top: 2px;
+  }
+
+  .catalog-card-desc {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: var(--text-light);
+    line-height: 1.4;
+    margin-top: 4px;
+  }
+
+  tr.highlighted-row {
+    background-color: rgba(30, 58, 138, 0.22) !important;
+    outline: 2px solid var(--latex-blue);
+    transition: background-color 0.3s ease;
+  }
+
+  [data-theme="dark"] tr.highlighted-row {
+    background-color: rgba(96, 165, 250, 0.3) !important;
+    outline-color: var(--latex-blue);
+  }
+
   canvas {
     display: block;
     margin: 0 auto;
@@ -642,7 +1173,48 @@
               <tbody></tbody>
             </table>
           </div>
-          <div><button class="btn-add" onclick="addLayer('wall')">+ Agregar Capa a Pared</button></div>
+          <div class="panel-action-bar">
+            <button class="btn-add" onclick="addLayer('wall')">+ Agregar Capa a Pared</button>
+            <button class="btn-catalog" onclick="openCatalogModal('wall')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1px; margin-right:5px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+              Catálogo Técnico de Materiales
+            </button>
+          </div>
+
+          <!-- Vista Previa de Composición Constructiva de la Pared -->
+          <div class="composition-preview" id="wallPreviewContainer">
+            <div class="comp-header">
+              <span class="comp-title">FIGURA 2.1 — Corte constructivo transversal (Pared)</span>
+              <span class="comp-meta" id="wallCompMeta">Espesor total: – mm</span>
+            </div>
+
+            <!-- Barra de Orientación Térmica Permanente -->
+            <div class="comp-orientation-bar">
+              <div class="comp-zone int-zone">
+                <span class="zone-pill">INTERIOR (R<sub>si</sub>)</span>
+                <span class="zone-caption">Ambiente interior</span>
+              </div>
+              <div class="comp-flux-indicator">
+                <span class="flux-label">Flujo de calor unidimensional (q)</span>
+                <div class="flux-arrow-line"><span></span>▶</div>
+              </div>
+              <div class="comp-zone ext-zone">
+                <span class="zone-pill">EXTERIOR (R<sub>se</sub>)</span>
+                <span class="zone-caption">Condición intemperie</span>
+              </div>
+            </div>
+
+            <div class="comp-diagram-wrapper">
+              <div class="comp-boundary-strip int-strip" title="Resistencia Superficial Interior (Rsi)">
+                <span class="strip-label">R<sub>si</sub></span>
+              </div>
+              <div class="comp-layers-track" id="wallLayersVisual"></div>
+              <div class="comp-boundary-strip ext-strip" title="Resistencia Superficial Exterior (Rse)">
+                <span class="strip-label">R<sub>se</sub></span>
+              </div>
+            </div>
+            <div class="comp-legend-bar" id="wallCompLegend"></div>
+          </div>
         </div>
       </div>
 
@@ -658,7 +1230,48 @@
               <tbody></tbody>
             </table>
           </div>
-          <div><button class="btn-add" onclick="addLayer('roof')">+ Agregar Capa a Techo</button></div>
+          <div class="panel-action-bar">
+            <button class="btn-add" onclick="addLayer('roof')">+ Agregar Capa a Techo</button>
+            <button class="btn-catalog" onclick="openCatalogModal('roof')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1px; margin-right:5px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+              Catálogo Técnico de Materiales
+            </button>
+          </div>
+
+          <!-- Vista Previa de Composición Constructiva del Techo -->
+          <div class="composition-preview" id="roofPreviewContainer">
+            <div class="comp-header">
+              <span class="comp-title">FIGURA 3.1 — Corte constructivo transversal (Techo)</span>
+              <span class="comp-meta" id="roofCompMeta">Espesor total: – mm</span>
+            </div>
+
+            <!-- Barra de Orientación Térmica Permanente -->
+            <div class="comp-orientation-bar">
+              <div class="comp-zone int-zone">
+                <span class="zone-pill">INTERIOR (R<sub>si</sub>)</span>
+                <span class="zone-caption">Cielorraso / Confort</span>
+              </div>
+              <div class="comp-flux-indicator">
+                <span class="flux-label">Flujo de calor unidimensional (q)</span>
+                <div class="flux-arrow-line"><span></span>▶</div>
+              </div>
+              <div class="comp-zone ext-zone">
+                <span class="zone-pill">EXTERIOR (R<sub>se</sub>)</span>
+                <span class="zone-caption">Cubierta / Intemperie</span>
+              </div>
+            </div>
+
+            <div class="comp-diagram-wrapper">
+              <div class="comp-boundary-strip int-strip" title="Resistencia Superficial Interior (Rsi)">
+                <span class="strip-label">R<sub>si</sub></span>
+              </div>
+              <div class="comp-layers-track" id="roofLayersVisual"></div>
+              <div class="comp-boundary-strip ext-strip" title="Resistencia Superficial Exterior (Rse)">
+                <span class="strip-label">R<sub>se</sub></span>
+              </div>
+            </div>
+            <div class="comp-legend-bar" id="roofCompLegend"></div>
+          </div>
         </div>
       </div>
 
@@ -900,6 +1513,17 @@
     </div>
   </footer>
 
+  <!-- Modal Catálogo de Materiales y Capas -->
+  <div id="materialCatalogModal" class="catalog-modal-backdrop" style="display:none;" onclick="if(event.target===this) closeCatalogModal()">
+    <div class="catalog-modal-content">
+      <div class="catalog-modal-header">
+        <h3 id="catalogModalTitle">Catálogo Técnico de Materiales y Capas — Norma IRAM 11601</h3>
+        <button class="catalog-close-btn" onclick="closeCatalogModal()" aria-label="Cerrar">&times;</button>
+      </div>
+      <div class="catalog-modal-body" id="catalogModalBody"></div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -1001,6 +1625,26 @@
     setTimeout(computeAll, 50);
   }
 
+  const materialDetails = {
+    "rev_fino": { name: "Revoque fino", k: 0.70, category: "Terminación", desc: "Mortero de cal aérea y arena fina. Capa de terminación interior o exterior, espesor típico 3 a 5 mm." },
+    "rev_grueso": { name: "Revoque grueso", k: 0.93, category: "Revoques", desc: "Mortero de cemento, cal y arena gruesa. Capa niveladora e hidrófuga de 15 a 25 mm." },
+    "ladrillo_macizo": { name: "Ladrillo cerámico macizo", k: 0.81, category: "Mampostería", desc: "Mampuesto tradicional de arcilla cocida. Gran masa térmica y capacidad portante." },
+    "ladrillo_hueco": { name: "Ladrillo cerámico hueco", k: 0.45, category: "Mampostería", desc: "Bloque cerámico hueco no portante o portante con celdas de aire confinadas." },
+    "hormigon_armado": { name: "Hormigón Armado (Convencional)", k: 1.63, category: "Estructura", desc: "Material compuesto de alta densidad (cemento, áridos pétreos y acero). Alta conductividad." },
+    "hormigon_alivianado": { name: "Hormigón alivianado (Cascote)", k: 0.93, category: "Contrapisos", desc: "Hormigón con agregado de cascote cerámico o arcilla expandida, reduce peso y conductividad." },
+    "hcca": { name: "Hormigón celular HCCA (Retak)", k: 0.13, category: "Mampostería Aislante", desc: "Hormigón celular curado en autoclave con microburbujas cerradas. Excelente aislante masivo." },
+    "yeso": { name: "Placa de Yeso (Durlock / Cielorraso)", k: 0.22, category: "Placas / Cielorraso", desc: "Núcleo de yeso bihidratado con papel kraft. Construcción en seco y cielorrasos." },
+    "osb": { name: "Placa OSB", k: 0.13, category: "Placas Estructurales", desc: "Tablero de virutas de madera orientadas prensadas con resinas. Rigidizador estructural." },
+    "madera": { name: "Madera (Tirantes / Entablarado)", k: 0.20, category: "Madera", desc: "Madera natural de pino, eucalipto o tirantes estructurales. Baja conductividad y calidez." },
+    "eps": { name: "Poliestireno Expandido (EPS / Telgopor)", k: 0.037, category: "Aislante Térmico", desc: "Espuma celular termoplástica (98% aire). Material aislante por excelencia en EIFS y cubiertas." },
+    "xps": { name: "Poliestireno Extruido (XPS)", k: 0.033, category: "Aislante Térmico", desc: "Espuma rígida de celdas cerradas de alta resistencia mecánica y nula absorción de agua." },
+    "pur": { name: "Poliuretano Expandido (PUR)", k: 0.026, category: "Aislante de Alto Rendimiento", desc: "Aislante térmico comercial de menor conductividad (k = 0.026 W/mK), proyectado o inyectado." },
+    "lana_vidrio": { name: "Lana de Vidrio / Mineral", k: 0.038, category: "Aislante Térmico y Acústico", desc: "Manto de filamentos entrelazados de vidrio reciclado. Incombustible y fonoabsorbente." },
+    "losa": { name: "Losa de hormigón", k: 0.83, category: "Cubierta Estructural", desc: "Cerramiento superior macizo o con viguetas y bovedillas para techos planos o azoteas." },
+    "chapa_acero": { name: "Chapa de Acero / Galvanizada", k: 50.0, category: "Cubierta Metálica", desc: "Cubierta metálica acanalada o sinusoidal. Muy alta conductividad; requiere aislación térmica." },
+    "teja_ceramica": { name: "Teja Cerámica / Colonial", k: 1.00, category: "Cubierta Inclinada", desc: "Cubierta tradicional de piezas cerámicas cocidas solapadas con pendientes mayores al 30%." }
+  };
+
   function renderTables() {
     drawTable('wallTable', wallLayers, 'Paredes');
     drawTable('roofTable', roofLayers, 'Techo');
@@ -1029,11 +1673,16 @@
       tbody.innerHTML += `
         <tr>
           <td>${idx+1}</td>
-          <td><select onchange="updateMat('${tableId}', ${l.id}, this.value)">${opts}</select></td>
+          <td>
+            <div class="mat-cell-wrapper">
+              <img src="assets/materials/${l.mat}.svg" alt="${mat.name}" class="mat-thumb" title="${mat.name}" />
+              <select onchange="updateMat('${tableId}', ${l.id}, this.value)">${opts}</select>
+            </div>
+          </td>
           <td><input type="number" value="${l.e}" min="0" oninput="updateThick('${tableId}', ${l.id}, this.value)" style="width:55px"></td>
           <td>${fmt(mat.k, 3)}</td>
           <td>${fmt(R, 3)}</td>
-          <td><button class="btn-del" onclick="delLayer('${tableId}', ${l.id})">×</button></td>
+          <td><button class="btn-del" onclick="delLayer('${tableId}', ${l.id})" title="Eliminar capa">×</button></td>
         </tr>`;
     });
 
@@ -1047,8 +1696,93 @@
     tbody.innerHTML += `<tr style="background:var(--box-def-bg); font-weight:700; color:var(--latex-blue);"><td colspan="4">TRANSMITANCIA U (W/m²·K)</td><td id="${tableId}_Utot">${fmt(U, 3)}</td><td></td></tr>`;
 
     $(type === 'Paredes' ? 'tagWall' : 'tagRoof').textContent = `U = ${fmt(U, 2)} W/m²K`;
+    
+    renderCompositionPreview(tableId);
     if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise();
   }
+
+  function renderCompositionPreview(tableId) {
+    const isWall = tableId === 'wallTable';
+    const layers = isWall ? wallLayers : roofLayers;
+    const matList = isWall ? wallMateriales : roofMateriales;
+    const containerId = isWall ? 'wallLayersVisual' : 'roofLayersVisual';
+    const metaId = isWall ? 'wallCompMeta' : 'roofCompMeta';
+    const legendId = isWall ? 'wallCompLegend' : 'roofCompLegend';
+
+    const container = $(containerId);
+    if (!container) return;
+
+    const totalThickness = layers.reduce((s, l) => s + (l.e || 0), 0);
+    const totalR = R_INT + R_EXT + layers.reduce((s, l) => {
+      const mat = matList[l.mat] || materiales[l.mat];
+      return s + ((l.e || 0) / 1000) / mat.k;
+    }, 0);
+
+    if ($(metaId)) {
+      $(metaId).innerHTML = `Espesor total: <b>${fmt(totalThickness, 0)} mm</b> | Capas: <b>${layers.length}</b>`;
+    }
+
+    if (layers.length === 0) {
+      container.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;width:100%;color:var(--text-light);font-style:italic;font-size:12px;padding:24px;">Sin capas configuradas. Haga clic en "+ Agregar Capa".</div>`;
+      if ($(legendId)) $(legendId).innerHTML = '';
+      return;
+    }
+
+    let html = '';
+    layers.forEach((l, idx) => {
+      const mat = matList[l.mat] || materiales[l.mat];
+      const thickness = l.e || 0;
+      const R = (thickness / 1000) / mat.k;
+      const rPercent = totalR > 0 ? ((R / totalR) * 100).toFixed(1) : '0';
+
+      const flexGrow = Math.max(1, Math.round(thickness));
+      const minW = Math.max(90, Math.min(240, Math.round(70 + (thickness * 0.4))));
+
+      html += `
+        <div class="comp-layer-block" 
+             style="flex:${flexGrow} 1 ${minW}px; min-width:${minW}px;"
+             title="Capa #${idx+1}: ${mat.name}&#10;Espesor: ${fmt(thickness, 0)} mm (${(thickness/1000).toFixed(3)} m)&#10;Conductividad λ: ${fmt(mat.k, 3)} W/m·K&#10;Resistencia R: ${fmt(R, 3)} m²·K/W (${rPercent}% de R total)&#10;Haga clic para seleccionar en la tabla"
+             onclick="highlightTableRow('${tableId}', ${idx})">
+          <div class="comp-layer-top-cota">
+            <span class="cota-tick">|</span>
+            <span class="cota-val">${fmt(thickness, 0)} mm</span>
+            <span class="cota-tick">|</span>
+          </div>
+          <div class="comp-layer-body">
+            <div class="comp-layer-texture" style="background-image: url('assets/materials/${l.mat}.svg');"></div>
+            <div class="comp-layer-badge">#${idx+1}</div>
+          </div>
+          <div class="comp-layer-meta">
+            <div class="comp-layer-title" title="${mat.name}">${mat.name}</div>
+            <div class="comp-layer-stat">λ = ${fmt(mat.k, 3)} W/mK</div>
+            <div class="comp-layer-stat comp-layer-r">R = ${fmt(R, 3)} (${rPercent}%)</div>
+          </div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+
+    if ($(legendId)) {
+      const U = 1 / totalR;
+      $(legendId).innerHTML = `
+        <span class="comp-legend-hint">Haga clic sobre cualquier capa para seleccionarla en la tabla.</span>
+        <span class="comp-legend-u">Transmitancia U = ${fmt(U, 3)} W/(m²·K) | R<sub>total</sub> = ${fmt(totalR, 3)} m²·K/W</span>
+      `;
+    }
+  }
+
+  window.highlightTableRow = function(tableId, idx) {
+    const tbody = $(tableId).querySelector('tbody');
+    if (!tbody) return;
+    tbody.querySelectorAll('tr').forEach(tr => tr.classList.remove('highlighted-row'));
+    const row = tbody.rows[idx + 1];
+    if (row) {
+      row.classList.add('highlighted-row');
+      row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      setTimeout(() => row.classList.remove('highlighted-row'), 2000);
+    }
+  };
 
   window.addLayer = function(type) {
     const l = { id: idCounter++, mat: (type === 'wall') ? "ladrillo_hueco" : "losa", e: 100 };
@@ -1089,6 +1823,7 @@
     const rtotCell = $(tableId + '_Rtot'); if(rtotCell) rtotCell.textContent = fmt(totalR, 3);
     const utotCell = $(tableId + '_Utot'); if(utotCell) utotCell.textContent = fmt(U, 3);
     $(type === 'Paredes' ? 'tagWall' : 'tagRoof').textContent = `U = ${fmt(U, 2)} W/m²K`;
+    renderCompositionPreview(tableId);
     computeAll();
   }
 
@@ -1097,6 +1832,51 @@
     if(tableId === 'roofTable') roofLayers = roofLayers.filter(x => x.id !== id);
     renderTables();
   }
+
+  window.openCatalogModal = function(filterType) {
+    const modal = $('materialCatalogModal');
+    const body = $('catalogModalBody');
+    const title = $('catalogModalTitle');
+    if (!modal || !body) return;
+
+    const isWall = filterType === 'wall';
+    const isRoof = filterType === 'roof';
+    const activeList = isWall ? wallMateriales : (isRoof ? roofMateriales : materiales);
+
+    if (title) {
+      title.textContent = isWall 
+        ? 'Catálogo Técnico de Capas para Paredes y Muros (IRAM 11601)'
+        : (isRoof ? 'Catálogo Técnico de Capas para Techos y Cubiertas (IRAM 11601)' : 'Catálogo General de Materiales (IRAM 11601)');
+    }
+
+    let cardsHtml = '';
+    for (let key in activeList) {
+      const d = materialDetails[key] || { name: activeList[key].name, k: activeList[key].k, category: 'General', desc: '' };
+      cardsHtml += `
+        <div class="catalog-card">
+          <div class="catalog-card-img" style="background-image: url('assets/materials/${key}.svg');"></div>
+          <div class="catalog-card-content">
+            <span class="catalog-card-badge">${d.category}</span>
+            <div class="catalog-card-title">${d.name}</div>
+            <div class="catalog-card-k">Conductividad λ = ${fmt(d.k, 3)} W/m·K</div>
+            <div class="catalog-card-desc">${d.desc}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    body.innerHTML = cardsHtml;
+    modal.style.display = 'flex';
+  };
+
+  window.closeCatalogModal = function() {
+    const modal = $('materialCatalogModal');
+    if (modal) modal.style.display = 'none';
+  };
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeCatalogModal();
+  });
 
   window.updateCity = function() {
     const val = $('citySel').value;

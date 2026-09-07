@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <!-- Cement paste background -->
+  <rect width="120" height="120" fill="#a49e92"/>
+  
+  <!-- Crushed brick chunks (cascote cerámico) -->
+  <g fill="#ba4832">
+    <polygon points="10,14 18,8 24,16 14,22"/>
+    <polygon points="48,12 58,16 54,28 42,22"/>
+    <polygon points="86,18 96,12 102,24 92,28"/>
+    <polygon points="22,46 32,40 38,52 26,56"/>
+    <polygon points="72,42 84,36 88,48 76,54"/>
+    <polygon points="104,44 114,38 118,50 108,54"/>
+    <polygon points="12,80 22,72 28,84 16,90"/>
+    <polygon points="48,74 60,68 64,82 52,88"/>
+    <polygon points="84,78 96,70 102,84 88,90"/>
+    <polygon points="28,106 38,100 44,112 32,118"/>
+    <polygon points="68,102 78,98 84,110 72,116"/>
+    <polygon points="98,104 110,98 116,110 104,116"/>
+  </g>
+  <!-- Smaller crushed tile fragments -->
+  <g fill="#da6c53">
+    <circle cx="34" cy="22" r="3"/><circle cx="72" cy="18" r="2.5"/>
+    <circle cx="106" cy="28" r="3.2"/><circle cx="12" cy="54" r="2.8"/>
+    <circle cx="56" cy="50" r="3.5"/><circle cx="94" cy="56" r="2.5"/>
+    <circle cx="36" cy="85" r="3"/><circle cx="70" cy="86" r="2.5"/>
+    <circle cx="112" cy="80" r="3.2"/><circle cx="16" cy="112" r="2.8"/>
+    <circle cx="54" cy="110" r="3"/><circle cx="88" cy="114" r="2.5"/>
+  </g>
+  <!-- High porosity voids (alveolos de aire) -->
+  <g fill="#4e483f" opacity="0.6">
+    <circle cx="28" cy="12" r="2"/><circle cx="80" cy="10" r="2.2"/>
+    <circle cx="44" cy="42" r="2.5"/><circle cx="100" cy="40" r="1.8"/>
+    <circle cx="24" cy="70" r="2.2"/><circle cx="78" cy="68" r="2.6"/>
+    <circle cx="46" cy="98" r="2.4"/><circle cx="106" cy="96" r="2"/>
+  </g>
+  <!-- Light mortar paste -->
+  <g fill="#d8d3c7" opacity="0.45">
+    <circle cx="18" cy="32" r="1.8"/><circle cx="64" cy="30" r="2"/>
+    <circle cx="90" cy="34" r="1.5"/><circle cx="34" cy="64" r="2"/>
+    <circle cx="82" cy="60" r="1.7"/><circle cx="10" cy="98" r="2"/>
+    <circle cx="62" cy="95" r="1.8"/>
+  </g>
+</svg>

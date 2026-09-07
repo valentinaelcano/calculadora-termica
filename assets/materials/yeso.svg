@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="gypsumCore" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fdfbf7"/>
+      <stop offset="50%" stop-color="#f5f1ea"/>
+      <stop offset="100%" stop-color="#ede8de"/>
+    </linearGradient>
+    <linearGradient id="paperLiner" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d9cfbf"/>
+      <stop offset="100%" stop-color="#c5b9a4"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer cardboard liner top -->
+  <rect x="0" y="0" width="120" height="8" fill="url(#paperLiner)"/>
+  
+  <!-- Gypsum core -->
+  <rect x="0" y="8" width="120" height="104" fill="url(#gypsumCore)"/>
+  
+  <!-- Outer cardboard liner bottom -->
+  <rect x="0" y="112" width="120" height="8" fill="url(#paperLiner)"/>
+
+  <!-- Gypsum crystalline microstructure speckles -->
+  <g fill="#c9c1b3" opacity="0.45">
+    <circle cx="15" cy="20" r="0.8"/><circle cx="38" cy="28" r="0.9"/><circle cx="62" cy="18" r="0.7"/><circle cx="85" cy="26" r="0.8"/><circle cx="108" cy="22" r="0.9"/>
+    <circle cx="25" cy="45" r="0.8"/><circle cx="48" cy="38" r="0.7"/><circle cx="72" cy="46" r="0.9"/><circle cx="95" cy="40" r="0.8"/>
+    <circle cx="18" cy="65" r="0.9"/><circle cx="40" cy="72" r="0.7"/><circle cx="64" cy="62" r="0.8"/><circle cx="88" cy="70" r="0.9"/><circle cx="106" cy="60" r="0.7"/>
+    <circle cx="28" cy="88" r="0.8"/><circle cx="52" cy="92" r="0.9"/><circle cx="78" cy="85" r="0.7"/><circle cx="102" cy="90" r="0.8"/>
+    <circle cx="14" cy="104" r="0.7"/><circle cx="44" cy="102" r="0.8"/><circle cx="70" cy="106" r="0.9"/><circle cx="92" cy="102" r="0.7"/>
+  </g>
+  <!-- Fine paper fibers -->
+  <line x1="10" y1="4" x2="35" y2="4" stroke="#ab9e88" stroke-width="0.8"/>
+  <line x1="60" y1="4" x2="85" y2="4" stroke="#ab9e88" stroke-width="0.8"/>
+  <line x1="20" y1="116" x2="50" y2="116" stroke="#ab9e88" stroke-width="0.8"/>
+  <line x1="80" y1="116" x2="105" y2="116" stroke="#ab9e88" stroke-width="0.8"/>
+</svg>

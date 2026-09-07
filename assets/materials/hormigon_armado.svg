@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="rebar" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="60%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </radialGradient>
+  </defs>
+  <!-- Concrete matrix -->
+  <rect width="120" height="120" fill="#888f98"/>
+  
+  <!-- Angular gravel aggregates (piedra partida) -->
+  <polygon points="12,15 20,8 24,18 16,24" fill="#5c636c"/>
+  <polygon points="45,22 55,16 62,26 50,32" fill="#adb4bc"/>
+  <polygon points="85,12 95,8 102,18 90,22" fill="#525861"/>
+  <polygon points="18,48 26,40 32,50 22,58" fill="#adb4bc"/>
+  <polygon points="65,45 78,40 82,54 70,60" fill="#4b515a"/>
+  <polygon points="98,42 110,38 114,50 104,56" fill="#6c737c"/>
+  <polygon points="8,80 18,74 24,86 12,92" fill="#50565f"/>
+  <polygon points="40,78 52,72 58,85 45,92" fill="#b4bac2"/>
+  <polygon points="76,82 88,75 94,88 80,95" fill="#5c636c"/>
+  <polygon points="102,80 114,75 118,88 108,94" fill="#464c54"/>
+  <polygon points="25,108 34,102 40,114 28,118" fill="#525861"/>
+  <polygon points="62,106 72,100 80,112 68,118" fill="#adb4bc"/>
+  <polygon points="92,105 102,101 108,112 96,116" fill="#5e646d"/>
+
+  <!-- Air pores / pinholes -->
+  <g fill="#373d44" opacity="0.6">
+    <circle cx="34" cy="20" r="1.5"/><circle cx="75" cy="20" r="1.2"/>
+    <circle cx="10" cy="62" r="1.6"/><circle cx="50" cy="58" r="1.3"/>
+    <circle cx="90" cy="62" r="1.5"/><circle cx="30" cy="94" r="1.2"/>
+    <circle cx="70" cy="96" r="1.4"/><circle cx="112" cy="106" r="1.5"/>
+  </g>
+
+  <!-- Steel reinforcement rebars (Hierro redondo) -->
+  <circle cx="30" cy="35" r="7.5" fill="url(#rebar)" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="90" cy="35" r="7.5" fill="url(#rebar)" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="30" cy="85" r="7.5" fill="url(#rebar)" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="90" cy="85" r="7.5" fill="url(#rebar)" stroke="#334155" stroke-width="1.5"/>
+  
+  <!-- Rebar steel ribbing highlights -->
+  <g fill="#94a3b8" opacity="0.7">
+    <path d="M26,32 Q30,35 26,38" stroke="#94a3b8" stroke-width="1" fill="none"/>
+    <path d="M86,32 Q90,35 86,38" stroke="#94a3b8" stroke-width="1" fill="none"/>
+    <path d="M26,82 Q30,85 26,88" stroke="#94a3b8" stroke-width="1" fill="none"/>
+    <path d="M86,82 Q90,85 86,88" stroke="#94a3b8" stroke-width="1" fill="none"/>
+  </g>
+</svg>

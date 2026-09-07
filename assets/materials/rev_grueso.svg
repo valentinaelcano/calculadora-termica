@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="shadow" cx="50%" cy="50%" r="50%">
+      <stop offset="60%" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.15"/>
+    </radialGradient>
+  </defs>
+  <rect width="120" height="120" fill="#b9b09f"/>
+  <!-- Coarse sand and gravel particles -->
+  <g fill="#786f60" opacity="0.65">
+    <circle cx="15" cy="14" r="2.2"/><path d="M42,10 l3,2 l-1,3 l-3,-1 z"/>
+    <circle cx="85" cy="18" r="2.5"/><path d="M105,15 l2,3 l-2,2 l-2,-2 z"/>
+    <circle cx="28" cy="45" r="2"/><circle cx="68" cy="38" r="2.8"/>
+    <path d="M94,44 l4,-1 l1,4 l-3,2 z"/><circle cx="12" cy="78" r="2.6"/>
+    <circle cx="50" cy="82" r="2.2"/><path d="M82,75 l3,2 l-1,3 l-3,-1 z"/>
+    <circle cx="112" cy="74" r="1.8"/><circle cx="34" cy="106" r="2.5"/>
+    <path d="M68,110 l4,-2 l1,3 l-4,2 z"/><circle cx="102" cy="108" r="2.1"/>
+  </g>
+  <!-- Medium grit -->
+  <g fill="#4d463a" opacity="0.5">
+    <circle cx="30" cy="18" r="1.2"/><circle cx="62" cy="12" r="1.4"/><circle cx="98" cy="28" r="1.3"/>
+    <circle cx="14" cy="52" r="1.5"/><circle cx="48" cy="58" r="1.2"/><circle cx="80" cy="55" r="1.4"/>
+    <circle cx="114" cy="48" r="1.3"/><circle cx="35" cy="75" r="1.5"/><circle cx="65" cy="94" r="1.4"/>
+    <circle cx="95" cy="90" r="1.3"/><circle cx="18" cy="100" r="1.2"/><circle cx="52" cy="118" r="1.5"/><circle cx="84" cy="104" r="1.3"/>
+  </g>
+  <!-- Light plaster highlights -->
+  <g fill="#e8e2d4" opacity="0.75">
+    <circle cx="17" cy="12" r="1"/><circle cx="40" cy="24" r="1.5"/><circle cx="75" cy="22" r="1.8"/>
+    <circle cx="108" cy="35" r="1.4"/><circle cx="22" cy="62" r="1.6"/><circle cx="60" cy="48" r="1.2"/>
+    <circle cx="90" cy="65" r="1.5"/><circle cx="25" cy="92" r="1.3"/><circle cx="72" cy="78" r="1.4"/>
+    <circle cx="105" cy="95" r="1.7"/><circle cx="45" cy="102" r="1.2"/><circle cx="88" cy="115" r="1.5"/>
+  </g>
+  <rect width="120" height="120" fill="url(#shadow)"/>
+</svg>

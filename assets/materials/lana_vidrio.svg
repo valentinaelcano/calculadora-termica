@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="woolBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#facc15"/>
+      <stop offset="50%" stop-color="#eab308"/>
+      <stop offset="100%" stop-color="#ca8a04"/>
+    </linearGradient>
+  </defs>
+  <!-- Yellow mineral wool base -->
+  <rect width="120" height="120" fill="url(#woolBg)"/>
+
+  <!-- Interlaced glass fibers (fibras minerales de vidrio) -->
+  <g stroke="#854d0e" stroke-width="1.2" fill="none" opacity="0.65">
+    <path d="M-10,12 C25,28 35,-5 65,15 C95,35 105,5 130,22"/>
+    <path d="M-10,32 C20,10 45,50 75,28 C105,6 115,45 130,35"/>
+    <path d="M-10,50 C15,70 40,30 68,58 C96,86 112,40 130,55"/>
+    <path d="M-10,72 C22,50 48,90 76,68 C104,46 118,85 130,75"/>
+    <path d="M-10,92 C18,110 42,72 70,100 C98,128 114,80 130,95"/>
+    <path d="M-10,110 C20,90 45,130 75,108 C105,86 115,125 130,115"/>
+  </g>
+
+  <!-- Lighter reflective fiber strands -->
+  <g stroke="#fef08a" stroke-width="1" fill="none" opacity="0.85">
+    <path d="M-10,22 C20,38 42,10 72,30 C102,50 110,18 130,32"/>
+    <path d="M-10,42 C15,20 40,60 70,38 C100,16 112,55 130,45"/>
+    <path d="M-10,60 C25,80 48,40 78,68 C108,96 115,50 130,65"/>
+    <path d="M-10,82 C18,60 45,100 74,78 C102,56 115,95 130,85"/>
+    <path d="M-10,102 C22,120 48,82 78,110 C108,138 118,90 130,105"/>
+  </g>
+
+  <!-- Fine microfibers -->
+  <g stroke="#a16207" stroke-width="0.6" fill="none" opacity="0.5">
+    <path d="M5,-10 C15,25 35,45 25,85 C15,115 30,125 25,130"/>
+    <path d="M45,-10 C55,20 70,50 60,80 C50,110 65,125 60,130"/>
+    <path d="M85,-10 C95,25 110,45 100,85 C90,115 105,125 100,130"/>
+  </g>
+</svg>
