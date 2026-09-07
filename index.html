@@ -344,6 +344,131 @@
     border-bottom: none;
   }
 
+  /* Estilos Sección 7 - Distribución Porcentual y Gráficos */
+  .section7-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  @media (min-width: 768px) {
+    .section7-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+  }
+
+  .section7-chart-box {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .chart-tab-bar {
+    display: flex;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    padding: 2px;
+    width: 100%;
+    max-width: 340px;
+  }
+
+  .chart-tab-btn {
+    flex: 1;
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+  }
+
+  .chart-tab-btn.active {
+    background: var(--latex-blue);
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+
+  .chart-canvas-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 210px;
+  }
+
+  .stacked-loss-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .stacked-loss-title {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .stacked-bar-container {
+    display: flex;
+    height: 22px;
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    background: rgba(0,0,0,0.06);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  }
+
+  .stacked-bar-segment {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 0.3s ease;
+  }
+
+  .stacked-bar-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  }
+
+  .table-pct-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .table-pct-bar {
+    height: 6px;
+    border-radius: 3px;
+    flex: 1;
+    min-width: 35px;
+    background: rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+
+  .table-pct-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+
   .latex-panel {
     background: var(--bg-card);
     border: 2px solid var(--border-light);
@@ -1674,16 +1799,50 @@
 
       <details open class="latex-panel">
         <summary class="latex-panel-head">
-          <span>7. Distribución Porcentual de Pérdidas Térmicas</span>
+          <span>7. Distribución Porcentual de Pérdidas Térmicas y Coeficientes $H_k$</span>
           <span class="collapse-icon">▼</span>
         </summary>
         <div class="latex-panel-body">
-          <canvas id="donut" width="240" height="220"></canvas>
-          <div class="table-responsive">
-            <table class="latex-table" id="tblComponents">
-              <thead><tr><th>Componente</th><th>$U$ (W/m²K)</th><th>Pérdida Relativa (%)</th></tr></thead>
-              <tbody></tbody>
-            </table>
+          <div class="section7-grid">
+            
+            <!-- Columna Izquierda: Visualizaciones Gráficas -->
+            <div class="section7-chart-box">
+              <div class="chart-tab-bar">
+                <button class="chart-tab-btn active" id="btnTabDonut" onclick="switchSection7Chart('donut')">Distribución (% Dona)</button>
+                <button class="chart-tab-btn" id="btnTabBars" onclick="switchSection7Chart('bars')">Pérdidas Directas ($H_k$ W/K)</button>
+              </div>
+
+              <div id="chartContainerDonut" class="chart-canvas-wrapper">
+                <canvas id="donut" width="240" height="210"></canvas>
+              </div>
+
+              <div id="chartContainerBars" class="chart-canvas-wrapper" style="display:none;">
+                <canvas id="lossBarChart" width="340" height="210"></canvas>
+              </div>
+
+              <div class="stacked-loss-wrapper">
+                <div class="stacked-loss-title">Distribución Acumulada de Pérdidas Térmicas</div>
+                <div class="stacked-bar-container" id="stackedLossBar"></div>
+              </div>
+            </div>
+
+            <!-- Columna Derecha: Tabla Analítica Detallada -->
+            <div class="section7-table-box">
+              <div class="table-responsive">
+                <table class="latex-table" id="tblComponents">
+                  <thead>
+                    <tr>
+                      <th>Componente</th>
+                      <th>$U$ (W/m²K)</th>
+                      <th>$H_k$ (W/K)</th>
+                      <th>Pérdida Relativa (%)</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+
           </div>
         </div>
       </details>
@@ -2461,6 +2620,86 @@
     ctx.fillText(fmt(total,0) + ' kWh', cx, cy);
   }
 
+  window.currentSection7Chart = 'donut';
+  window.switchSection7Chart = function(type) {
+    window.currentSection7Chart = type;
+    const btnDonut = $('btnTabDonut');
+    const btnBars = $('btnTabBars');
+    const boxDonut = $('chartContainerDonut');
+    const boxBars = $('chartContainerBars');
+    if (type === 'donut') {
+      if (btnDonut) btnDonut.classList.add('active');
+      if (btnBars) btnBars.classList.remove('active');
+      if (boxDonut) boxDonut.style.display = 'flex';
+      if (boxBars) boxBars.style.display = 'none';
+      if (window.lastSection7Comps) drawDonut($('donut'), window.lastSection7Comps);
+    } else {
+      if (btnBars) btnBars.classList.add('active');
+      if (btnDonut) btnDonut.classList.remove('active');
+      if (boxBars) boxBars.style.display = 'flex';
+      if (boxDonut) boxDonut.style.display = 'none';
+      if (window.lastSection7Comps) drawLossBarChart($('lossBarChart'), window.lastSection7Comps);
+    }
+  };
+
+  function drawLossBarChart(canvas, data) {
+    if (!canvas) return;
+    const containerW = canvas.parentElement ? canvas.parentElement.clientWidth - 10 : 320;
+    const w = Math.min(Math.max(containerW, 200), 380);
+    const hh = 210;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = w * dpr;
+    canvas.height = hh * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = hh + 'px';
+
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, w, hh);
+
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const textColor = isDark ? '#cbd5e1' : '#334155';
+    const maxVal = Math.max(...data.map(d => d.hk), 1);
+    
+    const marginL = 75;
+    const marginR = 60;
+    const marginT = 12;
+    const marginB = 15;
+    const chartW = w - marginL - marginR;
+    const chartH = hh - marginT - marginB;
+    const barHeight = Math.min(22, Math.floor(chartH / data.length) - 8);
+    const gap = Math.floor((chartH - (barHeight * data.length)) / (data.length + 1));
+
+    data.forEach((d, i) => {
+      const y = marginT + gap + i * (barHeight + gap);
+      const val = d.hk;
+      const barW = (val / maxVal) * chartW;
+
+      ctx.fillStyle = textColor;
+      ctx.font = '11px sans-serif';
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(d.label, marginL - 8, y + barHeight / 2);
+
+      ctx.fillStyle = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)';
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(marginL, y, chartW, barHeight, 3);
+      else ctx.rect(marginL, y, chartW, barHeight);
+      ctx.fill();
+
+      ctx.fillStyle = d.color;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(marginL, y, Math.max(barW, 3), barHeight, 3);
+      else ctx.rect(marginL, y, Math.max(barW, 3), barHeight);
+      ctx.fill();
+
+      ctx.fillStyle = textColor;
+      ctx.font = 'bold 11px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText(fmt(d.hk, 1) + ' W/K', marginL + Math.max(barW, 3) + 6, y + barHeight / 2);
+    });
+  }
+
   function drawBarChart(canvas, labels, values, color) {
     const containerW = canvas.parentElement ? canvas.parentElement.clientWidth - 28 : 350;
     const w = Math.min(Math.max(containerW, 240), 400);
@@ -2570,20 +2809,53 @@
 
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     const comps = [
-      { label: 'Paredes', value: 0.024 * cWall * dgd, u: U_wall, color: isDark ? '#60a5fa' : '#1e3a8a' },
-      { label: 'Techo', value: 0.024 * cRoof * dgd, u: U_roof, color: isDark ? '#f87171' : '#991b1b' },
-      { label: 'Ventanas', value: 0.024 * cWin * dgd, u: U_win, color: isDark ? '#38bdf8' : '#0284c7' },
-      { label: 'Puertas', value: 0.024 * cDoor * dgd, u: U_door, color: isDark ? '#fbbf24' : '#b45309' },
-      { label: 'Renov. aire', value: 0.024 * cAir * dgd, u: null, color: isDark ? '#4ade80' : '#166534' }
+      { label: 'Paredes', value: 0.024 * cWall * dgd, hk: cWall, u: U_wall, color: isDark ? '#60a5fa' : '#1e3a8a' },
+      { label: 'Techo', value: 0.024 * cRoof * dgd, hk: cRoof, u: U_roof, color: isDark ? '#f87171' : '#991b1b' },
+      { label: 'Ventanas', value: 0.024 * cWin * dgd, hk: cWin, u: U_win, color: isDark ? '#38bdf8' : '#0284c7' },
+      { label: 'Puertas', value: 0.024 * cDoor * dgd, hk: cDoor, u: U_door, color: isDark ? '#fbbf24' : '#b45309' },
+      { label: 'Renov. aire', value: 0.024 * cAir * dgd, hk: cAir, u: null, color: isDark ? '#4ade80' : '#166534' }
     ];
+    window.lastSection7Comps = comps;
     const totalLoss = comps.reduce((s,c)=>s+c.value,0) || 1;
     const tbodyComp = $('tblComponents').querySelector('tbody');
     tbodyComp.innerHTML = '';
     comps.forEach(c => {
       const pct = 100 * c.value / totalLoss;
-      tbodyComp.innerHTML += `<tr><td><span style="display:inline-block;width:8px;height:8px;background:${c.color};margin-right:5px;border-radius:2px;"></span>${c.label}</td><td>${c.u !== null ? fmt(c.u, 2) : '—'}</td><td>${fmt(pct, 1)}%</td></tr>`;
+      tbodyComp.innerHTML += `
+        <tr>
+          <td>
+            <span style="display:inline-block;width:9px;height:9px;background:${c.color};margin-right:6px;border-radius:2px;vertical-align:-1px;"></span>
+            <b>${c.label}</b>
+          </td>
+          <td>${c.u !== null ? fmt(c.u, 2) : '—'}</td>
+          <td>${fmt(c.hk, 1)} W/K</td>
+          <td>
+            <div class="table-pct-cell">
+              <span style="min-width:38px;font-weight:700;">${fmt(pct, 1)}%</span>
+              <div class="table-pct-bar">
+                <div class="table-pct-fill" style="width:${pct.toFixed(1)}%; background:${c.color};"></div>
+              </div>
+            </div>
+          </td>
+        </tr>`;
     });
+    
     drawDonut($('donut'), comps);
+    drawLossBarChart($('lossBarChart'), comps);
+
+    const stackedBar = $('stackedLossBar');
+    if (stackedBar) {
+      let html = '';
+      comps.forEach(c => {
+        const pct = 100 * c.value / totalLoss;
+        if (pct > 0.5) {
+          html += `<div class="stacked-bar-segment" style="width:${pct.toFixed(1)}%; background:${c.color};" title="${c.label}: ${pct.toFixed(1)}%">
+            ${pct >= 7 ? `<span class="stacked-bar-label">${pct.toFixed(0)}%</span>` : ''}
+          </div>`;
+        }
+      });
+      stackedBar.innerHTML = html;
+    }
 
     const pElec = parseFloat($('pElec').value);
     const pGas = parseFloat($('pGas').value);
