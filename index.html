@@ -275,10 +275,24 @@
     gap: 20px;
   }
 
+  #tabEnvolvente.tab-content.active {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
   @media (min-width: 1024px) {
     .tab-content.active {
       grid-template-columns: 1fr 1fr;
       gap: 28px;
+    }
+    #tabEnvolvente.tab-content.active {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
   }
 
@@ -287,6 +301,47 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+  }
+
+  /* Estilos para Tarjetas Colapsables (<details>) */
+  details.latex-panel, details.latex-box {
+    margin-bottom: 4px;
+    width: 100%;
+  }
+
+  details summary {
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+  }
+
+  details summary::-webkit-details-marker,
+  details summary::marker {
+    display: none;
+    content: "";
+  }
+
+  .latex-box-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .collapse-icon {
+    font-size: 11px;
+    opacity: 0.7;
+    transition: transform 0.2s ease;
+    display: inline-block;
+    font-family: var(--font-mono);
+  }
+
+  details[open] summary .collapse-icon {
+    transform: rotate(180deg);
+  }
+
+  details.latex-panel:not([open]) .latex-panel-head {
+    border-bottom: none;
   }
 
   .latex-panel {
@@ -1354,19 +1409,24 @@
   <!-- SECCIÓN I: ENVOLVENTE Y BALANCE TÉRMICO -->
   <div id="tabEnvolvente" class="tab-content active">
     
-    <!-- Columna Izquierda -->
     <div class="col">
       
-      <div class="latex-box definition">
-        <div class="latex-box-title">Definición 1.1 (Transmitancia Térmica $U$ y Resistencia Total)</div>
-        <div class="latex-box-content">
+      <details open class="latex-box definition">
+        <summary class="latex-box-title">
+          <span>Definición 1.1 (Transmitancia Térmica $U$ y Resistencia Total)</span>
+          <span class="collapse-icon">▼</span>
+        </summary>
+        <div class="latex-box-content" style="margin-top:8px;">
           La transmitancia térmica $U$ [$\text{W}/(\text{m}^2\cdot\text{K})$] mide qué tan fácil se escapa o entra el calor a través de un elemento constructivo formado por varias capas. Se calcula como la inversa de la resistencia térmica total ($R_{\text{total}}$), sumando la resistencia propia de cada material y las capas de aire superficiales de adentro ($R_{si}$) y de afuera ($R_{se}$):
           $$\displaystyle U = \frac{1}{R_{si} + \sum_{k=1}^N \frac{e_k}{\lambda_k} + R_{se}} = \frac{1}{R_{\text{total}}}$$
         </div>
-      </div>
+      </details>
 
-      <div class="latex-panel">
-        <div class="latex-panel-head"><span>1. Dimensiones Volumétricas de la Edificación</span></div>
+      <details open class="latex-panel">
+        <summary class="latex-panel-head">
+          <span>1. Dimensiones Volumétricas de la Edificación</span>
+          <span class="collapse-icon">▼</span>
+        </summary>
         <div class="latex-panel-body">
           <div class="row-2">
             <div class="row"><label>Largo ($a$) [m]</label><input type="number" id="a" min="0" step="0.1" value="6.5"></div>
@@ -1374,13 +1434,16 @@
           </div>
           <div class="row"><label>Altura ($h$) [m]</label><input type="number" id="h" min="0" step="0.05" value="2.8"></div>
         </div>
-      </div>
+      </details>
 
-      <div class="latex-panel">
-        <div class="latex-panel-head">
-          <span>2. Paramentos Verticales (Paredes en Serie)</span>
-          <span id="tagWall" style="font-family:var(--font-mono); color:var(--latex-blue); font-size:11px; font-weight:700;"></span>
-        </div>
+      <details open class="latex-panel">
+        <summary class="latex-panel-head">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span>2. Paramentos Verticales (Paredes en Serie)</span>
+            <span id="tagWall" style="font-family:var(--font-mono); color:var(--latex-blue); font-size:11px; font-weight:700;"></span>
+          </div>
+          <span class="collapse-icon">▼</span>
+        </summary>
         <div class="latex-panel-body">
           <div class="table-responsive">
             <table class="latex-table" id="wallTable">
@@ -1431,13 +1494,16 @@
             <div class="comp-legend-bar" id="wallCompLegend"></div>
           </div>
         </div>
-      </div>
+      </details>
 
-      <div class="latex-panel">
-        <div class="latex-panel-head">
-          <span>3. Cerramiento Superior (Techo en Serie)</span>
-          <span id="tagRoof" style="font-family:var(--font-mono); color:var(--latex-blue); font-size:11px; font-weight:700;"></span>
-        </div>
+      <details open class="latex-panel">
+        <summary class="latex-panel-head">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span>3. Cerramiento Superior (Techo en Serie)</span>
+            <span id="tagRoof" style="font-family:var(--font-mono); color:var(--latex-blue); font-size:11px; font-weight:700;"></span>
+          </div>
+          <span class="collapse-icon">▼</span>
+        </summary>
         <div class="latex-panel-body">
           <div class="table-responsive">
             <table class="latex-table" id="roofTable">
@@ -1488,10 +1554,13 @@
             <div class="comp-legend-bar" id="roofCompLegend"></div>
           </div>
         </div>
-      </div>
+      </details>
 
-      <div class="latex-panel">
-        <div class="latex-panel-head"><span>4. Carpinterías y Aberturas</span></div>
+      <details open class="latex-panel">
+        <summary class="latex-panel-head">
+          <span>4. Carpinterías y Aberturas</span>
+          <span class="collapse-icon">▼</span>
+        </summary>
         <div class="latex-panel-body">
           <div class="row-2">
             <div class="row">
@@ -1521,23 +1590,24 @@
           </div>
           <div class="row"><label>Espesor puerta [mm]</label><input type="number" id="doorT" min="10" step="1" value="35"></div>
         </div>
-      </div>
+      </details>
 
-    </div>
-
-    <!-- Columna Derecha -->
-    <div class="col">
-      
-      <div class="latex-box theorem">
-        <div class="latex-box-title">Teorema 1.2 (Pérdidas Globales $H_T$, Coeficiente $G$ y Demanda de Energía)</div>
-        <div class="latex-box-content">
+      <details open class="latex-box theorem">
+        <summary class="latex-box-title">
+          <span>Teorema 1.2 (Pérdidas Globales $H_T$, Coeficiente $G$ y Demanda de Energía)</span>
+          <span class="collapse-icon">▼</span>
+        </summary>
+        <div class="latex-box-content" style="margin-top:8px;">
           El coeficiente de pérdidas globales $H_T$ [$\text{W}/\text{K}$] reúne todo el calor que se transfiere a través de la envolvente y las renovaciones de aire. A partir de él, la norma IRAM 11604 define el coeficiente volumétrico $G$ [$\text{W}/(\text{m}^3\cdot\text{K})$], y es posible calcular la energía anual necesaria tanto para calefacción ($Q_{\text{calef}}$) como para refrigeración ($Q_{\text{refrig}}$) utilizando los Grados-Día correspondientes ($DGD$ y $EGD$):
           $$\displaystyle G = \frac{H_T}{V}, \quad Q_{\text{calef}} = 0.024 \cdot H_T \cdot \text{DGD}, \quad Q_{\text{refrig}} = 0.024 \cdot H_T \cdot \text{EGD}$$
         </div>
-      </div>
+      </details>
 
-      <div class="latex-panel">
-        <div class="latex-panel-head"><span>5. Parámetros Bioclimáticos y Tasa de Ventilación</span></div>
+      <details open class="latex-panel">
+        <summary class="latex-panel-head">
+          <span>5. Parámetros Bioclimáticos y Tasa de Ventilación</span>
+          <span class="collapse-icon">▼</span>
+        </summary>
         <div class="latex-panel-body">
           <div class="row-2">
             <div class="row"><label>Renov. Aire ($n$) <span class="val" id="v_n">1.0</span></label><input type="range" id="n" min="0" max="3" step="0.1" value="1.0"></div>
@@ -1569,10 +1639,13 @@
             <div class="row"><label>$T^\circ$ Diseño Ext. <span class="val" id="v_text">5 °C</span></label><input type="range" id="text" min="-10" max="15" step="1" value="5"></div>
           </div>
         </div>
-      </div>
+      </details>
 
-      <div class="latex-panel">
-        <div class="latex-panel-head"><span>6. Indicadores Energéticos y Potencia Térmica de Diseño</span></div>
+      <details open class="latex-panel">
+        <summary class="latex-panel-head">
+          <span>6. Indicadores Energéticos y Potencia Térmica de Diseño</span>
+          <span class="collapse-icon">▼</span>
+        </summary>
         <div class="latex-panel-body">
           <div class="kpi-grid">
             <div class="kpi-card warn">
@@ -1597,10 +1670,13 @@
             </div>
           </div>
         </div>
-      </div>
+      </details>
 
-      <div class="latex-panel">
-        <div class="latex-panel-head"><span>7. Distribución Porcentual de Pérdidas Térmicas</span></div>
+      <details open class="latex-panel">
+        <summary class="latex-panel-head">
+          <span>7. Distribución Porcentual de Pérdidas Térmicas</span>
+          <span class="collapse-icon">▼</span>
+        </summary>
         <div class="latex-panel-body">
           <canvas id="donut" width="240" height="220"></canvas>
           <div class="table-responsive">
@@ -1610,7 +1686,7 @@
             </table>
           </div>
         </div>
-      </div>
+      </details>
 
     </div>
 
