@@ -427,6 +427,31 @@
     text-shadow: 0 1px 2px rgba(0,0,0,0.5);
   }
 
+  .stacked-legend-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+    margin-top: 2px;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: var(--text-main);
+  }
+
+  .stacked-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+  }
+
+  .stacked-legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
   .table-pct-cell {
     display: flex;
     align-items: center;
@@ -1808,6 +1833,7 @@
           <div class="stacked-loss-wrapper">
             <div class="stacked-loss-title">Distribución acumulada de pérdidas térmicas</div>
             <div class="stacked-bar-container" id="stackedLossBar"></div>
+            <div class="stacked-legend-row" id="stackedLossLegend"></div>
           </div>
 
           <!-- Fila Inferior: Tabla de Componentes debajo de los gráficos -->
@@ -2645,7 +2671,7 @@
     const maxVal = Math.max(...data.map(d => d.hk), 1);
     
     const marginL = 75;
-    const marginR = 60;
+    const marginR = 48;
     const marginT = 12;
     const marginB = 15;
     const chartW = w - marginL - marginR;
@@ -2672,14 +2698,15 @@
 
       ctx.fillStyle = d.color;
       ctx.beginPath();
-      if (ctx.roundRect) ctx.roundRect(marginL, y, Math.max(barW, 3), barHeight, 3);
-      else ctx.rect(marginL, y, Math.max(barW, 3), barHeight);
+      const actualBarW = val > 0 ? Math.max(barW, 5) : 0;
+      if (ctx.roundRect) ctx.roundRect(marginL, y, actualBarW, barHeight, 3);
+      else ctx.rect(marginL, y, actualBarW, barHeight);
       ctx.fill();
 
       ctx.fillStyle = textColor;
       ctx.font = 'bold 11px sans-serif';
       ctx.textAlign = 'left';
-      ctx.fillText(fmt(d.hk, 1) + ' W/K', marginL + Math.max(barW, 3) + 6, y + barHeight / 2);
+      ctx.fillText(fmt(d.hk, 1), marginL + chartW + 8, y + barHeight / 2);
     });
   }
 
@@ -2811,12 +2838,12 @@
             <b>${c.label}</b>
           </td>
           <td>${c.u !== null ? fmt(c.u, 2) : '—'}</td>
-          <td>${fmt(c.hk, 1)} W/K</td>
+          <td>${fmt(c.hk, 1)}</td>
           <td>
             <div class="table-pct-cell">
               <span style="min-width:38px;font-weight:700;">${fmt(pct, 1)}%</span>
               <div class="table-pct-bar">
-                <div class="table-pct-fill" style="width:${pct.toFixed(1)}%; background:${c.color};"></div>
+                <div class="table-pct-fill" style="width:${pct.toFixed(1)}%; min-width:${pct > 0 ? '4px' : '0'}; background:${c.color};"></div>
               </div>
             </div>
           </td>
@@ -2827,17 +2854,25 @@
     drawLossBarChart($('lossBarChart'), comps);
 
     const stackedBar = $('stackedLossBar');
+    const stackedLegend = $('stackedLossLegend');
     if (stackedBar) {
-      let html = '';
+      let barHtml = '';
+      let legendHtml = '';
       comps.forEach(c => {
         const pct = 100 * c.value / totalLoss;
-        if (pct > 0.5) {
-          html += `<div class="stacked-bar-segment" style="width:${pct.toFixed(1)}%; background:${c.color};" title="${c.label}: ${pct.toFixed(1)}%">
-            ${pct >= 7 ? `<span class="stacked-bar-label">${pct.toFixed(0)}%</span>` : ''}
+        if (pct > 0) {
+          barHtml += `<div class="stacked-bar-segment" style="width:${pct.toFixed(1)}%; background:${c.color};" title="${c.label}: ${fmt(pct, 1)}%">
+            ${pct >= 5 ? `<span class="stacked-bar-label">${fmt(pct, 0)}%</span>` : ''}
+          </div>`;
+
+          legendHtml += `<div class="stacked-legend-item">
+            <span class="stacked-legend-dot" style="background:${c.color};"></span>
+            <span><b>${c.label}:</b> ${fmt(pct, 1)}%</span>
           </div>`;
         }
       });
-      stackedBar.innerHTML = html;
+      stackedBar.innerHTML = barHtml;
+      if (stackedLegend) stackedLegend.innerHTML = legendHtml;
     }
 
     const pElec = parseFloat($('pElec').value);
