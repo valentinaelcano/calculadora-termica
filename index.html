@@ -404,7 +404,7 @@
 
   .stacked-bar-container {
     display: flex;
-    height: 22px;
+    height: 24px;
     width: 100%;
     border-radius: 4px;
     overflow: hidden;
@@ -424,32 +424,10 @@
     font-size: 10px;
     font-weight: 800;
     color: #ffffff;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-  }
-
-  .stacked-legend-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 6px 14px;
-    margin-top: 2px;
-    font-family: var(--font-sans);
-    font-size: 11px;
-    color: var(--text-main);
-  }
-
-  .stacked-legend-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.6);
     white-space: nowrap;
-  }
-
-  .stacked-legend-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 2px;
-    flex-shrink: 0;
+    padding: 0 2px;
+    user-select: none;
   }
 
   .table-pct-cell {
@@ -1833,7 +1811,6 @@
           <div class="stacked-loss-wrapper">
             <div class="stacked-loss-title">Distribución acumulada de pérdidas térmicas</div>
             <div class="stacked-bar-container" id="stackedLossBar"></div>
-            <div class="stacked-legend-row" id="stackedLossLegend"></div>
           </div>
 
           <!-- Fila Inferior: Tabla de Componentes debajo de los gráficos -->
@@ -2854,25 +2831,18 @@
     drawLossBarChart($('lossBarChart'), comps);
 
     const stackedBar = $('stackedLossBar');
-    const stackedLegend = $('stackedLossLegend');
     if (stackedBar) {
       let barHtml = '';
-      let legendHtml = '';
       comps.forEach(c => {
         const pct = 100 * c.value / totalLoss;
         if (pct > 0) {
-          barHtml += `<div class="stacked-bar-segment" style="width:${pct.toFixed(1)}%; background:${c.color};" title="${c.label}: ${fmt(pct, 1)}%">
-            ${pct >= 5 ? `<span class="stacked-bar-label">${fmt(pct, 0)}%</span>` : ''}
-          </div>`;
-
-          legendHtml += `<div class="stacked-legend-item">
-            <span class="stacked-legend-dot" style="background:${c.color};"></span>
-            <span><b>${c.label}:</b> ${fmt(pct, 1)}%</span>
+          const valLabel = fmt(pct, 0) + '%';
+          barHtml += `<div class="stacked-bar-segment" style="width:${pct.toFixed(1)}%; min-width:${pct > 0.5 ? '24px' : '0'}; background:${c.color};" title="${c.label}: ${fmt(pct, 1)}%">
+            ${pct >= 0.5 ? `<span class="stacked-bar-label">${valLabel}</span>` : ''}
           </div>`;
         }
       });
       stackedBar.innerHTML = barHtml;
-      if (stackedLegend) stackedLegend.innerHTML = legendHtml;
     }
 
     const pElec = parseFloat($('pElec').value);
