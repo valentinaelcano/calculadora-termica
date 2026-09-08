@@ -1578,7 +1578,6 @@
             <div class="comp-orientation-bar">
               <div class="comp-zone int-zone">
                 <span class="zone-pill">INTERIOR (R<sub>si</sub>)</span>
-                <span class="zone-caption">Ambiente interior</span>
               </div>
               <div class="comp-flux-indicator">
                 <span class="flux-label">Flujo de calor unidimensional (q)</span>
@@ -1586,7 +1585,6 @@
               </div>
               <div class="comp-zone ext-zone">
                 <span class="zone-pill">EXTERIOR (R<sub>se</sub>)</span>
-                <span class="zone-caption">Condición intemperie</span>
               </div>
             </div>
 
@@ -1639,7 +1637,6 @@
             <div class="comp-orientation-bar">
               <div class="comp-zone int-zone">
                 <span class="zone-pill">INTERIOR (R<sub>si</sub>)</span>
-                <span class="zone-caption">Cielorraso / confort</span>
               </div>
               <div class="comp-flux-indicator">
                 <span class="flux-label">Flujo de calor unidimensional (q)</span>
@@ -1647,7 +1644,6 @@
               </div>
               <div class="comp-zone ext-zone">
                 <span class="zone-pill">EXTERIOR (R<sub>se</sub>)</span>
-                <span class="zone-caption">Cubierta / intemperie</span>
               </div>
             </div>
 
@@ -2631,8 +2627,8 @@
 
   function drawLossBarChart(canvas, data) {
     if (!canvas) return;
-    const containerW = canvas.parentElement ? canvas.parentElement.clientWidth - 10 : 320;
-    const w = Math.min(Math.max(containerW, 200), 380);
+    const containerW = canvas.parentElement ? canvas.parentElement.clientWidth - 10 : 340;
+    const w = Math.min(Math.max(containerW, 250), 400);
     const hh = 210;
     const dpr = window.devicePixelRatio || 1;
     canvas.width = w * dpr;
@@ -2648,8 +2644,8 @@
     const textColor = isDark ? '#cbd5e1' : '#334155';
     const maxVal = Math.max(...data.map(d => d.hk), 1);
     
-    const marginL = 75;
-    const marginR = 48;
+    const marginL = 98;
+    const marginR = 40;
     const marginT = 12;
     const marginB = 15;
     const chartW = w - marginL - marginR;
@@ -2684,7 +2680,7 @@
       ctx.fillStyle = textColor;
       ctx.font = 'bold 11px sans-serif';
       ctx.textAlign = 'left';
-      ctx.fillText(fmt(d.hk, 1), marginL + chartW + 8, y + barHeight / 2);
+      ctx.fillText(fmt(d.hk, 1), marginL + chartW + 6, y + barHeight / 2);
     });
   }
 
