@@ -1491,21 +1491,21 @@
     <div class="header-top-bar">
       <div class="institution">UNSAM — ESCUELA DE CIENCIA Y TECNOLOGÍA</div>
       <button id="themeToggleBtn" onclick="toggleTheme()" class="theme-toggle-btn" aria-label="Cambiar modo de color">
-        <span class="btn-text-full">Modo Oscuro</span>
+        <span class="btn-text-full">Modo oscuro</span>
         <span class="btn-text-short">Oscuro</span>
       </button>
     </div>
-    <h1>Simulador Térmico, Energético y Económico de Envolventes Residenciales</h1>
+    <h1>Simulador térmico, energético y económico de envolventes residenciales</h1>
   </header>
 
   <!-- Tabs -->
   <nav class="academic-tabs">
     <button class="tab-btn active" onclick="switchTab(event, 'tabEnvolvente')">
-      <span class="tab-label-full">Sección I: Envolvente y Balance Térmico</span>
+      <span class="tab-label-full">Sección I: Envolvente y balance térmico</span>
       <span class="tab-label-short">§ I: Envolvente</span>
     </button>
     <button class="tab-btn" onclick="switchTab(event, 'tabTarifas')">
-      <span class="tab-label-full">Sección II: Eficiencia, Tarifas y Emisiones</span>
+      <span class="tab-label-full">Sección II: Eficiencia, tarifas y emisiones</span>
       <span class="tab-label-short">§ II: Tarifas</span>
     </button>
   </nav>
@@ -1517,7 +1517,7 @@
       
       <details open class="latex-box definition">
         <summary class="latex-box-title">
-          <span>Definición 1.1 (Transmitancia Térmica $U$ y Resistencia Total)</span>
+          <span>Definición 1.1 (Transmitancia térmica $U$ y resistencia total)</span>
           <span class="collapse-icon">▼</span>
         </summary>
         <div class="latex-box-content" style="margin-top:8px;">
@@ -1528,7 +1528,7 @@
 
       <details open class="latex-panel">
         <summary class="latex-panel-head">
-          <span>1. Dimensiones Volumétricas de la Edificación</span>
+          <span>1. Dimensiones volumétricas de la edificación</span>
           <span class="collapse-icon">▼</span>
         </summary>
         <div class="latex-panel-body">
@@ -1543,7 +1543,7 @@
       <details open class="latex-panel">
         <summary class="latex-panel-head">
           <div style="display:flex; align-items:center; gap:10px;">
-            <span>2. Capas de la Pared (Paredes en Serie)</span>
+            <span>2. Capas de la pared (paredes en serie)</span>
             <span id="tagWall" style="font-family:var(--font-mono); color:var(--latex-blue); font-size:11px; font-weight:700;"></span>
           </div>
           <span class="collapse-icon">▼</span>
@@ -1557,17 +1557,17 @@
             </table>
           </div>
           <div class="panel-action-bar">
-            <button class="btn-add" onclick="addLayer('wall')">+ Agregar Capa a Pared</button>
+            <button class="btn-add" onclick="addLayer('wall')">+ Agregar capa a pared</button>
             <button class="btn-catalog" onclick="openCatalogModal('wall')">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1px; margin-right:5px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-              Catálogo Técnico de Materiales
+              Catálogo técnico de materiales
             </button>
           </div>
 
           <!-- Vista Previa de Composición Constructiva de la Pared -->
           <div class="composition-preview" id="wallPreviewContainer">
             <div class="comp-header">
-              <span class="comp-title">FIGURA 2.1 — Corte constructivo transversal (Pared)</span>
+              <span class="comp-title">FIGURA 2.1 — Corte constructivo transversal (pared)</span>
               <span class="comp-meta" id="wallCompMeta">Espesor total: – mm</span>
             </div>
 
@@ -1604,7 +1604,7 @@
       <details open class="latex-panel">
         <summary class="latex-panel-head">
           <div style="display:flex; align-items:center; gap:10px;">
-            <span>3. Capas del Techo (Techo en Serie)</span>
+            <span>3. Capas del techo (techo en serie)</span>
             <span id="tagRoof" style="font-family:var(--font-mono); color:var(--latex-blue); font-size:11px; font-weight:700;"></span>
           </div>
           <span class="collapse-icon">▼</span>
@@ -1618,17 +1618,17 @@
             </table>
           </div>
           <div class="panel-action-bar">
-            <button class="btn-add" onclick="addLayer('roof')">+ Agregar Capa a Techo</button>
+            <button class="btn-add" onclick="addLayer('roof')">+ Agregar capa a techo</button>
             <button class="btn-catalog" onclick="openCatalogModal('roof')">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1px; margin-right:5px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-              Catálogo Técnico de Materiales
+              Catálogo técnico de materiales
             </button>
           </div>
 
           <!-- Vista Previa de Composición Constructiva del Techo -->
           <div class="composition-preview" id="roofPreviewContainer">
             <div class="comp-header">
-              <span class="comp-title">FIGURA 3.1 — Corte constructivo transversal (Techo)</span>
+              <span class="comp-title">FIGURA 3.1 — Corte constructivo transversal (techo)</span>
               <span class="comp-meta" id="roofCompMeta">Espesor total: – mm</span>
             </div>
 
@@ -1636,7 +1636,7 @@
             <div class="comp-orientation-bar">
               <div class="comp-zone int-zone">
                 <span class="zone-pill">INTERIOR (R<sub>si</sub>)</span>
-                <span class="zone-caption">Cielorraso / Confort</span>
+                <span class="zone-caption">Cielorraso / confort</span>
               </div>
               <div class="comp-flux-indicator">
                 <span class="flux-label">Flujo de calor unidimensional (q)</span>
@@ -1644,7 +1644,7 @@
               </div>
               <div class="comp-zone ext-zone">
                 <span class="zone-pill">EXTERIOR (R<sub>se</sub>)</span>
-                <span class="zone-caption">Cubierta / Intemperie</span>
+                <span class="zone-caption">Cubierta / intemperie</span>
               </div>
             </div>
 
@@ -1670,14 +1670,14 @@
         <div class="latex-panel-body">
           <div class="row-2">
             <div class="row">
-              <label>Tipo de Vidriado</label>
+              <label>Tipo de vidriado</label>
               <select id="winType">
-                <option value="simple">Vidrio Simple</option>
-                <option value="doble">DVH (Doble Vidriado Hermético)</option>
-                <option value="triple">TVH (Triple Vidriado Hermético)</option>
+                <option value="simple">Vidrio simple</option>
+                <option value="doble">DVH (Doble vidriado hermético)</option>
+                <option value="triple">TVH (Triple vidriado hermético)</option>
               </select>
             </div>
-            <div class="row"><label>Área Ventanas ($A_{v}$) [m²]</label><input type="number" id="winA" min="0" step="0.5" value="12"></div>
+            <div class="row"><label>Área ventanas ($A_{v}$) [m²]</label><input type="number" id="winA" min="0" step="0.5" value="12"></div>
           </div>
           <div class="row-2">
             <div class="row"><label>Espesor vidrio [mm]</label><input type="number" id="winGlassT" min="2" step="1" value="4"></div>
@@ -1685,14 +1685,14 @@
           </div>
           <div class="row-2">
             <div class="row">
-              <label>Material de Puertas</label>
+              <label>Material de puertas</label>
               <select id="doorMat">
                 <option value="0.18">Madera maciza (&lambda; = 0.18 W/m·K)</option>
                 <option value="0.12">Puerta placa enchapada (&lambda; = 0.12 W/m·K)</option>
                 <option value="0.035">Chapa de acero inyectada PUR (&lambda; = 0.035 W/m·K)</option>
               </select>
             </div>
-            <div class="row"><label>Área Puertas ($A_{p}$) [m²]</label><input type="number" id="doorA" min="0" step="0.1" value="2.8"></div>
+            <div class="row"><label>Área puertas ($A_{p}$) [m²]</label><input type="number" id="doorA" min="0" step="0.1" value="2.8"></div>
           </div>
           <div class="row"><label>Espesor puerta [mm]</label><input type="number" id="doorT" min="10" step="1" value="35"></div>
         </div>
@@ -1700,7 +1700,7 @@
 
       <details open class="latex-box theorem">
         <summary class="latex-box-title">
-          <span>Teorema 1.2 (Pérdidas Globales $H_T$, Coeficiente $G$ y Demanda de Energía)</span>
+          <span>Teorema 1.2 (Pérdidas globales $H_T$, coeficiente $G$ y demanda de energía)</span>
           <span class="collapse-icon">▼</span>
         </summary>
         <div class="latex-box-content" style="margin-top:8px;">
@@ -1711,14 +1711,14 @@
 
       <details open class="latex-panel">
         <summary class="latex-panel-head">
-          <span>5. Parámetros Bioclimáticos y Tasa de Ventilación</span>
+          <span>5. Parámetros bioclimáticos y tasa de ventilación</span>
           <span class="collapse-icon">▼</span>
         </summary>
         <div class="latex-panel-body">
           <div class="row-2">
-            <div class="row"><label>Renov. Aire ($n$) <span class="val" id="v_n">1.0</span></label><input type="range" id="n" min="0" max="3" step="0.1" value="1.0"></div>
+            <div class="row"><label>Renov. de aire ($n$) <span class="val" id="v_n">1.0</span></label><input type="range" id="n" min="0" max="3" step="0.1" value="1.0"></div>
             <div class="row">
-              <label>Zona Climática <span class="val" id="v_climInfo">DGD: 702 | EGD: 90</span></label>
+              <label>Zona climática <span class="val" id="v_climInfo">DGD: 702 | EGD: 90</span></label>
               <select id="citySel" onchange="updateCity()">
                 <option value="702,90">Buenos Aires - CABA (DGD 702, EGD 90)</option>
                 <option value="850,90">Buenos Aires IRAM (DGD 850, EGD 90)</option>
@@ -1737,40 +1737,40 @@
             </div>
           </div>
           <div class="row-2" id="customDgdRow" style="display:none;">
-            <div class="row"><label>DGD Anual (°C·día)</label><input type="number" id="customDGD" value="702"></div>
-            <div class="row"><label>EGD Anual (°C·día)</label><input type="number" id="customEGD" value="90"></div>
+            <div class="row"><label>DGD anual (°C·día)</label><input type="number" id="customDGD" value="702"></div>
+            <div class="row"><label>EGD anual (°C·día)</label><input type="number" id="customEGD" value="90"></div>
           </div>
           <div class="row-2">
-            <div class="row"><label>$T^\circ$ Confort Int. <span class="val" id="v_tin">20 °C</span></label><input type="range" id="tin" min="16" max="25" step="1" value="20"></div>
-            <div class="row"><label>$T^\circ$ Diseño Ext. <span class="val" id="v_text">5 °C</span></label><input type="range" id="text" min="-10" max="15" step="1" value="5"></div>
+            <div class="row"><label>$T^\circ$ confort int. <span class="val" id="v_tin">20 °C</span></label><input type="range" id="tin" min="16" max="25" step="1" value="20"></div>
+            <div class="row"><label>$T^\circ$ diseño ext. <span class="val" id="v_text">5 °C</span></label><input type="range" id="text" min="-10" max="15" step="1" value="5"></div>
           </div>
         </div>
       </details>
 
       <details open class="latex-panel">
         <summary class="latex-panel-head">
-          <span>6. Indicadores Energéticos y Potencia Térmica de Diseño</span>
+          <span>6. Indicadores energéticos y potencia térmica de diseño</span>
           <span class="collapse-icon">▼</span>
         </summary>
         <div class="latex-panel-body">
           <div class="kpi-grid">
             <div class="kpi-card warn">
-              <div class="lbl">Demanda Calefacción ($DGD$)</div>
+              <div class="lbl">Demanda calefacción ($DGD$)</div>
               <div class="num" id="resHeatKwh">–</div>
               <div class="sub">kWh/año</div>
             </div>
             <div class="kpi-card ok">
-              <div class="lbl">Demanda Refrigeración ($EGD$)</div>
+              <div class="lbl">Demanda refrigeración ($EGD$)</div>
               <div class="num" id="resCoolKwh">–</div>
               <div class="sub">kWh/año</div>
             </div>
             <div class="kpi-card">
-              <div class="lbl">Potencia Térmica de Diseño</div>
+              <div class="lbl">Potencia térmica de diseño</div>
               <div class="num" id="resPowerKw">–</div>
               <div class="sub">kW (kcal/h)</div>
             </div>
             <div class="kpi-card">
-              <div class="lbl">Coeficiente Global $G$</div>
+              <div class="lbl">Coeficiente global $G$</div>
               <div class="num" id="resG">–</div>
               <div class="sub">W/(m³·K)</div>
             </div>
@@ -1780,7 +1780,7 @@
 
       <details open class="latex-panel">
         <summary class="latex-panel-head">
-          <span>7. Distribución Porcentual de Pérdidas Térmicas y Coeficientes $H_k$</span>
+          <span>7. Distribución porcentual de pérdidas térmicas y coeficientes $H_k$</span>
           <span class="collapse-icon">▼</span>
         </summary>
         <div class="latex-panel-body" style="gap:20px;">
@@ -1789,14 +1789,14 @@
           <div class="section7-charts-row">
             
             <div class="section7-single-chart-card">
-              <div class="chart-card-title">Distribución Relativa (% Dona)</div>
+              <div class="chart-card-title">Distribución relativa (% dona)</div>
               <div class="chart-canvas-wrapper">
                 <canvas id="donut" width="240" height="200"></canvas>
               </div>
             </div>
 
             <div class="section7-single-chart-card">
-              <div class="chart-card-title">Pérdidas Directas ($H_k$ en W/K)</div>
+              <div class="chart-card-title">Pérdidas directas ($H_k$ en W/K)</div>
               <div class="chart-canvas-wrapper">
                 <canvas id="lossBarChart" width="340" height="200"></canvas>
               </div>
@@ -1806,7 +1806,7 @@
 
           <!-- Barra de Distribución Acumulada Proporcional -->
           <div class="stacked-loss-wrapper">
-            <div class="stacked-loss-title">Distribución Acumulada de Pérdidas Térmicas</div>
+            <div class="stacked-loss-title">Distribución acumulada de pérdidas térmicas</div>
             <div class="stacked-bar-container" id="stackedLossBar"></div>
           </div>
 
@@ -1819,7 +1819,7 @@
                     <th>Componente</th>
                     <th>$U$ (W/m²K)</th>
                     <th>$H_k$ (W/K)</th>
-                    <th>Pérdida Relativa (%)</th>
+                    <th>Pérdida relativa (%)</th>
                   </tr>
                 </thead>
                 <tbody></tbody>
@@ -1841,7 +1841,7 @@
     <div class="col">
       
       <div class="latex-box definition">
-        <div class="latex-box-title">Definición 2.1 (Eficiencia de Calefacción y Coeficiente COP)</div>
+        <div class="latex-box-title">Definición 2.1 (Eficiencia de calefacción y coeficiente COP)</div>
         <div class="latex-box-content">
           Para mantener una temperatura confortable, la vivienda necesita una cantidad de calor útil ($Q_{\text{útil}}$). Como los equipos de calefacción no aprovechan el 100% de la energía que consumen, el gasto real de combustible ($E_{\text{gas}}$) o de electricidad ($E_{\text{bomba}}$) depende de cuán eficientes sean: la estufa a gas se ve afectada por su rendimiento ($\eta_{\text{gas}}$), mientras que la bomba de calor se beneficia de su eficiencia térmica representada por el $\text{COP}$:
           $$\displaystyle E_{\text{gas}} = \frac{Q_{\text{útil}}}{\eta_{\text{gas}}}, \qquad E_{\text{bomba}} = \frac{Q_{\text{útil}}}{\text{COP}}$$
@@ -1849,25 +1849,25 @@
       </div>
 
       <div class="latex-panel">
-        <div class="latex-panel-head"><span>1. Parámetros Económicos y Eficiencia de Vectores</span></div>
+        <div class="latex-panel-head"><span>1. Parámetros económicos y eficiencia de vectores</span></div>
         <div class="latex-panel-body">
           <div class="row-2">
-            <div class="row"><label>Tarifa Electricidad <span class="val" id="v_pElec">0.12 USD/kWh</span></label><input type="range" id="pElec" min="0.02" max="0.30" step="0.01" value="0.12"></div>
-            <div class="row"><label>Tarifa Gas Natural <span class="val" id="v_pGas">0.33 USD/m³</span></label><input type="range" id="pGas" min="0.05" max="0.80" step="0.01" value="0.33"></div>
+            <div class="row"><label>Tarifa electricidad <span class="val" id="v_pElec">0.12 USD/kWh</span></label><input type="range" id="pElec" min="0.02" max="0.30" step="0.01" value="0.12"></div>
+            <div class="row"><label>Tarifa gas natural <span class="val" id="v_pGas">0.33 USD/m³</span></label><input type="range" id="pGas" min="0.05" max="0.80" step="0.01" value="0.33"></div>
           </div>
           <div class="row-2">
-            <div class="row"><label>Eficiencia Estufa a Gas <span class="val" id="v_effGas">75 %</span></label><input type="range" id="effGas" min="50" max="95" step="1" value="75"></div>
-            <div class="row"><label>COP Bomba de Calor <span class="val" id="v_cop">3.5</span></label><input type="range" id="cop" min="1.0" max="5.0" step="0.1" value="3.5"></div>
+            <div class="row"><label>Eficiencia estufa a gas <span class="val" id="v_effGas">75 %</span></label><input type="range" id="effGas" min="50" max="95" step="1" value="75"></div>
+            <div class="row"><label>COP bomba de calor <span class="val" id="v_cop">3.5</span></label><input type="range" id="cop" min="1.0" max="5.0" step="0.1" value="3.5"></div>
           </div>
           <div class="row-2">
-            <div class="row"><label>Intensidad Carbono Gas (kg/MWh)</label><input type="number" id="icGas" value="202" min="0" step="1"></div>
+            <div class="row"><label>Intensidad carbono gas (kg/MWh)</label><input type="number" id="icGas" value="202" min="0" step="1"></div>
             <div class="row">
-              <label>Intensidad Carbono Eléctrico (Matriz)</label>
+              <label>Intensidad carbono eléctrico (matriz)</label>
               <select id="icElecSel">
-                <option value="297">Matriz Eléctrica Estándar (297 kg/MWh)</option>
-                <option value="20">Central Hidráulica (~20 kg/MWh)</option>
-                <option value="380">Ciclo Combinado a Gas (~380 kg/MWh)</option>
-                <option value="550">Central Térmica Convencional (~550 kg/MWh)</option>
+                <option value="297">Matriz eléctrica estándar (297 kg/MWh)</option>
+                <option value="20">Central hidráulica (~20 kg/MWh)</option>
+                <option value="380">Ciclo combinado a gas (~380 kg/MWh)</option>
+                <option value="550">Central térmica convencional (~550 kg/MWh)</option>
               </select>
             </div>
           </div>
@@ -1875,11 +1875,11 @@
       </div>
 
       <div class="latex-panel">
-        <div class="latex-panel-head"><span>2. Evaluación Comparativa Técno-Económica y Ambiental</span></div>
+        <div class="latex-panel-head"><span>2. Evaluación comparativa tecno-económica y ambiental</span></div>
         <div class="latex-panel-body">
           <div class="table-responsive">
             <table class="latex-table" id="tblTechEval">
-              <thead><tr><th>Tecnología</th><th>Energía Insumo</th><th>Costo Anual</th><th>Emisiones CO₂</th></tr></thead>
+              <thead><tr><th>Tecnología</th><th>Energía insumo</th><th>Costo anual</th><th>Emisiones CO₂</th></tr></thead>
               <tbody></tbody>
             </table>
           </div>
@@ -1892,7 +1892,7 @@
     <div class="col">
       
       <div class="latex-box theorem">
-        <div class="latex-box-title">Modelo 2.2 (Huella de Carbono Anual)</div>
+        <div class="latex-box-title">Modelo 2.2 (Huella de carbono anual)</div>
         <div class="latex-box-content">
           Para conocer el impacto ambiental de la vivienda, calculamos cuántos kilogramos de dióxido de carbono ($m_{\text{CO}_2}$) se liberan al aire cada año. Este resultado surge de multiplicar la energía total consumida por el sistema (convertida a MWh) por el factor de emisión o intensidad de carbono ($IC$), un valor que indica cuán contaminante es la fuente de energía elegida:
           $$\displaystyle m_{\text{CO}_2} = \left( \frac{E_{\text{insumo}} [\text{kWh}]}{1000} \right) \cdot IC$$
@@ -1900,12 +1900,12 @@
       </div>
 
       <div class="latex-panel">
-        <div class="latex-panel-head"><span>3. Insumo de Energía Consumida por Tecnología (kWh/año)</span></div>
+        <div class="latex-panel-head"><span>3. Insumo de energía consumida por tecnología (kWh/año)</span></div>
         <div class="latex-panel-body"><canvas id="chartEnergy" width="400" height="200"></canvas></div>
       </div>
 
       <div class="latex-panel">
-        <div class="latex-panel-head"><span>4. Emisiones Anuales de Dióxido de Carbono (kg CO₂/año)</span></div>
+        <div class="latex-panel-head"><span>4. Emisiones anuales de dióxido de carbono (kg CO₂/año)</span></div>
         <div class="latex-panel-body"><canvas id="chartEmissions" width="400" height="200"></canvas></div>
       </div>
 
@@ -1918,7 +1918,7 @@
     <div class="latex-panel">
       <details style="cursor: pointer;">
         <summary class="latex-panel-head" style="background: var(--bg-subtle); color: var(--latex-red); list-style: none; display: flex; justify-content: space-between; align-items: center;">
-          <span>Consideraciones Metodológicas y Alcance del Modelo Numérico</span>
+          <span>Consideraciones metodológicas y alcance del modelo numérico</span>
           <span style="font-family: var(--font-mono); font-size: 11px;">▼ / ▲</span>
         </summary>
         <div class="latex-panel-body" style="gap: 14px; cursor: default;">
@@ -1928,7 +1928,7 @@
           </div>
 
           <div>
-            <div class="footer-section-title">Simplificaciones Teóricas y Efectos No Modelados</div>
+            <div class="footer-section-title">Simplificaciones teóricas y efectos no modelados</div>
             <ul style="margin: 0; padding-left: 18px; font-size: 12px; line-height: 1.7; color: var(--text-muted);">
               <li><strong>Flujo unidimensional (sin puentes térmicos complejos):</strong> El calor se calcula exclusivamente en línea recta (perpendicular a paredes y techos), omitiendo esquinas, uniones o columnas estructurales donde el calor se escapa con mayor velocidad.</li>
               <li><strong>Ausencia de aportes solares pasivos:</strong> No se computan las ganancias térmicas por radiación solar directa a través de los vidrios, las cuales suelen calentar de manera natural los ambientes durante el invierno.</li>
@@ -1939,7 +1939,7 @@
           </div>
 
           <div>
-            <div class="footer-section-title cold">Referencias Bibliográficas y Marco Normativo</div>
+            <div class="footer-section-title cold">Referencias bibliográficas y marco normativo</div>
             <ol style="margin: 0; padding-left: 18px; font-size: 11.5px; line-height: 1.7; color: var(--text-muted);">
               <li>S. Gil, <em>El desafío Energético</em>, Cap. 8 — "Eficiencia Energética: Acondicionamiento térmico de una vivienda", 2026.</li>
               <li>Energía y Medio Ambiente (UNSAM), <em>Serie 2 — Problemas de Transmisión del Calor</em>, 2025.</li>
@@ -1958,7 +1958,7 @@
   <div id="materialCatalogModal" class="catalog-modal-backdrop" style="display:none;" onclick="if(event.target===this) closeCatalogModal()">
     <div class="catalog-modal-content">
       <div class="catalog-modal-header">
-        <h3 id="catalogModalTitle">Catálogo de Materiales — Norma IRAM 11601</h3>
+        <h3 id="catalogModalTitle">Catálogo de materiales — Norma IRAM 11601</h3>
         <button class="catalog-close-btn" onclick="closeCatalogModal()" aria-label="Cerrar">&times;</button>
       </div>
       <div class="catalog-filter-bar">
@@ -1991,39 +1991,39 @@
   const K_AIRE = 0.023;
 
   const wallMateriales = {
-    "_placeholder": { name: "-- Seleccionar Material --", k: 1.0, isPlaceholder: true },
+    "_placeholder": { name: "-- Seleccionar material --", k: 1.0, isPlaceholder: true },
     "rev_fino": { name: "Revoque fino", k: 0.70 },
     "rev_grueso": { name: "Revoque grueso", k: 0.93 },
     "ladrillo_macizo": { name: "Ladrillo común macizo", k: 0.81 },
     "ladrillo_hueco": { name: "Ladrillo hueco cerámico", k: 0.45 },
-    "hormigon_armado": { name: "Hormigón Armado (Convencional)", k: 1.63 },
-    "hormigon_alivianado": { name: "Hormigón alivianado (Cascote)", k: 0.93 },
+    "hormigon_armado": { name: "Hormigón armado (convencional)", k: 1.63 },
+    "hormigon_alivianado": { name: "Hormigón alivianado (cascote)", k: 0.93 },
     "hcca": { name: "Hormigón celular HCCA (Retak)", k: 0.13 },
-    "yeso": { name: "Placa de Yeso (Durlock)", k: 0.22 },
+    "yeso": { name: "Placa de yeso (Durlock)", k: 0.22 },
     "osb": { name: "Placa OSB", k: 0.13 },
     "madera": { name: "Madera", k: 0.20 },
-    "eps": { name: "Poliestireno Expandido (EPS)", k: 0.037 },
-    "xps": { name: "Poliestireno Extruido (XPS)", k: 0.033 },
-    "pur": { name: "Poliuretano Expandido (PUR)", k: 0.026 },
-    "lana_vidrio": { name: "Lana de Vidrio / Mineral", k: 0.038 }
+    "eps": { name: "Poliestireno expandido (EPS)", k: 0.037 },
+    "xps": { name: "Poliestireno extruido (XPS)", k: 0.033 },
+    "pur": { name: "Poliuretano expandido (PUR)", k: 0.026 },
+    "lana_vidrio": { name: "Lana de vidrio / mineral", k: 0.038 }
   };
 
   const roofMateriales = {
-    "_placeholder": { name: "-- Seleccionar Material --", k: 1.0, isPlaceholder: true },
+    "_placeholder": { name: "-- Seleccionar material --", k: 1.0, isPlaceholder: true },
     "losa": { name: "Losa de hormigón", k: 0.83 },
-    "hormigon_armado": { name: "Hormigón Armado (Convencional)", k: 1.63 },
-    "hormigon_alivianado": { name: "Hormigón alivianado (Cascote)", k: 0.93 },
-    "chapa_acero": { name: "Chapa de Acero / Galvanizada", k: 50.0 },
-    "teja_ceramica": { name: "Teja Cerámica / Colonial", k: 1.00 },
-    "madera": { name: "Madera (Tirantes / Entablarado)", k: 0.20 },
+    "hormigon_armado": { name: "Hormigón armado (convencional)", k: 1.63 },
+    "hormigon_alivianado": { name: "Hormigón alivianado (cascote)", k: 0.93 },
+    "chapa_acero": { name: "Chapa de acero / galvanizada", k: 50.0 },
+    "teja_ceramica": { name: "Teja cerámica / colonial", k: 1.00 },
+    "madera": { name: "Madera (tirantes / entablado)", k: 0.20 },
     "osb": { name: "Placa OSB", k: 0.13 },
-    "yeso": { name: "Placa de Yeso (Cielorraso)", k: 0.22 },
+    "yeso": { name: "Placa de yeso (cielorraso)", k: 0.22 },
     "rev_fino": { name: "Revoque fino", k: 0.70 },
     "rev_grueso": { name: "Revoque grueso", k: 0.93 },
-    "eps": { name: "Poliestireno Expandido (EPS)", k: 0.037 },
-    "xps": { name: "Poliestireno Extruido (XPS)", k: 0.033 },
-    "pur": { name: "Poliuretano Expandido (PUR)", k: 0.026 },
-    "lana_vidrio": { name: "Lana de Vidrio / Mineral", k: 0.038 }
+    "eps": { name: "Poliestireno expandido (EPS)", k: 0.037 },
+    "xps": { name: "Poliestireno extruido (XPS)", k: 0.033 },
+    "pur": { name: "Poliuretano expandido (PUR)", k: 0.026 },
+    "lana_vidrio": { name: "Lana de vidrio / mineral", k: 0.038 }
   };
 
   const materiales = Object.assign({}, wallMateriales, roofMateriales);
@@ -2070,8 +2070,8 @@
     const btn = $('themeToggleBtn');
     if (btn) {
       btn.innerHTML = isDark 
-        ? '<span class="btn-text-full">Modo Claro</span><span class="btn-text-short">Claro</span>' 
-        : '<span class="btn-text-full">Modo Oscuro</span><span class="btn-text-short">Oscuro</span>';
+        ? '<span class="btn-text-full">Modo claro</span><span class="btn-text-short">Claro</span>' 
+        : '<span class="btn-text-full">Modo oscuro</span><span class="btn-text-short">Oscuro</span>';
     }
   }
 
@@ -2201,15 +2201,15 @@
     const matList = (tableId === 'wallTable') ? wallMateriales : roofMateriales;
 
     let totalR = R_INT + R_EXT;
-    tbody.innerHTML += `<tr><td>-</td><td>Resistencia Superficial Interior ($R_{si}$)</td><td>-</td><td>-</td><td>${fmt(R_INT, 3)}</td><td></td></tr>`;
+    tbody.innerHTML += `<tr><td>-</td><td>Resistencia superficial interior ($R_{si}$)</td><td>-</td><td>-</td><td>${fmt(R_INT, 3)}</td><td></td></tr>`;
 
     layers.forEach((l, idx) => {
       const isPending = l.mat === '_placeholder';
-      const mat = matList[l.mat] || materiales[l.mat] || { name: '-- Seleccionar Material --', k: 1.0, isPlaceholder: true };
+      const mat = matList[l.mat] || materiales[l.mat] || { name: '-- Seleccionar material --', k: 1.0, isPlaceholder: true };
       const R = isPending ? 0 : (l.e / 1000) / mat.k;
       totalR += R;
       
-      let opts = isPending ? `<option value="_placeholder" selected disabled>-- Seleccionar Material --</option>` : '';
+      let opts = isPending ? `<option value="_placeholder" selected disabled>-- Seleccionar material --</option>` : '';
       for(let k in matList) {
         if(k === '_placeholder') continue;
         opts += `<option value="${k}" ${k === l.mat ? 'selected' : ''}>${matList[k].name}</option>`;
@@ -2235,14 +2235,14 @@
         </tr>`;
     });
 
-    tbody.innerHTML += `<tr><td>-</td><td>Resistencia Superficial Exterior ($R_{se}$)</td><td>-</td><td>-</td><td>${fmt(R_EXT, 3)}</td><td></td></tr>`;
+    tbody.innerHTML += `<tr><td>-</td><td>Resistencia superficial exterior ($R_{se}$)</td><td>-</td><td>-</td><td>${fmt(R_EXT, 3)}</td><td></td></tr>`;
 
     const U = 1 / totalR;
     if(type === 'Paredes') U_wall = U;
     if(type === 'Techo') U_roof = U;
 
-    tbody.innerHTML += `<tr style="background:var(--bg-subtle); font-weight:700;"><td colspan="4">R_TOTAL (m²·K/W)</td><td id="${tableId}_Rtot">${fmt(totalR, 3)}</td><td></td></tr>`;
-    tbody.innerHTML += `<tr style="background:var(--box-def-bg); font-weight:700; color:var(--latex-blue);"><td colspan="4">TRANSMITANCIA U (W/m²·K)</td><td id="${tableId}_Utot">${fmt(U, 3)}</td><td></td></tr>`;
+    tbody.innerHTML += `<tr style="background:var(--bg-subtle); font-weight:700;"><td colspan="4">R_total (m²·K/W)</td><td id="${tableId}_Rtot">${fmt(totalR, 3)}</td><td></td></tr>`;
+    tbody.innerHTML += `<tr style="background:var(--box-def-bg); font-weight:700; color:var(--latex-blue);"><td colspan="4">Transmitancia U (W/m²·K)</td><td id="${tableId}_Utot">${fmt(U, 3)}</td><td></td></tr>`;
 
     $(type === 'Paredes' ? 'tagWall' : 'tagRoof').textContent = `U = ${fmt(U, 2)} W/m²K`;
     
@@ -2273,7 +2273,7 @@
     }
 
     if (layers.length === 0) {
-      container.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;width:100%;color:var(--text-light);font-style:italic;font-size:12px;padding:24px;">Sin capas configuradas. Haga clic en "+ Agregar Capa".</div>`;
+      container.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;width:100%;color:var(--text-light);font-style:italic;font-size:12px;padding:24px;">Sin capas configuradas. Haga clic en "+ Agregar capa".</div>`;
       if ($(legendId)) $(legendId).innerHTML = '';
       return;
     }
@@ -2281,7 +2281,7 @@
     let html = '';
     layers.forEach((l, idx) => {
       const isPending = l.mat === '_placeholder';
-      const mat = matList[l.mat] || materiales[l.mat] || { name: '-- Seleccionar Material --', k: 1.0, isPlaceholder: true };
+      const mat = matList[l.mat] || materiales[l.mat] || { name: '-- Seleccionar material --', k: 1.0, isPlaceholder: true };
       const thickness = l.e || 0;
       const R = isPending ? 0 : (thickness / 1000) / mat.k;
       const rPercent = (totalR > 0 && !isPending) ? ((R / totalR) * 100).toFixed(1) : '0';
@@ -2460,10 +2460,10 @@
 
     if (title) {
       title.textContent = currentCatalogScope === 'wall' 
-        ? 'Catálogo de Materiales para Paredes (Norma IRAM 11601)'
+        ? 'Catálogo de materiales para paredes (Norma IRAM 11601)'
         : (currentCatalogScope === 'roof' 
-            ? 'Catálogo de Materiales para Techos (Norma IRAM 11601)' 
-            : 'Catálogo General de Materiales (Norma IRAM 11601)');
+            ? 'Catálogo de materiales para techos (Norma IRAM 11601)' 
+            : 'Catálogo general de materiales (Norma IRAM 11601)');
     }
 
     if (scopeContainer) {
@@ -2796,7 +2796,7 @@
       { label: 'Techo', value: 0.024 * cRoof * dgd, hk: cRoof, u: U_roof, color: isDark ? '#f87171' : '#991b1b' },
       { label: 'Ventanas', value: 0.024 * cWin * dgd, hk: cWin, u: U_win, color: isDark ? '#38bdf8' : '#0284c7' },
       { label: 'Puertas', value: 0.024 * cDoor * dgd, hk: cDoor, u: U_door, color: isDark ? '#fbbf24' : '#b45309' },
-      { label: 'Renov. aire', value: 0.024 * cAir * dgd, hk: cAir, u: null, color: isDark ? '#4ade80' : '#166534' }
+      { label: 'Renov. de aire', value: 0.024 * cAir * dgd, hk: cAir, u: null, color: isDark ? '#4ade80' : '#166534' }
     ];
     window.lastSection7Comps = comps;
     const totalLoss = comps.reduce((s,c)=>s+c.value,0) || 1;
@@ -2870,13 +2870,13 @@
 
     const tbody = $('tblTechEval').querySelector('tbody');
     tbody.innerHTML = `
-      <tr><td>Estufa Eléctrica (Resistiva)</td><td>${fmt(enElec, 0)} kWh/año</td><td><b>USD ${fmt(costElec, 0)}</b></td><td>${fmt(co2Elec, 0)} kg</td></tr>
-      <tr><td>Estufa a Gas Natural</td><td>${fmt(m3Gas, 0)} m³/año (${fmt(enGasKwh, 0)} kWh)</td><td><b>USD ${fmt(costGas, 0)}</b></td><td>${fmt(co2Gas, 0)} kg</td></tr>
-      <tr><td>Bomba de Calor Reversible</td><td>${fmt(enHP, 0)} kWh/año</td><td><b>USD ${fmt(costHP, 0)}</b></td><td>${fmt(co2HP, 0)} kg</td></tr>
+      <tr><td>Estufa eléctrica (resistiva)</td><td>${fmt(enElec, 0)} kWh/año</td><td><b>USD ${fmt(costElec, 0)}</b></td><td>${fmt(co2Elec, 0)} kg</td></tr>
+      <tr><td>Estufa a gas natural</td><td>${fmt(m3Gas, 0)} m³/año (${fmt(enGasKwh, 0)} kWh)</td><td><b>USD ${fmt(costGas, 0)}</b></td><td>${fmt(co2Gas, 0)} kg</td></tr>
+      <tr><td>Bomba de calor reversible</td><td>${fmt(enHP, 0)} kWh/año</td><td><b>USD ${fmt(costHP, 0)}</b></td><td>${fmt(co2HP, 0)} kg</td></tr>
     `;
 
-    drawBarChart($('chartEnergy'), ['Estufa Eléc.', 'Estufa Gas', 'Bomba Calor'], [enElec, enGasKwh, enHP], isDark ? '#60a5fa' : '#1e3a8a');
-    drawBarChart($('chartEmissions'), ['Estufa Eléc.', 'Estufa Gas', 'Bomba Calor'], [co2Elec, co2Gas, co2HP], isDark ? '#f87171' : '#991b1b');
+    drawBarChart($('chartEnergy'), ['Estufa eléc.', 'Estufa gas', 'Bomba calor'], [enElec, enGasKwh, enHP], isDark ? '#60a5fa' : '#1e3a8a');
+    drawBarChart($('chartEmissions'), ['Estufa eléc.', 'Estufa gas', 'Bomba calor'], [co2Elec, co2Gas, co2HP], isDark ? '#f87171' : '#991b1b');
   }
 
   window.addEventListener('resize', computeAll);
