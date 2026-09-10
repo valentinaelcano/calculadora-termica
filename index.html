@@ -3767,7 +3767,7 @@
             <div style="background: var(--bg-paper); border: 1.5px solid var(--border-color); border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
               <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">4b. Resistencia y transmitancia de la puerta</div>
               <div style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
-                Estratigrafía: ${st.door.name}<br>
+                ${st.door.name}<br>
                 ${doorLayersVals}
                 $$\\displaystyle R_{\\text{puerta}} = R_{si} + \\sum \\frac{e_i}{\\lambda_i} + R_{se} = 0{,}125 + ${doorLayersSteps} + 0{,}0357 = ${st.R_door.toFixed(4).replace('.', ',')} \\text{ m}^2\\text{K/W}$$
                 $$\\displaystyle U_{\\text{puerta}} = \\frac{1}{R_{\\text{puerta}}} = \\frac{1}{${st.R_door.toFixed(4).replace('.', ',')}} = ${st.U_door.toFixed(3).replace('.', ',')} \\text{ W/m}^2\\text{K}$$
@@ -3821,7 +3821,7 @@
             <div style="background: var(--bg-paper); border: 1.5px solid var(--border-color); border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
               <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">1. Coeficientes de película y resistencias superficiales</div>
               <div style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
-                A partir de los coeficientes de convección interior y exterior (3 cifras significativas):
+                A partir de los coeficientes de convección interior y exterior:
                 $$\\displaystyle R_{si} = \\frac{1}{h_{in}} = \\frac{1}{8} = 0{,}125 \\text{ m}^2\\text{K/W}$$
                 $$\\displaystyle R_{se} = \\frac{1}{h_{ext}} = \\frac{1}{28} = 0{,}0357 \\text{ m}^2\\text{K/W}$$
               </div>
@@ -3830,7 +3830,7 @@
             <div style="background: var(--bg-paper); border: 1.5px solid var(--border-color); border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
               <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">2. Resistencia y transmitancia de la pared</div>
               <div style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
-                Estratigrafía: ${st.wall.name}<br>
+                ${st.wall.name}<br>
                 ${wallLayersVals}
                 $$\\displaystyle R_{\\text{pared}} = R_{si} + \\sum \\frac{e_i}{\\lambda_i} + R_{se} = 0{,}125 + ${wallLayersSteps} + 0{,}0357 = ${st.R_wall.toFixed(4).replace('.', ',')} \\text{ m}^2\\text{K/W}$$
                 $$\\displaystyle U_{\\text{pared}} = \\frac{1}{R_{\\text{pared}}} = \\frac{1}{${st.R_wall.toFixed(4).replace('.', ',')}} = ${st.U_wall.toFixed(3).replace('.', ',')} \\text{ W/m}^2\\text{K}$$
@@ -3840,7 +3840,7 @@
             <div style="background: var(--bg-paper); border: 1.5px solid var(--border-color); border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
               <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">3. Resistencia y transmitancia del techo</div>
               <div style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
-                Estratigrafía: ${st.roof.name}<br>
+                ${st.roof.name}<br>
                 ${roofLayersVals}
                 $$\\displaystyle R_{\\text{techo}} = R_{si} + \\sum \\frac{e_i}{\\lambda_i} + R_{se} = 0{,}125 + ${roofLayersSteps} + 0{,}0357 = ${st.R_roof.toFixed(4).replace('.', ',')} \\text{ m}^2\\text{K/W}$$
                 $$\\displaystyle U_{\\text{techo}} = \\frac{1}{R_{\\text{techo}}} = \\frac{1}{${st.R_roof.toFixed(4).replace('.', ',')}} = ${st.U_roof.toFixed(3).replace('.', ',')} \\text{ W/m}^2\\text{K}$$
@@ -3850,7 +3850,7 @@
             <div style="background: var(--bg-paper); border: 1.5px solid var(--border-color); border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
               <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">4. Resistencia y transmitancia de las ventanas</div>
               <div style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
-                Estratigrafía: ${st.winType.name}<br>
+                ${st.winType.name}<br>
                 ${winLayersVals}
                 $$\\displaystyle R_{\\text{ventana}} = R_{si} + \\sum \\frac{e_i}{\\lambda_i} + R_{se} = 0{,}125 + ${winLayersSteps} + 0{,}0357 = ${st.R_win.toFixed(4).replace('.', ',')} \\text{ m}^2\\text{K/W}$$
                 $$\\displaystyle U_{\\text{ventana}} = \\frac{1}{R_{\\text{ventana}}} = \\frac{1}{${st.R_win.toFixed(4).replace('.', ',')}} = ${st.U_win.toFixed(3).replace('.', ',')} \\text{ W/m}^2\\text{K}$$
