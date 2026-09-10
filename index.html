@@ -567,16 +567,9 @@
   /* Estilos Sección 7 - Distribución Porcentual y Gráficos */
   .section7-charts-row {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 16px;
     width: 100%;
-  }
-
-  @media (min-width: 680px) {
-    .section7-charts-row {
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
   }
 
   .section7-single-chart-card {
@@ -902,7 +895,7 @@
 
   .kpi-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 10px;
   }
 
@@ -2083,12 +2076,12 @@
 
       <details open class="latex-box theorem">
         <summary class="latex-box-title">
-          <span>Teorema 1.2 (Pérdidas globales $H_T$, coeficiente $G$ y demanda de energía)</span>
+          <span>Teorema 1.2 (Pérdidas térmicas por m² y demanda de energía)</span>
           <span class="collapse-icon">▼</span>
         </summary>
         <div class="latex-box-content" style="margin-top:8px;">
-          El coeficiente de pérdidas globales $H_T$ [$\text{W}/\text{K}$] reúne todo el calor que se transfiere a través de la envolvente y las renovaciones de aire. A partir de él, la norma IRAM 11604 define el coeficiente volumétrico $G$ [$\text{W}/(\text{m}^3\cdot\text{K})$], y es posible calcular la energía anual necesaria tanto para calefacción ($(Q_{\text{calef}})$) como para refrigeración ($(Q_{\text{refrig}})$) utilizando los Grados-Día correspondientes ($(DGD)$ y $(EGD)$):
-          $$\displaystyle G = \frac{H_T}{V}, \quad Q_{\text{calef}} = 0.024 \cdot H_T \cdot \text{DGD}, \quad Q_{\text{refrig}} = 0.024 \cdot H_T \cdot \text{EGD}$$
+          Las pérdidas térmicas por unidad de superficie de planta [$\text{W/m}^2$] representan la demanda específica de potencia térmica. A partir de los coeficientes de transmisión y los Grados-Día correspondientes ($(DGD)$ y $(EGD)$), se determina la energía anual necesaria para calefacción ($(Q_{\text{calef}})$) y refrigeración ($(Q_{\text{refrig}})$):
+          $$\displaystyle q_{\text{m}^2} = \frac{\dot{Q}_{\text{total}}}{A_{\text{planta}}}, \quad Q_{\text{calef}} = 0.024 \cdot H_K \cdot \text{DGD}, \quad Q_{\text{refrig}} = 0.024 \cdot H_K \cdot \text{EGD}$$
         </div>
       </details>
 
@@ -2152,11 +2145,6 @@
               <div class="num" id="resPowerKw">–</div>
               <div class="sub">kW (kcal/h)</div>
             </div>
-            <div class="kpi-card">
-              <div class="lbl">Coeficiente global $G$</div>
-              <div class="num" id="resG">–</div>
-              <div class="sub">W/(m³·K)</div>
-            </div>
           </div>
         </div>
       </details>
@@ -2174,23 +2162,17 @@
             <div class="section7-single-chart-card">
               <div class="chart-card-title">Distribución relativa</div>
               <div class="chart-canvas-wrapper">
-                <canvas id="donut" width="240" height="200"></canvas>
+                <canvas id="donut" width="340" height="240"></canvas>
               </div>
             </div>
 
             <div class="section7-single-chart-card">
-              <div class="chart-card-title">Pérdidas directas (W/K)</div>
+              <div class="chart-card-title">Pérdidas por m² (W/m²)</div>
               <div class="chart-canvas-wrapper">
-                <canvas id="lossBarChart" width="340" height="200"></canvas>
+                <canvas id="lossWM2BarChart" width="340" height="240"></canvas>
               </div>
             </div>
 
-          </div>
-
-          <!-- Barra de Distribución Acumulada Proporcional -->
-          <div class="stacked-loss-wrapper">
-            <div class="stacked-loss-title">Distribución acumulada de pérdidas térmicas</div>
-            <div class="stacked-bar-container" id="stackedLossBar"></div>
           </div>
 
           <!-- Fila Inferior: Tabla de Componentes debajo de los gráficos -->
@@ -2202,6 +2184,7 @@
                     <th>Componente</th>
                     <th>$U$ (W/m²K)</th>
                     <th>$H_k$ (W/K)</th>
+                    <th>Pérdida (W/m²)</th>
                     <th>Pérdida relativa (%)</th>
                   </tr>
                 </thead>
@@ -2968,9 +2951,10 @@
   }
 
   function drawDonut(canvas, data){
-    const containerW = canvas.parentElement ? canvas.parentElement.clientWidth - 28 : 320;
-    const w = Math.min(Math.max(containerW, 180), 340);
-    const hh = 190;
+    if (!canvas) return;
+    const containerW = canvas.parentElement ? canvas.parentElement.clientWidth - 10 : 340;
+    const w = Math.min(Math.max(containerW, 260), 420);
+    const hh = 240;
     const dpr = window.devicePixelRatio || 1;
     canvas.width = w * dpr;
     canvas.height = hh * dpr;
@@ -2979,34 +2963,81 @@
 
     const ctx = canvas.getContext('2d');
     ctx.scale(dpr, dpr);
-    ctx.clearRect(0,0,w,hh);
+    ctx.clearRect(0, 0, w, hh);
 
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    const total = data.reduce((s,d)=>s+d.value,0) || 1;
-    const cx=w/2, cy=hh/2, rOuter=Math.min(w,hh)/2-6, rInner=rOuter*0.58;
-    let ang = -Math.PI/2;
+    const textColor = isDark ? '#f8fafc' : '#0f172a';
+    const textMuted = isDark ? '#94a3b8' : '#64748b';
 
-    data.forEach(d=>{
-      const slice = (d.value/total) * Math.PI*2;
+    const total = data.reduce((s, d) => s + d.value, 0) || 1;
+    const cx = w / 2, cy = hh / 2;
+    const rOuter = Math.min(w, hh) / 2 - 14;
+    const rInner = rOuter * 0.56;
+    let ang = -Math.PI / 2;
+
+    // 1. Dibujar porciones suaves (sin líneas divisorias blancas)
+    data.forEach(d => {
+      const slice = (d.value / total) * Math.PI * 2;
+      if (slice <= 0) return;
+
       ctx.beginPath();
-      ctx.moveTo(cx,cy);
-      ctx.arc(cx,cy,rOuter,ang,ang+slice);
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, rOuter, ang, ang + slice);
       ctx.closePath();
       ctx.fillStyle = d.color;
       ctx.fill();
+
       ang += slice;
     });
 
+    // 2. Recortar centro (dona)
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(cx,cy,rInner,0,Math.PI*2);
+    ctx.arc(cx, cy, rInner, 0, Math.PI * 2);
     ctx.fill();
 
+    // 3. Texto central estilizado
     ctx.globalCompositeOperation = 'source-over';
-    ctx.fillStyle = isDark ? '#f8fafc' : '#020617';
-    ctx.font = '700 12px "JetBrains Mono", monospace';
-    ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText(fmt(total,0) + ' kWh', cx, cy);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    
+    ctx.fillStyle = textMuted;
+    ctx.font = '600 10px "JetBrains Mono", monospace';
+    ctx.fillText('TOTAL', cx, cy - 8);
+
+    ctx.fillStyle = textColor;
+    ctx.font = '700 14px "JetBrains Mono", monospace';
+    ctx.fillText(fmt(total, 0) + ' kWh', cx, cy + 8);
+
+    // 4. Porcentajes directamente sobre cada porción (sin líneas blancas)
+    let currentAng = -Math.PI / 2;
+    data.forEach(d => {
+      const slice = (d.value / total) * Math.PI * 2;
+      const pct = (d.value / total) * 100;
+      if (pct <= 0) return;
+
+      const midAng = currentAng + slice / 2;
+      const rMid = (pct >= 3) ? (rOuter + rInner) / 2 : rOuter + 14;
+      const tx = cx + Math.cos(midAng) * rMid;
+      const ty = cy + Math.sin(midAng) * rMid;
+
+      ctx.save();
+      if (pct >= 3) {
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '700 11.5px sans-serif';
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+        ctx.shadowBlur = 4;
+      } else {
+        ctx.fillStyle = textColor;
+        ctx.font = '700 10.5px sans-serif';
+      }
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(fmt(pct, 1) + '%', tx, ty);
+      ctx.restore();
+
+      currentAng += slice;
+    });
   }
 
   window.currentSection7Chart = 'donut';
@@ -3031,10 +3062,10 @@
     }
   };
 
-  function drawLossBarChart(canvas, data) {
+  function drawLossBarChart(canvas, data, key = 'hk', formatDecimals = 1) {
     if (!canvas) return;
     const containerW = canvas.parentElement ? canvas.parentElement.clientWidth - 10 : 340;
-    const w = Math.min(Math.max(containerW, 250), 400);
+    const w = Math.min(Math.max(containerW, 220), 400);
     const hh = 210;
     const dpr = window.devicePixelRatio || 1;
     canvas.width = w * dpr;
@@ -3048,10 +3079,10 @@
 
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     const textColor = isDark ? '#cbd5e1' : '#334155';
-    const maxVal = Math.max(...data.map(d => d.hk), 1);
+    const maxVal = Math.max(...data.map(d => d[key] || 0), 0.1);
     
     const marginL = 98;
-    const marginR = 40;
+    const marginR = 45;
     const marginT = 12;
     const marginB = 15;
     const chartW = w - marginL - marginR;
@@ -3061,7 +3092,7 @@
 
     data.forEach((d, i) => {
       const y = marginT + gap + i * (barHeight + gap);
-      const val = d.hk;
+      const val = d[key] || 0;
       const barW = (val / maxVal) * chartW;
 
       ctx.fillStyle = textColor;
@@ -3086,7 +3117,7 @@
       ctx.fillStyle = textColor;
       ctx.font = 'bold 11px sans-serif';
       ctx.textAlign = 'left';
-      ctx.fillText(fmt(d.hk, 1), marginL + chartW + 6, y + barHeight / 2);
+      ctx.fillText(fmt(val, formatDecimals), marginL + chartW + 6, y + barHeight / 2);
     });
   }
 
@@ -3245,20 +3276,17 @@
 
     const annualHeatKwh = 0.024 * cTotal * dgd;
     const annualCoolKwh = 0.024 * cTotal * egd;
-    const G = cTotal / (volume || 1);
-
     $('resHeatKwh').textContent = fmt(annualHeatKwh, 0);
     $('resCoolKwh').textContent = fmt(annualCoolKwh, 0);
     $('resPowerKw').textContent = `${fmt(powerW/1000, 2)} kW (${fmt(powerW*0.86, 0)})`;
-    $('resG').textContent = fmt(G, 2);
 
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     const comps = [
-      { label: 'Paredes', value: 0.024 * cWall * dgd, hk: cWall, u: U_wall, color: isDark ? '#60a5fa' : '#1e3a8a' },
-      { label: 'Techo', value: 0.024 * cRoof * dgd, hk: cRoof, u: U_roof, color: isDark ? '#f87171' : '#991b1b' },
-      { label: 'Ventanas', value: 0.024 * cWin * dgd, hk: cWin, u: U_win, color: isDark ? '#38bdf8' : '#0284c7' },
-      { label: 'Puertas', value: 0.024 * cDoor * dgd, hk: cDoor, u: U_door, color: isDark ? '#fbbf24' : '#b45309' },
-      { label: 'Renov. de aire', value: 0.024 * cAir * dgd, hk: cAir, u: null, color: isDark ? '#4ade80' : '#166534' }
+      { label: 'Paredes', value: 0.024 * cWall * dgd, hk: cWall, wm2: floorArea > 0 ? (cWall * dT / floorArea) : 0, u: U_wall, color: isDark ? '#60a5fa' : '#1e3a8a' },
+      { label: 'Techo', value: 0.024 * cRoof * dgd, hk: cRoof, wm2: floorArea > 0 ? (cRoof * dT / floorArea) : 0, u: U_roof, color: isDark ? '#f87171' : '#991b1b' },
+      { label: 'Ventanas', value: 0.024 * cWin * dgd, hk: cWin, wm2: floorArea > 0 ? (cWin * dT / floorArea) : 0, u: U_win, color: isDark ? '#38bdf8' : '#0284c7' },
+      { label: 'Puertas', value: 0.024 * cDoor * dgd, hk: cDoor, wm2: floorArea > 0 ? (cDoor * dT / floorArea) : 0, u: U_door, color: isDark ? '#fbbf24' : '#b45309' },
+      { label: 'Renov. de aire', value: 0.024 * cAir * dgd, hk: cAir, wm2: floorArea > 0 ? (cAir * dT / floorArea) : 0, u: null, color: isDark ? '#4ade80' : '#166534' }
     ];
     window.lastSection7Comps = comps;
     const totalLoss = comps.reduce((s,c)=>s+c.value,0) || 1;
@@ -3274,6 +3302,7 @@
           </td>
           <td>${c.u !== null ? fmt(c.u, 2) : '—'}</td>
           <td>${fmt(c.hk, 1)}</td>
+          <td><b>${fmt(c.wm2, 1)}</b></td>
           <td>
             <div class="table-pct-cell">
               <span style="min-width:38px;font-weight:700;">${fmt(pct, 1)}%</span>
@@ -3286,22 +3315,7 @@
     });
     
     drawDonut($('donut'), comps);
-    drawLossBarChart($('lossBarChart'), comps);
-
-    const stackedBar = $('stackedLossBar');
-    if (stackedBar) {
-      let barHtml = '';
-      comps.forEach(c => {
-        const pct = 100 * c.value / totalLoss;
-        if (pct > 0) {
-          const valLabel = fmt(pct, 0) + '%';
-          barHtml += `<div class="stacked-bar-segment" style="width:${pct.toFixed(1)}%; min-width:${pct > 0.5 ? '24px' : '0'}; background:${c.color};" title="${c.label}: ${fmt(pct, 1)}%">
-            ${pct >= 0.5 ? `<span class="stacked-bar-label">${valLabel}</span>` : ''}
-          </div>`;
-        }
-      });
-      stackedBar.innerHTML = barHtml;
-    }
+    drawLossBarChart($('lossWM2BarChart'), comps, 'wm2', 1);
 
     const pElec = parseFloat($('pElec').value);
     const pGas = parseFloat($('pGas').value);
