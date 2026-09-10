@@ -221,7 +221,7 @@
   /* Navigation Tabs */
   .academic-tabs {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 8px;
     border-bottom: 3px solid var(--border-main);
     margin-bottom: 24px;
@@ -262,10 +262,224 @@
 
   .tab-label-short { display: none; }
 
-  @media (max-width: 540px) {
-    .tab-btn { padding: 9px 4px; font-size: 11.5px; }
+  @media (max-width: 640px) {
+    .tab-btn { padding: 9px 4px; font-size: 11px; }
     .tab-label-full { display: none; }
     .tab-label-short { display: inline; }
+  }
+
+  /* Estilos Modo Ejercicio */
+  .ex-level-badge {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .ex-level-badge.basic { background: #e0f2fe; color: #0369a1; border: 1px solid #38bdf8; }
+  .ex-level-badge.inter { background: #fef3c7; color: #b45309; border: 1px solid #fbbf24; }
+  .ex-level-badge.advanced { background: #fce7f3; color: #9d174d; border: 1px solid #f472b6; }
+
+  [data-theme="dark"] .ex-level-badge.basic { background: #0c2d48; color: #7dd3fc; border-color: #0284c7; }
+  [data-theme="dark"] .ex-level-badge.inter { background: #451a03; color: #fde047; border-color: #d97706; }
+  [data-theme="dark"] .ex-level-badge.advanced { background: #500724; color: #fbcfe8; border-color: #db2777; }
+
+  .ex-nav-bar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  @media (max-width: 640px) {
+    .ex-nav-bar { grid-template-columns: 1fr; }
+  }
+  .ex-nav-btn {
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-light);
+    border-radius: 6px;
+    padding: 10px 12px;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text-main);
+    transition: all 0.15s ease;
+    box-shadow: var(--shadow-card);
+  }
+  .ex-nav-btn:hover {
+    border-color: var(--latex-blue);
+    color: var(--latex-blue);
+    background: var(--bg-subtle);
+  }
+  .ex-nav-btn.active {
+    border-color: var(--latex-blue);
+    border-width: 2px;
+    background: var(--box-def-bg);
+    color: var(--latex-blue);
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+  }
+  .ex-nav-btn .ex-sub {
+    font-family: var(--font-sans);
+    font-size: 10.5px;
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+  .ex-nav-btn.active .ex-sub {
+    color: var(--latex-blue);
+    font-weight: 600;
+  }
+
+  .ex-step-box {
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-light);
+    border-radius: 6px;
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .ex-step-header {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--latex-blue);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .ex-step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: var(--latex-blue);
+    color: #ffffff;
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .ex-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+
+  .ex-input-field {
+    max-width: 220px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .ex-btn-check {
+    background: var(--latex-blue);
+    color: #ffffff;
+    border: 1.5px solid var(--border-main);
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 12.5px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .ex-btn-check:hover { opacity: 0.9; }
+
+  .ex-btn-new {
+    background: var(--bg-card);
+    color: var(--text-main);
+    border: 1.5px solid var(--border-light);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+  }
+  .ex-btn-new:hover {
+    background: var(--bg-subtle);
+    border-color: var(--latex-blue);
+    color: var(--latex-blue);
+  }
+
+  .ex-feedback-box {
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.6;
+    display: none;
+  }
+  .ex-feedback-box.correct {
+    background: var(--box-thm-bg);
+    border: 1.5px solid var(--box-thm-border);
+    color: var(--text-main);
+  }
+  .ex-feedback-box.incorrect {
+    background: var(--box-rem-bg);
+    border: 1.5px solid var(--box-rem-border);
+    color: var(--text-main);
+  }
+  .ex-feedback-box.estimate-ok {
+    background: var(--box-def-bg);
+    border: 1.5px solid var(--box-def-border);
+    color: var(--text-main);
+  }
+
+  .ex-hint-tag {
+    font-weight: 700;
+    color: var(--latex-amber);
+    display: block;
+    margin-top: 6px;
+  }
+
+  .ex-estimate-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .ex-estimate-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-subtle);
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1.5px solid var(--border-light);
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .ex-estimate-option:hover {
+    border-color: var(--latex-blue);
+  }
+  .ex-estimate-option input {
+    width: auto;
+    accent-color: var(--latex-blue);
   }
 
   .tab-content { display: none; }
@@ -275,7 +489,8 @@
     gap: 20px;
   }
 
-  #tabEnvolvente.tab-content.active {
+  #tabEnvolvente.tab-content.active,
+  #tabEjercicios.tab-content.active {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -289,7 +504,8 @@
       grid-template-columns: 1fr 1fr;
       gap: 28px;
     }
-    #tabEnvolvente.tab-content.active {
+    #tabEnvolvente.tab-content.active,
+    #tabEjercicios.tab-content.active {
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -1511,6 +1727,10 @@
       <span class="tab-label-full">Sección II: Eficiencia, tarifas y emisiones</span>
       <span class="tab-label-short">§ II: Tarifas</span>
     </button>
+    <button class="tab-btn" onclick="switchTab(event, 'tabEjercicios')">
+      <span class="tab-label-full">Sección III: Modo ejercicio</span>
+      <span class="tab-label-short">§ III: Ejercicios</span>
+    </button>
   </nav>
 
   <!-- SECCIÓN I: ENVOLVENTE Y BALANCE TÉRMICO -->
@@ -1912,6 +2132,32 @@
 
   </div>
 
+  <!-- SECCIÓN III: MODO EJERCICIO -->
+  <div id="tabEjercicios" class="tab-content">
+    <div class="col">
+      
+      <!-- Encabezado de Modo Ejercicio -->
+      <div style="background: var(--bg-subtle); border: 1px solid var(--border-color); border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="ex-level-badge" style="background: var(--accent); color: #fff;">Práctica de Laboratorio</span>
+            <h3 style="margin: 0; font-size: 16px; color: var(--text-main); font-weight: 700;">Zona de Ejercicios y Casos Prácticos</h3>
+          </div>
+          <p style="margin: 6px 0 0 0; font-size: 12.5px; color: var(--text-muted); line-height: 1.5;">
+            Resolución didáctica de problemas numéricos: Transmitancia $U$, resistencias por capa ($R_k$) y balance de pérdidas térmicas por transmisión en viviendas.
+          </p>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="ExerciseEngine.generateNew()" style="font-weight: 600; padding: 8px 14px; white-space: nowrap;">
+          Generar nuevo ejercicio
+        </button>
+      </div>
+
+      <!-- Contenedor dinámico del Ejercicio -->
+      <div id="exerciseContainer"></div>
+
+    </div>
+  </div>
+
   <!-- Academic Footer -->
   <footer class="academic-footer">
     <div class="latex-panel">
@@ -2079,7 +2325,11 @@
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     $(tabId).classList.add('active');
     evt.currentTarget.classList.add('active');
-    setTimeout(computeAll, 50);
+    if (tabId === 'tabEjercicios') {
+      if (window.ExerciseEngine) window.ExerciseEngine.init();
+    } else {
+      setTimeout(computeAll, 50);
+    }
   }
 
   const materialDetails = {
@@ -2882,6 +3132,478 @@
   }
 
   window.addEventListener('resize', computeAll);
+
+  // MODO EJERCICIO: Motor de generación y evaluación didáctica universitaria
+  const ExerciseEngine = {
+    state: null,
+
+    init: function() {
+      if (!this.state) {
+        this.generate();
+      } else {
+        this.render();
+      }
+    },
+
+    generateNew: function() {
+      this.generate();
+    },
+
+    generate: function() {
+      const lengths = [6, 8, 10, 12];
+      const widths  = [5, 6, 8, 10];
+      const heights = [2.6, 2.8, 3.0, 3.2];
+
+      const L = lengths[Math.floor(Math.random() * lengths.length)];
+      const W = widths[Math.floor(Math.random() * widths.length)];
+      const H = heights[Math.floor(Math.random() * heights.length)];
+
+      const wallPresets = [
+        {
+          name: "Pared de ladrillo hueco cerámico con revoques",
+          desc: "revoque exterior de 15 mm (\\(\\lambda = 0{,}93\\text{ W/mK}\\)), ladrillo hueco cerámico de 180 mm (\\(\\lambda = 0{,}45\\text{ W/mK}\\)) y revoque interior de 15 mm (\\(\\lambda = 0{,}70\\text{ W/mK}\\))",
+          layers: [
+            { name: "Revoque grueso exterior", eMm: 15, lambda: 0.93 },
+            { name: "Ladrillo hueco cerámico", eMm: 180, lambda: 0.45 },
+            { name: "Revoque fino interior", eMm: 15, lambda: 0.70 }
+          ]
+        },
+        {
+          name: "Pared de mampostería de ladrillo común macizo",
+          desc: "revoque exterior de 20 mm (\\(\\lambda = 0{,}93\\text{ W/mK}\\)), mampostería de ladrillo común macizo de 300 mm (\\(\\lambda = 0{,}81\\text{ W/mK}\\)) y revoque interior de 15 mm (\\(\\lambda = 0{,}70\\text{ W/mK}\\))",
+          layers: [
+            { name: "Revoque grueso exterior", eMm: 20, lambda: 0.93 },
+            { name: "Ladrillo común macizo", eMm: 300, lambda: 0.81 },
+            { name: "Revoque fino interior", eMm: 15, lambda: 0.70 }
+          ]
+        },
+        {
+          name: "Pared de hormigón celular HCCA",
+          desc: "revoque fino exterior de 10 mm (\\(\\lambda = 0{,}85\\text{ W/mK}\\)), bloques de hormigón celular de 150 mm (\\(\\lambda = 0{,}13\\text{ W/mK}\\)) y enlucido de yeso interior de 10 mm (\\(\\lambda = 0{,}22\\text{ W/mK}\\))",
+          layers: [
+            { name: "Revoque fino exterior", eMm: 10, lambda: 0.85 },
+            { name: "Hormigón celular HCCA", eMm: 150, lambda: 0.13 },
+            { name: "Enlucido de yeso interior", eMm: 10, lambda: 0.22 }
+          ]
+        },
+        {
+          name: "Muro doble aislante con poliestireno expandido",
+          desc: "tabique exterior de ladrillo común de 120 mm (\\(\\lambda = 0{,}81\\text{ W/mK}\\)), capa aislante de poliestireno expandido de 50 mm (\\(\\lambda = 0{,}037\\text{ W/mK}\\)) y tabique interior de ladrillo común de 120 mm (\\(\\lambda = 0{,}81\\text{ W/mK}\\))",
+          layers: [
+            { name: "Ladrillo común exterior", eMm: 120, lambda: 0.81 },
+            { name: "Poliestireno expandido (EPS)", eMm: 50, lambda: 0.037 },
+            { name: "Ladrillo común interior", eMm: 120, lambda: 0.81 }
+          ]
+        }
+      ];
+
+      const roofPresets = [
+        {
+          name: "Techo de losa de hormigón armado aislada con EPS",
+          desc: "losa de hormigón armado de 120 mm (\\(\\lambda = 1{,}63\\text{ W/mK}\\)), aislación térmica de poliestireno expandido de 50 mm (\\(\\lambda = 0{,}037\\text{ W/mK}\\)) y contrapiso alivianado de 80 mm (\\(\\lambda = 0{,}93\\text{ W/mK}\\))",
+          layers: [
+            { name: "Losa de hormigón armado", eMm: 120, lambda: 1.63 },
+            { name: "Aislación de poliestireno expandido (EPS)", eMm: 50, lambda: 0.037 },
+            { name: "Contrapiso alivianado", eMm: 80, lambda: 0.93 }
+          ]
+        },
+        {
+          name: "Techo liviano de chapa con lana de vidrio y yeso",
+          desc: "cielorraso de placas de yeso de 12,5 mm (\\(\\lambda = 0{,}22\\text{ W/mK}\\)), manta de lana de vidrio de 80 mm (\\(\\lambda = 0{,}038\\text{ W/mK}\\)) y cubierta exterior de chapa de acero de 1 mm (\\(\\lambda = 50{,}0\\text{ W/mK}\\))",
+          layers: [
+            { name: "Cielorraso de placa de yeso", eMm: 12.5, lambda: 0.22 },
+            { name: "Manta de lana de vidrio", eMm: 80, lambda: 0.038 },
+            { name: "Chapa de acero exterior", eMm: 1, lambda: 50.0 }
+          ]
+        },
+        {
+          name: "Techo de losa de viguetas con poliuretano",
+          desc: "losa de viguetas con bloques cerámicos de 160 mm (\\(\\lambda = 0{,}45\\text{ W/mK}\\)), revoque de yeso inferior de 15 mm (\\(\\lambda = 0{,}22\\text{ W/mK}\\)) y capa superior de poliuretano extruido de 40 mm (\\(\\lambda = 0{,}026\\text{ W/mK}\\))",
+          layers: [
+            { name: "Revoque inferior de yeso", eMm: 15, lambda: 0.22 },
+            { name: "Losa de viguetas y bloques cerámicos", eMm: 160, lambda: 0.45 },
+            { name: "Aislación de poliuretano extruido (PUR)", eMm: 40, lambda: 0.026 }
+          ]
+        }
+      ];
+
+      const winCounts = [3, 4, 5, 6];
+      const winSizes = [
+        { w: 1.2, h: 1.0, label: "1,20 m por 1,00 m" },
+        { w: 1.5, h: 1.2, label: "1,50 m por 1,20 m" },
+        { w: 2.0, h: 1.5, label: "2,00 m por 1,50 m" }
+      ];
+
+      const winTypes = [
+        {
+          name: "Vidrio Simple",
+          desc: "un panel de vidrio de 4 mm (\\(\\lambda = 1{,}00\\text{ W/mK}\\))",
+          layers: [ { name: "Panel de vidrio", eMm: 4, lambda: 1.00 } ]
+        },
+        {
+          name: "Doble Vidriado Hermético (DVH)",
+          desc: "dos vidrios de 4 mm (\\(\\lambda = 1{,}00\\text{ W/mK}\\)) separados por una cámara de aire de 12 mm con conductividad equivalente (\\(\\lambda = 0{,}080\\text{ W/mK}\\))",
+          layers: [
+            { name: "Vidrio exterior", eMm: 4, lambda: 1.00 },
+            { name: "Cámara de aire", eMm: 12, lambda: 0.080 },
+            { name: "Vidrio interior", eMm: 4, lambda: 1.00 }
+          ]
+        }
+      ];
+
+      const doorPresets = [
+        {
+          name: "Puerta exterior de madera maciza",
+          desc: "una puerta exterior de madera maciza de 0,90 m por 2,00 m con espesor de 45 mm (\\(\\lambda = 0{,}13\\text{ W/mK}\\))",
+          w: 0.9, h: 2.0,
+          layers: [ { name: "Tablero de madera maciza", eMm: 45, lambda: 0.13 } ]
+        },
+        {
+          name: "Puerta exterior metálica inyectada con PUR",
+          desc: "una puerta exterior metálica de 0,80 m por 2,00 m compuesta por chapa de acero exterior de 1 mm (\\(\\lambda = 50{,}0\\text{ W/mK}\\)), núcleo aislante de poliuretano de 35 mm (\\(\\lambda = 0{,}026\\text{ W/mK}\\)) y chapa interior de 1 mm (\\(\\lambda = 50{,}0\\text{ W/mK}\\))",
+          w: 0.8, h: 2.0,
+          layers: [
+            { name: "Chapa exterior de acero", eMm: 1, lambda: 50.0 },
+            { name: "Núcleo de poliuretano (PUR)", eMm: 35, lambda: 0.026 },
+            { name: "Chapa interior de acero", eMm: 1, lambda: 50.0 }
+          ]
+        }
+      ];
+
+      const wall = wallPresets[Math.floor(Math.random() * wallPresets.length)];
+      const roof = roofPresets[Math.floor(Math.random() * roofPresets.length)];
+      const numWin = winCounts[Math.floor(Math.random() * winCounts.length)];
+      const winSize = winSizes[Math.floor(Math.random() * winSizes.length)];
+      const winType = winTypes[Math.floor(Math.random() * winTypes.length)];
+
+      const hasDoor = Math.random() < 0.5;
+      let door = null;
+      if (hasDoor) {
+        door = doorPresets[Math.floor(Math.random() * doorPresets.length)];
+      }
+
+      const tInC = [18, 20, 21, 22][Math.floor(Math.random() * 4)];
+      const tOutC = [-4, -2, 0, 3, 5][Math.floor(Math.random() * 5)];
+      const tInK = tInC + 273;
+      const tOutK = tOutC + 273;
+      const deltaT = tInK - tOutK;
+
+      const h_in = 8;
+      const h_ext = 28;
+      const R_si = 1 / h_in; // 0.125
+      const R_se = 1 / h_ext; // 0.035714...
+
+      let R_layers_wall = 0;
+      wall.layers.forEach(l => R_layers_wall += (l.eMm / 1000) / l.lambda);
+      const R_wall = R_si + R_layers_wall + R_se;
+      const U_wall = 1 / R_wall;
+
+      let R_layers_roof = 0;
+      roof.layers.forEach(l => R_layers_roof += (l.eMm / 1000) / l.lambda);
+      const R_roof = R_si + R_layers_roof + R_se;
+      const U_roof = 1 / R_roof;
+
+      let R_layers_win = 0;
+      winType.layers.forEach(l => R_layers_win += (l.eMm / 1000) / l.lambda);
+      const R_win = R_si + R_layers_win + R_se;
+      const U_win = 1 / R_win;
+
+      let R_door = 0, U_door = 0, doorArea = 0, qDoor = 0;
+      if (hasDoor) {
+        doorArea = door.w * door.h;
+        let R_layers_door = 0;
+        door.layers.forEach(l => R_layers_door += (l.eMm / 1000) / l.lambda);
+        R_door = R_si + R_layers_door + R_se;
+        U_door = 1 / R_door;
+        qDoor = U_door * doorArea * deltaT;
+      }
+
+      const winSingleArea = winSize.w * winSize.h;
+      const winTotalArea = numWin * winSingleArea;
+      const roofArea = L * W;
+      const grossWallArea = 2 * (L + W) * H;
+      const netWallArea = Math.max(0, grossWallArea - winTotalArea - doorArea);
+
+      const qWall = U_wall * netWallArea * deltaT;
+      const qRoof = U_roof * roofArea * deltaT;
+      const qWin = U_win * winTotalArea * deltaT;
+      const qTotalW = qWall + qRoof + qWin + qDoor;
+      const qTotalKw = qTotalW / 1000;
+
+      this.state = {
+        title: "Pérdidas Térmicas por Transmisión",
+        badge: "Práctica de Balance",
+        L, W, H,
+        wall, roof, winType,
+        hasDoor, door, doorArea, R_door, U_door, qDoor,
+        h_in, h_ext,
+        R_si, R_se,
+        R_layers_wall, R_wall, U_wall,
+        R_layers_roof, R_roof, U_roof,
+        R_layers_win, R_win, U_win,
+        numWin, winSize, winSingleArea, winTotalArea,
+        tInC, tOutC, tInK, tOutK, deltaT,
+        roofArea, grossWallArea, netWallArea,
+        qWall, qRoof, qWin, qTotalW, qTotalKw,
+        userAnswer: "",
+        checked: false,
+        isCorrect: false,
+        showSolution: false,
+        errorPct: null,
+        hint: ""
+      };
+
+      this.render();
+    },
+
+    checkAnswer: function() {
+      const st = this.state;
+      const rawVal = parseFloat(st.userAnswer.replace(",", "."));
+      if (isNaN(rawVal)) return;
+
+      let valInW = (st.qTotalW > 100 && rawVal < 100) ? rawVal * 1000 : rawVal;
+      const errPct = (Math.abs(valInW - st.qTotalW) / st.qTotalW) * 100;
+      
+      st.errorPct = errPct;
+      st.checked = true;
+      st.isCorrect = errPct <= 5.0;
+      if (!st.isCorrect) {
+        st.hint = "Revisá las unidades (W vs kW) o el cálculo de las superficies y transmitancias.";
+      }
+      this.render();
+    },
+
+    toggleSolution: function() {
+      this.state.showSolution = !this.state.showSolution;
+      this.render();
+    },
+
+    render: function() {
+      const container = document.getElementById("exerciseContainer");
+      if (!container || !this.state) return;
+      const st = this.state;
+
+      let answerBoxHtml = `
+        <div style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--border-color);">
+          <div style="font-size: 13px; font-weight: 600; color: var(--text-main); margin-bottom: 8px;">
+            Cálculo numérico preciso
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">
+            Ingrese el valor calculado para \\(\\dot{Q}_{\\text{total}}\\). Puede expresarlo en vatios (W) o kilovatios (kW):
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <input type="text" id="exUserAnswerInput" value="${st.userAnswer}" placeholder="Ej: 3450 o 3.45" style="padding: 7px 12px; font-size: 13px; border-radius: 4px; border: 1.5px solid var(--border-color); background: var(--bg-paper); color: var(--text-main); width: 180px;" oninput="ExerciseEngine.state.userAnswer = this.value">
+            <button class="btn btn-primary btn-sm" onclick="ExerciseEngine.checkAnswer()" style="padding: 7px 14px; font-size: 12.5px;">Verificar Respuesta</button>
+            <button class="btn btn-secondary btn-sm" onclick="ExerciseEngine.toggleSolution()" style="padding: 7px 14px; font-size: 12.5px;">
+              ${st.showSolution ? "Ocultar Solución" : "Ver Solución Detallada"}
+            </button>
+          </div>
+      `;
+
+      if (st.checked) {
+        if (st.isCorrect) {
+          answerBoxHtml += `
+            <div style="margin-top: 10px; padding: 10px 14px; border-radius: 6px; background: rgba(22, 163, 74, 0.1); border: 1px solid #16a34a; color: #15803d; font-size: 12.5px; font-weight: 600;">
+              Respuesta correcta (tolerancia menor al 5%). \\(\\dot{Q}_{\\text{total}} = ${st.qTotalW.toFixed(1).replace('.', ',')}\\text{ W} = ${st.qTotalKw.toFixed(3).replace('.', ',')}\\text{ kW}\\).
+            </div>
+          `;
+        } else {
+          answerBoxHtml += `
+            <div style="margin-top: 10px; padding: 10px 14px; border-radius: 6px; background: rgba(220, 38, 38, 0.1); border: 1px solid #dc2626; color: #b91c1c; font-size: 12.5px;">
+              <div style="font-weight: 700;">Respuesta fuera de tolerancia (${st.errorPct ? st.errorPct.toFixed(1).replace('.', ',') : ""}% de error).</div>
+              <div style="margin-top: 4px; font-size: 12px;">${st.hint}</div>
+            </div>
+          `;
+        }
+      }
+      answerBoxHtml += `</div>`;
+
+      let solutionHtml = "";
+      if (st.showSolution) {
+        let wallLayersSteps = st.wall.layers.map(l => 
+          `\\frac{${(l.eMm/1000).toFixed(3)}}{${l.lambda.toString().replace('.', ',')}}`
+        ).join(" + ");
+
+        let wallLayersVals = st.wall.layers.map(l => 
+          `\\(\\frac{${l.eMm.toString().replace('.', ',')}\\text{ mm}}{1000 \\cdot ${l.lambda.toString().replace('.', ',')}\\text{ W/mK}} = ${((l.eMm/1000)/l.lambda).toFixed(4).replace('.', ',')}\\text{ m}^2\\text{K/W}\\)`
+        ).join("<br>");
+
+        let roofLayersSteps = st.roof.layers.map(l => 
+          `\\frac{${(l.eMm/1000).toFixed(3)}}{${l.lambda.toString().replace('.', ',')}}`
+        ).join(" + ");
+
+        let roofLayersVals = st.roof.layers.map(l => 
+          `\\(\\frac{${l.eMm.toString().replace('.', ',')}\\text{ mm}}{1000 \\cdot ${l.lambda.toString().replace('.', ',')}\\text{ W/mK}} = ${((l.eMm/1000)/l.lambda).toFixed(4).replace('.', ',')}\\text{ m}^2\\text{K/W}\\)`
+        ).join("<br>");
+
+        let winLayersSteps = st.winType.layers.map(l => 
+          `\\frac{${(l.eMm/1000).toFixed(3)}}{${l.lambda.toString().replace('.', ',')}}`
+        ).join(" + ");
+
+        let winLayersVals = st.winType.layers.map(l => 
+          `\\(\\frac{${l.eMm.toString().replace('.', ',')}\\text{ mm}}{1000 \\cdot ${l.lambda.toString().replace('.', ',')}\\text{ W/mK}} = ${((l.eMm/1000)/l.lambda).toFixed(4).replace('.', ',')}\\text{ m}^2\\text{K/W}\\)`
+        ).join("<br>");
+
+        let doorSectionHtml = "";
+        if (st.hasDoor) {
+          let doorLayersSteps = st.door.layers.map(l => 
+            `\\frac{${(l.eMm/1000).toFixed(3)}}{${l.lambda.toString().replace('.', ',')}}`
+          ).join(" + ");
+
+          let doorLayersVals = st.door.layers.map(l => 
+            `\\(\\frac{${l.eMm.toString().replace('.', ',')}\\text{ mm}}{1000 \\cdot ${l.lambda.toString().replace('.', ',')}\\text{ W/mK}} = ${((l.eMm/1000)/l.lambda).toFixed(4).replace('.', ',')}\\text{ m}^2\\text{K/W}\\)`
+          ).join("<br>");
+
+          doorSectionHtml = `
+            <div style="background: var(--bg-paper); border: 1.5px solid var(--border-color); border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
+              <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">4b. Resistencia y transmitancia de la puerta</div>
+              <div style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
+                Estratigrafía: ${st.door.name}<br>
+                ${doorLayersVals}
+                $$\\displaystyle R_{\\text{puerta}} = R_{si} + \\sum \\frac{e_i}{\\lambda_i} + R_{se} = 0{,}125 + ${doorLayersSteps} + 0{,}0357 = ${st.R_door.toFixed(4).replace('.', ',')} \\text{ m}^2\\text{K/W}$$
+                $$\\displaystyle U_{\\text{puerta}} = \\frac{1}{R_{\\text{puerta}}} = \\frac{1}{${st.R_door.toFixed(4).replace('.', ',')}} = ${st.U_door.toFixed(3).replace('.', ',')} \\text{ W/m}^2\\text{K}$$
+              </div>
+            </div>
+          `;
+        }
+
+        let step5SurfacesMath = `$$\\displaystyle A_{\\text{ventanas}} = ${st.numWin} \\cdot (${st.winSize.w.toFixed(2).replace('.', ',')} \\cdot ${st.winSize.h.toFixed(2).replace('.', ',')}) = ${st.winTotalArea.toFixed(2).replace('.', ',')} \\text{ m}^2$$
+`;
+
+        if (st.hasDoor) {
+          step5SurfacesMath += `$$\\displaystyle A_{\\text{puerta}} = ${st.door.w.toFixed(2).replace('.', ',')} \\cdot ${st.door.h.toFixed(2).replace('.', ',')} = ${st.doorArea.toFixed(2).replace('.', ',')} \\text{ m}^2$$
+`;
+        }
+
+        step5SurfacesMath += `$$\\displaystyle A_{\\text{techo}} = L \\cdot W = ${st.L} \\cdot ${st.W} = ${st.roofArea.toFixed(2).replace('.', ',')} \\text{ m}^2$$
+`;
+        step5SurfacesMath += `$$\\displaystyle A_{\\text{pared}} = 2 \\cdot (L + W) \\cdot H = 2 \\cdot (${st.L} + ${st.W}) \\cdot ${st.H} = ${st.grossWallArea.toFixed(2).replace('.', ',')} \\text{ m}^2$$
+`;
+
+        if (st.hasDoor) {
+          step5SurfacesMath += `$$\\displaystyle A_{\\text{útil}} = A_{\\text{pared}} - A_{\\text{ventanas}} - A_{\\text{puerta}} = ${st.grossWallArea.toFixed(2).replace('.', ',')} - ${st.winTotalArea.toFixed(2).replace('.', ',')} - ${st.doorArea.toFixed(2).replace('.', ',')} = ${st.netWallArea.toFixed(2).replace('.', ',')} \\text{ m}^2$$`;
+        } else {
+          step5SurfacesMath += `$$\\displaystyle A_{\\text{útil}} = A_{\\text{pared}} - A_{\\text{ventanas}} = ${st.grossWallArea.toFixed(2).replace('.', ',')} - ${st.winTotalArea.toFixed(2).replace('.', ',')} = ${st.netWallArea.toFixed(2).replace('.', ',')} \\text{ m}^2$$`;
+        }
+
+        let qElementsMath = `
+          $$\\displaystyle \\dot{Q}_{\\text{pared}} = U_{\\text{pared}} \\cdot A_{\\text{útil}} \\cdot \\Delta T = ${st.U_wall.toFixed(3).replace('.', ',')} \\cdot ${st.netWallArea.toFixed(2).replace('.', ',')} \\cdot ${st.deltaT} = ${st.qWall.toFixed(1).replace('.', ',')} \\text{ W}$$
+          $$\\displaystyle \\dot{Q}_{\\text{techo}} = U_{\\text{techo}} \\cdot A_{\\text{techo}} \\cdot \\Delta T = ${st.U_roof.toFixed(3).replace('.', ',')} \\cdot ${st.roofArea.toFixed(2).replace('.', ',')} \\cdot ${st.deltaT} = ${st.qRoof.toFixed(1).replace('.', ',')} \\text{ W}$$
+          $$\\displaystyle \\dot{Q}_{\\text{ventanas}} = U_{\\text{ventana}} \\cdot A_{\\text{ventanas}} \\cdot \\Delta T = ${st.U_win.toFixed(3).replace('.', ',')} \\cdot ${st.winTotalArea.toFixed(2).replace('.', ',')} \\cdot ${st.deltaT} = ${st.qWin.toFixed(1).replace('.', ',')} \\text{ W}$$
+        `;
+
+        if (st.hasDoor) {
+          qElementsMath += `$$\\displaystyle \\dot{Q}_{\\text{puerta}} = U_{\\text{puerta}} \\cdot A_{\\text{puerta}} \\cdot \\Delta T = ${st.U_door.toFixed(3).replace('.', ',')} \\cdot ${st.doorArea.toFixed(2).replace('.', ',')} \\cdot ${st.deltaT} = ${st.qDoor.toFixed(1).replace('.', ',')} \\text{ W}$$`;
+        }
+
+        let qTotalMath = "";
+        if (st.hasDoor) {
+          qTotalMath = `$$\\displaystyle \\dot{Q}_{\\text{total}} = \\dot{Q}_{\\text{pared}} + \\dot{Q}_{\\text{techo}} + \\dot{Q}_{\\text{ventanas}} + \\dot{Q}_{\\text{puerta}} = ${st.qWall.toFixed(1).replace('.', ',')} + ${st.qRoof.toFixed(1).replace('.', ',')} + ${st.qWin.toFixed(1).replace('.', ',')} + ${st.qDoor.toFixed(1).replace('.', ',')} = \\mathbf{${st.qTotalW.toFixed(1).replace('.', ',')} \\text{ W}}$$`;
+        } else {
+          qTotalMath = `$$\\displaystyle \\dot{Q}_{\\text{total}} = \\dot{Q}_{\\text{pared}} + \\dot{Q}_{\\text{techo}} + \\dot{Q}_{\\text{ventanas}} = ${st.qWall.toFixed(1).replace('.', ',')} + ${st.qRoof.toFixed(1).replace('.', ',')} + ${st.qWin.toFixed(1).replace('.', ',')} = \\mathbf{${st.qTotalW.toFixed(1).replace('.', ',')} \\text{ W}}$$`;
+        }
+
+        solutionHtml = `
+          <div style="margin-top: 20px; border-top: 2px solid var(--border-color); padding-top: 16px;">
+            <h4 style="margin: 0 0 14px 0; font-size: 15px; color: var(--text-main); font-weight: 700;">Desarrollo Didáctico y Solución Detallada</h4>
+            
+            <div style="background: var(--bg-paper); border: 1.5px solid var(--border-color); border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
+              <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">1. Coeficientes de película y resistencias superficiales</div>
+              <div style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
+                A partir de los coeficientes de convección interior y exterior (3 cifras significativas):
+                $$\\displaystyle R_{si} = \\frac{1}{h_{in}} = \\frac{1}{8} = 0{,}125 \\text{ m}^2\\text{K/W}$$
+                $$\\displaystyle R_{se} = \\frac{1}{h_{ext}} = \\frac{1}{28} = 0{,}0357 \\text{ m}^2\\text{K/W}$$
+              </div>
+            </div>
+
+            <div style="background: var(--bg-paper); border: 1.5px solid var(--border-color); border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
+              <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">2. Resistencia y transmitancia de la pared</div>
+              <div style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
+                Estratigrafía: ${st.wall.name}<br>
+                ${wallLayersVals}
+                $$\\displaystyle R_{\\text{pared}} = R_{si} + \\sum \\frac{e_i}{\\lambda_i} + R_{se} = 0{,}125 + ${wallLayersSteps} + 0{,}0357 = ${st.R_wall.toFixed(4).replace('.', ',')} \\text{ m}^2\\text{K/W}$$
+                $$\\displaystyle U_{\\text{pared}} = \\frac{1}{R_{\\text{pared}}} = \\frac{1}{${st.R_wall.toFixed(4).replace('.', ',')}} = ${st.U_wall.toFixed(3).replace('.', ',')} \\text{ W/m}^2\\text{K}$$
+              </div>
+            </div>
+
+            <div style="background: var(--bg-paper); border: 1.5px solid var(--border-color); border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
+              <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">3. Resistencia y transmitancia del techo</div>
+              <div style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
+                Estratigrafía: ${st.roof.name}<br>
+                ${roofLayersVals}
+                $$\\displaystyle R_{\\text{techo}} = R_{si} + \\sum \\frac{e_i}{\\lambda_i} + R_{se} = 0{,}125 + ${roofLayersSteps} + 0{,}0357 = ${st.R_roof.toFixed(4).replace('.', ',')} \\text{ m}^2\\text{K/W}$$
+                $$\\displaystyle U_{\\text{techo}} = \\frac{1}{R_{\\text{techo}}} = \\frac{1}{${st.R_roof.toFixed(4).replace('.', ',')}} = ${st.U_roof.toFixed(3).replace('.', ',')} \\text{ W/m}^2\\text{K}$$
+              </div>
+            </div>
+
+            <div style="background: var(--bg-paper); border: 1.5px solid var(--border-color); border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
+              <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">4. Resistencia y transmitancia de las ventanas</div>
+              <div style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
+                Estratigrafía: ${st.winType.name}<br>
+                ${winLayersVals}
+                $$\\displaystyle R_{\\text{ventana}} = R_{si} + \\sum \\frac{e_i}{\\lambda_i} + R_{se} = 0{,}125 + ${winLayersSteps} + 0{,}0357 = ${st.R_win.toFixed(4).replace('.', ',')} \\text{ m}^2\\text{K/W}$$
+                $$\\displaystyle U_{\\text{ventana}} = \\frac{1}{R_{\\text{ventana}}} = \\frac{1}{${st.R_win.toFixed(4).replace('.', ',')}} = ${st.U_win.toFixed(3).replace('.', ',')} \\text{ W/m}^2\\text{K}$$
+              </div>
+            </div>
+
+            ${doorSectionHtml}
+
+            <div style="background: var(--bg-paper); border: 1.5px solid var(--border-color); border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
+              <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">5. Superficies del balance térmico</div>
+              <div style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
+                ${step5SurfacesMath}
+              </div>
+            </div>
+
+            <div style="background: var(--bg-paper); border: 1.5px solid var(--border-color); border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
+              <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">6. Pérdidas de calor por elemento</div>
+              <div style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
+                $$\\displaystyle T_i = ${st.tInC}^\\circ\\text{C} + 273 = ${st.tInK} \\text{ K}, \\quad T_e = ${st.tOutC}^\\circ\\text{C} + 273 = ${st.tOutK} \\text{ K} \\implies \\Delta T = T_i - T_e = ${st.deltaT} \\text{ K}$$
+                <div style="margin-top: 12px;"></div>
+                ${qElementsMath}
+              </div>
+            </div>
+
+            <div style="background: var(--bg-paper); border: 1.5px solid var(--border-color); border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
+              <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">7. Flujo térmico total transmitido</div>
+              <div style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
+                ${qTotalMath}
+                En kilovatios:
+                $$\\displaystyle \\dot{Q}_{\\text{total}} = \\mathbf{${st.qTotalKw.toFixed(3).replace('.', ',')} \\text{ kW}}$$
+              </div>
+            </div>
+
+          </div>
+        `;
+      }
+
+      let doorTextDesc = st.hasDoor ? ` y ${st.door.desc}` : "";
+
+      let html = `
+        <div class="latex-panel">
+          <div class="latex-panel-head">
+            <span>Enunciado del Problema</span>
+            <span style="font-family: var(--font-mono); font-size: 11px; opacity: 0.8;">${st.badge}</span>
+          </div>
+          <div class="latex-panel-body" style="gap: 16px;">
+            <p style="font-size: 13.5px; line-height: 1.7; color: var(--text-main); margin: 0; text-align: justify; font-weight: 400;">
+              Se requiere determinar las pérdidas térmicas por transmisión en una vivienda unifamiliar de planta rectangular con dimensiones externas de ${st.L.toFixed(2)} m de largo, ${st.W.toFixed(2)} m de ancho y ${st.H.toFixed(2)} m de altura. Las paredes exteriores están construidas por ${st.wall.desc}. El techo está conformado por ${st.roof.desc}. La vivienda posee ${st.numWin} ventanas de ${st.winSize.label} cada una, compuestas por ${st.winType.desc}${doorTextDesc}. La temperatura en el interior de la residencia se mantiene en ${st.tInC} °C (${st.tInK} K) mientras que la temperatura exterior de diseño es de ${st.tOutC} °C (${st.tOutK} K). Considere que el coeficiente de convección interior es \\(h_{in} = 8\\text{ W/m}^2\\text{K}\\)` + ` y el exterior es ` + `\\(h_{ext} = 28\\text{ W/m}^2\\text{K}\\). Ignorando las pérdidas por el suelo y la infiltración de aire, determine la potencia térmica total en vatios (W) o kilovatios (kW) transmitida hacia el exterior.
+            </p>
+            ${answerBoxHtml}
+            ${solutionHtml}
+          </div>
+        </div>
+      `;
+
+      container.innerHTML = html;
+
+      if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise();
+      }
+    }
+  };
+
+  window.ExerciseEngine = ExerciseEngine;
 
   initTheme();
   syncWinGap();
