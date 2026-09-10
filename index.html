@@ -747,9 +747,67 @@
 
   .row { display: flex; flex-direction: column; gap: 4px; }
   .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
 
   @media (max-width: 540px) {
-    .row-2 { grid-template-columns: 1fr; }
+    .row-2, .row-3 { grid-template-columns: 1fr; }
+  }
+
+  /* Subcards para Aberturas */
+  .abertura-subcard {
+    background: var(--bg-paper);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .abertura-subcard:hover {
+    border-color: var(--latex-blue);
+  }
+
+  .abertura-subcard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .abertura-subcard-title {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--latex-blue);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .abertura-area-badge {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    padding: 3px 10px;
+    border-radius: 6px;
+  }
+
+  .abertura-area-badge strong {
+    color: var(--latex-blue);
+    font-weight: 700;
+  }
+
+  .abertura-subcard-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 
   label {
@@ -1961,34 +2019,65 @@
           <span>4. Aberturas</span>
           <span class="collapse-icon">▼</span>
         </summary>
-        <div class="latex-panel-body">
-          <div class="row-2">
-            <div class="row">
-              <label>Tipo de vidriado</label>
-              <select id="winType">
-                <option value="simple">Vidrio simple</option>
-                <option value="doble">DVH (Doble vidriado hermético)</option>
-                <option value="triple">TVH (Triple vidriado hermético)</option>
-              </select>
+        <div class="latex-panel-body" style="gap:16px;">
+
+          <!-- Subcard Ventanas -->
+          <div class="abertura-subcard">
+            <div class="abertura-subcard-header">
+              <span class="abertura-subcard-title">Ventanas</span>
+              <div class="abertura-area-badge">
+                Área total $(A_v)$: <strong id="v_winA">12.00 m²</strong>
+              </div>
             </div>
-            <div class="row"><label>Área ventanas $(A_v)$ [m²]</label><input type="number" id="winA" min="0" step="0.5" value="12"></div>
-          </div>
-          <div class="row-2">
-            <div class="row"><label>Espesor vidrio [mm]</label><input type="number" id="winGlassT" min="0" step="1" value="4"></div>
-            <div class="row" id="winGapRow"><label>Cámara de aire [mm]</label><input type="number" id="winGapT" min="0" step="1" value="12"></div>
-          </div>
-          <div class="row-2">
-            <div class="row">
-              <label>Material de puertas</label>
-              <select id="doorMat">
-                <option value="0.18">Madera maciza (&lambda; = 0.18 W/m·K)</option>
-                <option value="0.12">Puerta placa enchapada (&lambda; = 0.12 W/m·K)</option>
-                <option value="0.035">Chapa de acero inyectada PUR (&lambda; = 0.035 W/m·K)</option>
-              </select>
+            <div class="abertura-subcard-body">
+              <div class="row-3">
+                <div class="row">
+                  <label>Tipo de vidriado</label>
+                  <select id="winType">
+                    <option value="simple">Vidrio simple</option>
+                    <option value="doble">DVH (Doble vidriado hermético)</option>
+                    <option value="triple">TVH (Triple vidriado hermético)</option>
+                  </select>
+                </div>
+                <div class="row"><label>Espesor vidrio [mm]</label><input type="number" id="winGlassT" min="0" step="1" value="4"></div>
+                <div class="row" id="winGapRow"><label>Cámara de aire [mm]</label><input type="number" id="winGapT" min="0" step="1" value="12"></div>
+              </div>
+              <div class="row-3">
+                <div class="row"><label>Alto $(h_v)$ [m]</label><input type="number" id="winH" min="0" step="0.1" value="1.5"></div>
+                <div class="row"><label>Ancho $(b_v)$ [m]</label><input type="number" id="winW" min="0" step="0.1" value="2.0"></div>
+                <div class="row"><label>Cantidad</label><input type="number" id="winCount" min="0" step="1" value="4"></div>
+              </div>
             </div>
-            <div class="row"><label>Área puertas $(A_p)$ [m²]</label><input type="number" id="doorA" min="0" step="0.1" value="2.8"></div>
           </div>
-          <div class="row"><label>Espesor puerta [mm]</label><input type="number" id="doorT" min="0" step="1" value="35"></div>
+
+          <!-- Subcard Puertas -->
+          <div class="abertura-subcard">
+            <div class="abertura-subcard-header">
+              <span class="abertura-subcard-title">Puertas</span>
+              <div class="abertura-area-badge">
+                Área total $(A_p)$: <strong id="v_doorA">2.80 m²</strong>
+              </div>
+            </div>
+            <div class="abertura-subcard-body">
+              <div class="row-2">
+                <div class="row">
+                  <label>Material de puertas</label>
+                  <select id="doorMat">
+                    <option value="0.18">Madera maciza (&lambda; = 0.18 W/m·K)</option>
+                    <option value="0.12">Puerta placa enchapada (&lambda; = 0.12 W/m·K)</option>
+                    <option value="0.035">Chapa de acero inyectada PUR (&lambda; = 0.035 W/m·K)</option>
+                  </select>
+                </div>
+                <div class="row"><label>Espesor puerta [mm]</label><input type="number" id="doorT" min="0" step="1" value="35"></div>
+              </div>
+              <div class="row-3">
+                <div class="row"><label>Alto $(h_p)$ [m]</label><input type="number" id="doorH" min="0" step="0.1" value="2.0"></div>
+                <div class="row"><label>Ancho $(b_p)$ [m]</label><input type="number" id="doorW" min="0" step="0.1" value="0.7"></div>
+                <div class="row"><label>Cantidad</label><input type="number" id="doorCount" min="0" step="1" value="2"></div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </details>
 
@@ -3097,7 +3186,7 @@
   }
   setupInputProtection();
 
-  const inputs = ['a','b','h','winType','winA','winGlassT','winGapT','doorMat','doorA','doorT','n','customDGD','customEGD','tin','text','pElec','pGas','effGas','cop','icElecSel','icGas'];
+  const inputs = ['a','b','h','winH','winW','winCount','winType','winGlassT','winGapT','doorMat','doorT','doorH','doorW','doorCount','n','customDGD','customEGD','tin','text','pElec','pGas','effGas','cop','icElecSel','icGas'];
   inputs.forEach(id => {
     if($(id)) $(id).addEventListener('input', computeAll);
   });
@@ -3105,7 +3194,9 @@
   if($('winType')) $('winType').addEventListener('change', ()=>{ syncWinGap(); computeAll(); });
 
   function syncWinGap(){
-    $('winGapRow').style.display = ($('winType').value === 'simple') ? 'none' : 'flex';
+    if ($('winGapRow')) {
+      $('winGapRow').style.display = ($('winType').value === 'simple') ? 'none' : 'flex';
+    }
   }
 
   function computeAll() {
@@ -3114,8 +3205,19 @@
     const h = Math.max(0, parseFloat($('h').value) || 0);
     const floorArea = a * b, volume = floorArea * h;
     const grossWall = 2 * (a + b) * h;
-    const winA = Math.max(0, parseFloat($('winA').value) || 0);
-    const doorA = Math.max(0, parseFloat($('doorA').value) || 0);
+    
+    const winH = Math.max(0, parseFloat($('winH').value) || 0);
+    const winW = Math.max(0, parseFloat($('winW').value) || 0);
+    const winCount = Math.max(0, parseFloat($('winCount').value) || 0);
+    const winA = winH * winW * winCount;
+    if ($('v_winA')) $('v_winA').textContent = fmt(winA, 2) + ' m²';
+
+    const doorH = Math.max(0, parseFloat($('doorH').value) || 0);
+    const doorW = Math.max(0, parseFloat($('doorW').value) || 0);
+    const doorCount = Math.max(0, parseFloat($('doorCount').value) || 0);
+    const doorA = doorH * doorW * doorCount;
+    if ($('v_doorA')) $('v_doorA').textContent = fmt(doorA, 2) + ' m²';
+
     const netWall = Math.max(0, grossWall - winA - doorA);
     
     const U_win = uWindow($('winType').value);
