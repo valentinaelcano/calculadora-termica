@@ -1974,8 +1974,8 @@
             <div class="row"><label>Área ventanas $(A_v)$ [m²]</label><input type="number" id="winA" min="0" step="0.5" value="12"></div>
           </div>
           <div class="row-2">
-            <div class="row"><label>Espesor vidrio [mm]</label><input type="number" id="winGlassT" min="2" step="1" value="4"></div>
-            <div class="row" id="winGapRow"><label>Cámara de aire [mm]</label><input type="number" id="winGapT" min="4" step="1" value="12"></div>
+            <div class="row"><label>Espesor vidrio [mm]</label><input type="number" id="winGlassT" min="0" step="1" value="4"></div>
+            <div class="row" id="winGapRow"><label>Cámara de aire [mm]</label><input type="number" id="winGapT" min="0" step="1" value="12"></div>
           </div>
           <div class="row-2">
             <div class="row">
@@ -1988,7 +1988,7 @@
             </div>
             <div class="row"><label>Área puertas $(A_p)$ [m²]</label><input type="number" id="doorA" min="0" step="0.1" value="2.8"></div>
           </div>
-          <div class="row"><label>Espesor puerta [mm]</label><input type="number" id="doorT" min="10" step="1" value="35"></div>
+          <div class="row"><label>Espesor puerta [mm]</label><input type="number" id="doorT" min="0" step="1" value="35"></div>
         </div>
       </details>
 
@@ -2031,8 +2031,8 @@
             </div>
           </div>
           <div class="row-2" id="customDgdRow" style="display:none;">
-            <div class="row"><label>DGD anual (°C·día)</label><input type="number" id="customDGD" value="702"></div>
-            <div class="row"><label>EGD anual (°C·día)</label><input type="number" id="customEGD" value="90"></div>
+            <div class="row"><label>DGD anual (°C·día)</label><input type="number" id="customDGD" min="0" value="702"></div>
+            <div class="row"><label>EGD anual (°C·día)</label><input type="number" id="customEGD" min="0" value="90"></div>
           </div>
           <div class="row-2">
             <div class="row"><label>$T^\circ$ confort int. <span class="val" id="v_tin">20 °C</span></label><input type="range" id="tin" min="16" max="25" step="1" value="20"></div>
@@ -3055,6 +3055,48 @@
     });
   }
 
+  function setupInputProtection() {
+    function isProtectedInput(target) {
+      if (!target || target.tagName !== 'INPUT') return false;
+      if (target.type === 'number') return true;
+      if (target.type === 'text' && (target.id.startsWith('exUser') || target.classList.contains('numeric-only'))) return true;
+      return false;
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (isProtectedInput(e.target)) {
+        if (['e', 'E', '-', '+'].includes(e.key)) {
+          e.preventDefault();
+        }
+      }
+    }, true);
+
+    function sanitizeInput(target) {
+      if (!isProtectedInput(target)) return;
+      let val = target.value;
+      if (/[eE\-\+]/.test(val)) {
+        target.value = val.replace(/[eE\-\+]/g, '');
+      }
+      if (target.type === 'number' && target.value !== '') {
+        const num = parseFloat(target.value);
+        if (!isNaN(num) && num < 0) {
+          target.value = Math.max(0, num);
+        }
+      }
+    }
+
+    document.addEventListener('input', function(e) {
+      sanitizeInput(e.target);
+    }, true);
+
+    document.addEventListener('paste', function(e) {
+      setTimeout(function() {
+        sanitizeInput(e.target);
+      }, 0);
+    }, true);
+  }
+  setupInputProtection();
+
   const inputs = ['a','b','h','winType','winA','winGlassT','winGapT','doorMat','doorA','doorT','n','customDGD','customEGD','tin','text','pElec','pGas','effGas','cop','icElecSel','icGas'];
   inputs.forEach(id => {
     if($(id)) $(id).addEventListener('input', computeAll);
@@ -3078,7 +3120,7 @@
     
     const U_win = uWindow($('winType').value);
     const doorMatVal = parseFloat($('doorMat').value);
-    const doorT = (parseFloat($('doorT').value) || 35) / 1000;
+    const doorT = Math.max(0, parseFloat($('doorT').value) || 35) / 1000;
     const U_door = 1 / (R_INT + R_EXT + (doorT / doorMatVal));
     const n = parseFloat($('n').value);
     $('v_n').textContent = fmt(n, 1);
@@ -3096,8 +3138,8 @@
     const dT = tinVal - textVal;
     const powerW = cTotal * dT;
 
-    const dgd = parseFloat($('customDGD').value) || 0;
-    const egd = parseFloat($('customEGD').value) || 0;
+    const dgd = Math.max(0, parseFloat($('customDGD').value) || 0);
+    const egd = Math.max(0, parseFloat($('customEGD').value) || 0);
 
     const annualHeatKwh = 0.024 * cTotal * dgd;
     const annualCoolKwh = 0.024 * cTotal * egd;
@@ -3529,15 +3571,15 @@
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px;">
             <div>
               <label style="display: block; font-size: 11.5px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">Pérdida térmica total \\(\\dot{Q}_{\\text{total}}\\) (W o kW):</label>
-              <input type="text" id="exUserQInput" value="${st.userQAns}" placeholder="Ej: 3450 o 3.45" style="width: 100%; padding: 7px 10px; font-size: 13px; border-radius: 6px; border: 1.5px solid var(--border-color); background: var(--bg-paper); color: var(--text-main); font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userQAns = this.value">
+              <input type="text" id="exUserQInput" class="numeric-only" inputmode="decimal" value="${st.userQAns}" placeholder="Ej: 3450 o 3.45" style="width: 100%; padding: 7px 10px; font-size: 13px; border-radius: 6px; border: 1.5px solid var(--border-color); background: var(--bg-paper); color: var(--text-main); font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userQAns = this.value">
             </div>
             <div>
               <label style="display: block; font-size: 11.5px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">Costo mensual estufa eléctrica (USD/mes):</label>
-              <input type="text" id="exUserElecInput" value="${st.userElecAns}" placeholder="Ej: 45.20" style="width: 100%; padding: 7px 10px; font-size: 13px; border-radius: 6px; border: 1.5px solid var(--border-color); background: var(--bg-paper); color: var(--text-main); font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userElecAns = this.value">
+              <input type="text" id="exUserElecInput" class="numeric-only" inputmode="decimal" value="${st.userElecAns}" placeholder="Ej: 45.20" style="width: 100%; padding: 7px 10px; font-size: 13px; border-radius: 6px; border: 1.5px solid var(--border-color); background: var(--bg-paper); color: var(--text-main); font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userElecAns = this.value">
             </div>
             <div>
               <label style="display: block; font-size: 11.5px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">Costo mensual estufa a gas (USD/mes):</label>
-              <input type="text" id="exUserGasInput" value="${st.userGasAns}" placeholder="Ej: 28.50" style="width: 100%; padding: 7px 10px; font-size: 13px; border-radius: 6px; border: 1.5px solid var(--border-color); background: var(--bg-paper); color: var(--text-main); font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userGasAns = this.value">
+              <input type="text" id="exUserGasInput" class="numeric-only" inputmode="decimal" value="${st.userGasAns}" placeholder="Ej: 28.50" style="width: 100%; padding: 7px 10px; font-size: 13px; border-radius: 6px; border: 1.5px solid var(--border-color); background: var(--bg-paper); color: var(--text-main); font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userGasAns = this.value">
             </div>
           </div>
           <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
