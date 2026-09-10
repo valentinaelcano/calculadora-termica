@@ -1699,6 +1699,77 @@
     max-width: 100% !important;
     height: auto !important;
   }
+
+  /* Botones estilizados de la Zona de Ejercicios */
+  .ex-btn {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    outline: none;
+    user-select: none;
+    line-height: 1.3;
+  }
+
+  .ex-btn-gen {
+    background: var(--latex-blue);
+    color: #ffffff;
+    border: 1px solid var(--latex-blue);
+    box-shadow: 0 2px 5px rgba(30, 58, 138, 0.2);
+  }
+  .ex-btn-gen:hover {
+    filter: brightness(1.12);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(30, 58, 138, 0.3);
+  }
+  .ex-btn-gen:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(30, 58, 138, 0.2);
+  }
+
+  .ex-btn-primary {
+    background: var(--latex-blue);
+    color: #ffffff;
+    border: 1px solid var(--latex-blue);
+    box-shadow: 0 2px 4px rgba(30, 58, 138, 0.15);
+  }
+  .ex-btn-primary:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(30, 58, 138, 0.25);
+  }
+  .ex-btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .ex-btn-secondary {
+    background: var(--bg-paper);
+    color: var(--text-main);
+    border: 1.5px solid var(--border-color);
+  }
+  .ex-btn-secondary:hover {
+    background: var(--bg-subtle);
+    border-color: var(--latex-blue);
+    color: var(--latex-blue);
+    transform: translateY(-1px);
+  }
+  .ex-btn-secondary:active {
+    transform: translateY(0);
+  }
+
+  [data-theme="dark"] .ex-btn-gen, [data-theme="dark"] .ex-btn-primary {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #ffffff;
+  }
+
 </style>
 </head>
 <body>
@@ -2137,17 +2208,9 @@
     <div class="col">
       
       <!-- Encabezado de Modo Ejercicio -->
-      <div style="background: var(--bg-subtle); border: 1px solid var(--border-color); border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-        <div>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span class="ex-level-badge" style="background: var(--accent); color: #fff;">Práctica de Laboratorio</span>
-            <h3 style="margin: 0; font-size: 16px; color: var(--text-main); font-weight: 700;">Zona de Ejercicios y Casos Prácticos</h3>
-          </div>
-          <p style="margin: 6px 0 0 0; font-size: 12.5px; color: var(--text-muted); line-height: 1.5;">
-            Resolución didáctica de problemas numéricos: Transmitancia $U$, resistencias por capa ($R_k$) y balance de pérdidas térmicas por transmisión en viviendas.
-          </p>
-        </div>
-        <button class="btn btn-secondary btn-sm" onclick="ExerciseEngine.generateNew()" style="font-weight: 600; padding: 8px 14px; white-space: nowrap;">
+      <div style="background: var(--bg-paper); border: 1.5px solid var(--border-color); border-radius: 8px; padding: 14px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+        <h3 style="margin: 0; font-size: 16px; color: var(--text-main); font-weight: 700;">Ejercicios para practicar</h3>
+        <button class="ex-btn ex-btn-gen" onclick="ExerciseEngine.generateNew()">
           Generar nuevo ejercicio
         </button>
       </div>
@@ -3391,10 +3454,10 @@
           <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">
             Ingrese el valor calculado para \\(\\dot{Q}_{\\text{total}}\\). Puede expresarlo en vatios (W) o kilovatios (kW):
           </div>
-          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-            <input type="text" id="exUserAnswerInput" value="${st.userAnswer}" placeholder="Ej: 3450 o 3.45" style="padding: 7px 12px; font-size: 13px; border-radius: 4px; border: 1.5px solid var(--border-color); background: var(--bg-paper); color: var(--text-main); width: 180px;" oninput="ExerciseEngine.state.userAnswer = this.value">
-            <button class="btn btn-primary btn-sm" onclick="ExerciseEngine.checkAnswer()" style="padding: 7px 14px; font-size: 12.5px;">Verificar Respuesta</button>
-            <button class="btn btn-secondary btn-sm" onclick="ExerciseEngine.toggleSolution()" style="padding: 7px 14px; font-size: 12.5px;">
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <input type="text" id="exUserAnswerInput" value="${st.userAnswer}" placeholder="Ej: 3450 o 3.45" style="padding: 8px 12px; font-size: 13px; border-radius: 6px; border: 1.5px solid var(--border-color); background: var(--bg-paper); color: var(--text-main); width: 180px; font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userAnswer = this.value">
+            <button class="ex-btn ex-btn-primary" onclick="ExerciseEngine.checkAnswer()">Verificar Respuesta</button>
+            <button class="ex-btn ex-btn-secondary" onclick="ExerciseEngine.toggleSolution()">
               ${st.showSolution ? "Ocultar Solución" : "Ver Solución Detallada"}
             </button>
           </div>
