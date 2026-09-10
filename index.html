@@ -104,6 +104,10 @@
     max-width: 100%;
   }
 
+  mjx-container[inline] {
+    margin: 0 !important;
+  }
+
   .paper-container {
     max-width: 1280px;
     margin: 0 auto;
@@ -1815,7 +1819,7 @@
           <span class="collapse-icon">▼</span>
         </summary>
         <div class="latex-box-content" style="margin-top:8px;">
-          La transmitancia térmica $U$ [$\text{W}/(\text{m}^2\cdot\text{K})$] mide qué tan fácil se escapa o entra el calor a través de un elemento constructivo formado por varias capas. Se calcula como la inversa de la resistencia térmica total ($R_{\text{total}}$), sumando la resistencia propia de cada material y las capas de aire superficiales de adentro ($R_{si}$) y de afuera ($R_{se}$):
+          La transmitancia térmica $U$ [$\text{W}/(\text{m}^2\cdot\text{K})$] mide qué tan fácil se escapa o entra el calor a través de un elemento constructivo formado por varias capas. Se calcula como la inversa de la resistencia térmica total ($(R_{\text{total}})$), sumando la resistencia propia de cada material y las capas de aire superficiales de adentro ($(R_{si})$) y de afuera ($(R_{se})$):
           $$\displaystyle U = \frac{1}{R_{si} + \sum_{k=1}^N \frac{e_k}{\lambda_k} + R_{se}} = \frac{1}{R_{\text{total}}}$$
         </div>
       </details>
@@ -1827,10 +1831,10 @@
         </summary>
         <div class="latex-panel-body">
           <div class="row-2">
-            <div class="row"><label>Largo ($a$) [m]</label><input type="number" id="a" min="0" step="0.1" value="6.5"></div>
-            <div class="row"><label>Ancho ($b$) [m]</label><input type="number" id="b" min="0" step="0.1" value="10"></div>
+            <div class="row"><label>Largo $(a)$ [m]</label><input type="number" id="a" min="0" step="0.1" value="6.5"></div>
+            <div class="row"><label>Ancho $(b)$ [m]</label><input type="number" id="b" min="0" step="0.1" value="10"></div>
           </div>
-          <div class="row"><label>Altura ($h$) [m]</label><input type="number" id="h" min="0" step="0.05" value="2.8"></div>
+          <div class="row"><label>Altura $(h)$ [m]</label><input type="number" id="h" min="0" step="0.05" value="2.8"></div>
         </div>
       </details>
 
@@ -1967,7 +1971,7 @@
                 <option value="triple">TVH (Triple vidriado hermético)</option>
               </select>
             </div>
-            <div class="row"><label>Área ventanas ($A_{v}$) [m²]</label><input type="number" id="winA" min="0" step="0.5" value="12"></div>
+            <div class="row"><label>Área ventanas $(A_v)$ [m²]</label><input type="number" id="winA" min="0" step="0.5" value="12"></div>
           </div>
           <div class="row-2">
             <div class="row"><label>Espesor vidrio [mm]</label><input type="number" id="winGlassT" min="2" step="1" value="4"></div>
@@ -1982,7 +1986,7 @@
                 <option value="0.035">Chapa de acero inyectada PUR (&lambda; = 0.035 W/m·K)</option>
               </select>
             </div>
-            <div class="row"><label>Área puertas ($A_{p}$) [m²]</label><input type="number" id="doorA" min="0" step="0.1" value="2.8"></div>
+            <div class="row"><label>Área puertas $(A_p)$ [m²]</label><input type="number" id="doorA" min="0" step="0.1" value="2.8"></div>
           </div>
           <div class="row"><label>Espesor puerta [mm]</label><input type="number" id="doorT" min="10" step="1" value="35"></div>
         </div>
@@ -1994,7 +1998,7 @@
           <span class="collapse-icon">▼</span>
         </summary>
         <div class="latex-box-content" style="margin-top:8px;">
-          El coeficiente de pérdidas globales $H_T$ [$\text{W}/\text{K}$] reúne todo el calor que se transfiere a través de la envolvente y las renovaciones de aire. A partir de él, la norma IRAM 11604 define el coeficiente volumétrico $G$ [$\text{W}/(\text{m}^3\cdot\text{K})$], y es posible calcular la energía anual necesaria tanto para calefacción ($Q_{\text{calef}}$) como para refrigeración ($Q_{\text{refrig}}$) utilizando los Grados-Día correspondientes ($DGD$ y $EGD$):
+          El coeficiente de pérdidas globales $H_T$ [$\text{W}/\text{K}$] reúne todo el calor que se transfiere a través de la envolvente y las renovaciones de aire. A partir de él, la norma IRAM 11604 define el coeficiente volumétrico $G$ [$\text{W}/(\text{m}^3\cdot\text{K})$], y es posible calcular la energía anual necesaria tanto para calefacción ($(Q_{\text{calef}})$) como para refrigeración ($(Q_{\text{refrig}})$) utilizando los Grados-Día correspondientes ($(DGD)$ y $(EGD)$):
           $$\displaystyle G = \frac{H_T}{V}, \quad Q_{\text{calef}} = 0.024 \cdot H_T \cdot \text{DGD}, \quad Q_{\text{refrig}} = 0.024 \cdot H_T \cdot \text{EGD}$$
         </div>
       </details>
@@ -2006,7 +2010,7 @@
         </summary>
         <div class="latex-panel-body">
           <div class="row-2">
-            <div class="row"><label>Renov. de aire ($n$) <span class="val" id="v_n">1.0</span></label><input type="range" id="n" min="0" max="3" step="0.1" value="1.0"></div>
+            <div class="row"><label>Renov. de aire $(n)$ <span class="val" id="v_n">1.0</span></label><input type="range" id="n" min="0" max="3" step="0.1" value="1.0"></div>
             <div class="row">
               <label>Zona climática <span class="val" id="v_climInfo">DGD: 702 | EGD: 90</span></label>
               <select id="citySel" onchange="updateCity()">
@@ -2045,12 +2049,12 @@
         <div class="latex-panel-body">
           <div class="kpi-grid">
             <div class="kpi-card warn">
-              <div class="lbl">Demanda calefacción ($DGD$)</div>
+              <div class="lbl">Demanda calefacción $(DGD)$</div>
               <div class="num" id="resHeatKwh">–</div>
               <div class="sub">kWh/año</div>
             </div>
             <div class="kpi-card ok">
-              <div class="lbl">Demanda refrigeración ($EGD$)</div>
+              <div class="lbl">Demanda refrigeración $(EGD)$</div>
               <div class="num" id="resCoolKwh">–</div>
               <div class="sub">kWh/año</div>
             </div>
@@ -3217,9 +3221,9 @@
       const widths  = [5, 6, 8, 10];
       const heights = [2.6, 2.8, 3.0, 3.2];
 
-      const L = lengths[Math.floor(Math.random() * lengths.length)];
-      const W = widths[Math.floor(Math.random() * widths.length)];
-      const H = heights[Math.floor(Math.random() * heights.length)];
+      const a = lengths[Math.floor(Math.random() * lengths.length)];
+      const b = widths[Math.floor(Math.random() * widths.length)];
+      const h = heights[Math.floor(Math.random() * heights.length)];
 
       const wallPresets = [
         {
@@ -3383,8 +3387,8 @@
 
       const winSingleArea = winSize.w * winSize.h;
       const winTotalArea = numWin * winSingleArea;
-      const roofArea = L * W;
-      const grossWallArea = 2 * (L + W) * H;
+      const roofArea = a * b;
+      const grossWallArea = 2 * (a + b) * h;
       const netWallArea = Math.max(0, grossWallArea - winTotalArea - doorArea);
 
       const qWall = U_wall * netWallArea * deltaT;
@@ -3442,7 +3446,7 @@
       this.state = {
         title: "Pérdidas Térmicas por Transmisión",
         badge: "Práctica de Balance",
-        L, W, H,
+        a, b, h,
         wall, roof, winType,
         hasDoor, door, doorArea, R_door, U_door, qDoor,
         h_in, h_ext,
@@ -3622,9 +3626,9 @@
 `;
         }
 
-        step5SurfacesMath += `$$\\displaystyle A_{\\text{techo}} = L \\cdot W = ${st.L} \\cdot ${st.W} = ${st.roofArea.toFixed(2).replace('.', ',')} \\text{ m}^2$$
+        step5SurfacesMath += `$$\\displaystyle A_{\\text{techo}} = a \\cdot b = ${st.a.toFixed(2).replace('.', ',')} \\cdot ${st.b.toFixed(2).replace('.', ',')} = ${st.roofArea.toFixed(2).replace('.', ',')} \\text{ m}^2$$
 `;
-        step5SurfacesMath += `$$\\displaystyle A_{\\text{pared}} = 2 \\cdot (L + W) \\cdot H = 2 \\cdot (${st.L} + ${st.W}) \\cdot ${st.H} = ${st.grossWallArea.toFixed(2).replace('.', ',')} \\text{ m}^2$$
+        step5SurfacesMath += `$$\\displaystyle A_{\\text{pared}} = 2 \\cdot (a + b) \\cdot h = 2 \\cdot (${st.a.toFixed(2).replace('.', ',')} + ${st.b.toFixed(2).replace('.', ',')}) \\cdot ${st.h.toFixed(2).replace('.', ',')} = ${st.grossWallArea.toFixed(2).replace('.', ',')} \\text{ m}^2$$
 `;
 
         if (st.hasDoor) {
@@ -3762,7 +3766,7 @@
           </div>
           <div class="latex-panel-body" style="gap: 16px;">
             <p style="font-size: 13.5px; line-height: 1.7; color: var(--text-main); margin: 0; text-align: justify; font-weight: 400;">
-              Se requiere determinar el balance de pérdidas térmicas por transmisión y la evaluación técnico-económica para una vivienda unifamiliar de planta rectangular con dimensiones externas de ${st.L.toFixed(2)} m de largo, ${st.W.toFixed(2)} m de ancho y ${st.H.toFixed(2)} m de altura. Las paredes exteriores están construidas por ${st.wall.desc}. El techo está conformado por ${st.roof.desc}. La vivienda posee ${st.numWin} ventanas de ${st.winSize.label} cada una, compuestas por ${st.winType.desc}${doorTextDesc}. La temperatura en el interior de la residencia se mantiene en ${st.tInC} °C (${st.tInK} K) mientras que la temperatura exterior de diseño es de ${st.tOutC} °C (${st.tOutK} K). Considere que el coeficiente de convección interior es \\(h_{in} = 8\\text{ W/m}^2\\text{K}\\)` + ` y el exterior es ` + `\\(h_{ext} = 28\\text{ W/m}^2\\text{K}\\). Ignorando las pérdidas por el suelo y la infiltración de aire:
+              Se requiere determinar el balance de pérdidas térmicas por transmisión y la evaluación técnico-económica para una vivienda unifamiliar de planta rectangular con dimensiones externas de ${st.a.toFixed(2).replace('.', ',')} m de largo, ${st.b.toFixed(2).replace('.', ',')} m de ancho y ${st.h.toFixed(2).replace('.', ',')} m de altura. Las paredes exteriores están construidas por ${st.wall.desc}. El techo está conformado por ${st.roof.desc}. La vivienda posee ${st.numWin} ventanas de ${st.winSize.label} cada una, compuestas por ${st.winType.desc}${doorTextDesc}. La temperatura en el interior de la residencia se mantiene en ${st.tInC} °C (${st.tInK} K) mientras que la temperatura exterior de diseño es de ${st.tOutC} °C (${st.tOutK} K). Considere que el coeficiente de convección interior es \\(h_{in} = 8\\text{ W/m}^2\\text{K}\\)` + ` y el exterior es ` + `\\(h_{ext} = 28\\text{ W/m}^2\\text{K}\\). Ignorando las pérdidas por el suelo y la infiltración de aire:
             </p>
             <ol style="font-size: 13px; line-height: 1.6; color: var(--text-main); margin: 0; padding-left: 20px;">
               <li>Determine la potencia térmica total \\(\\dot{Q}_{\\text{total}}\\) transmitida hacia el exterior en vatios (W) o kilovatios (kW).</li>
