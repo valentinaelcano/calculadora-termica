@@ -2378,18 +2378,18 @@
     "_placeholder": { name: "-- Seleccionar material --", k: 1.0, isPlaceholder: true },
     "rev_fino": { name: "Revoque fino", k: 0.70 },
     "rev_grueso": { name: "Revoque grueso", k: 0.93 },
-    "ladrillo_macizo": { name: "Ladrillo común macizo", k: 0.81 },
-    "ladrillo_hueco": { name: "Ladrillo hueco cerámico", k: 0.45 },
+    "ladrillo_macizo": { name: "Ladrillo común", k: 0.81 },
+    "ladrillo_hueco": { name: "Ladrillo común cerámico", k: 0.45 },
     "hormigon_armado": { name: "Hormigón armado (convencional)", k: 1.63 },
     "hormigon_alivianado": { name: "Hormigón alivianado (cascote)", k: 0.93 },
     "hcca": { name: "Hormigón celular HCCA (Retak)", k: 0.13 },
     "yeso": { name: "Placa de yeso (Durlock)", k: 0.22 },
     "osb": { name: "Placa OSB", k: 0.13 },
-    "madera": { name: "Madera", k: 0.20 },
+    "madera": { name: "Madera (pino)", k: 0.20 },
     "eps": { name: "Poliestireno expandido (EPS)", k: 0.037 },
     "xps": { name: "Poliestireno extruido (XPS)", k: 0.033 },
     "pur": { name: "Poliuretano expandido (PUR)", k: 0.026 },
-    "lana_vidrio": { name: "Lana de vidrio / mineral", k: 0.038 }
+    "lana_vidrio": { name: "Lana de vidrio", k: 0.038 }
   };
 
   const roofMateriales = {
@@ -2397,17 +2397,17 @@
     "losa": { name: "Losa de hormigón", k: 0.83 },
     "hormigon_armado": { name: "Hormigón armado (convencional)", k: 1.63 },
     "hormigon_alivianado": { name: "Hormigón alivianado (cascote)", k: 0.93 },
-    "chapa_acero": { name: "Chapa de acero / galvanizada", k: 50.0 },
-    "teja_ceramica": { name: "Teja cerámica / colonial", k: 1.00 },
-    "madera": { name: "Madera (tirantes / entablado)", k: 0.20 },
+    "chapa_acero": { name: "Chapa de acero", k: 50.0 },
+    "teja_ceramica": { name: "Teja cerámica/colonial", k: 1.00 },
+    "madera": { name: "Madera (pino)", k: 0.20 },
     "osb": { name: "Placa OSB", k: 0.13 },
-    "yeso": { name: "Placa de yeso (cielorraso)", k: 0.22 },
+    "yeso": { name: "Placa de yeso (Durlock)", k: 0.22 },
     "rev_fino": { name: "Revoque fino", k: 0.70 },
     "rev_grueso": { name: "Revoque grueso", k: 0.93 },
     "eps": { name: "Poliestireno expandido (EPS)", k: 0.037 },
     "xps": { name: "Poliestireno extruido (XPS)", k: 0.033 },
     "pur": { name: "Poliuretano expandido (PUR)", k: 0.026 },
-    "lana_vidrio": { name: "Lana de vidrio / mineral", k: 0.038 }
+    "lana_vidrio": { name: "Lana de vidrio", k: 0.038 }
   };
 
   const materiales = Object.assign({}, wallMateriales, roofMateriales);
@@ -2485,37 +2485,37 @@
       desc: "Capa base de cemento, cal y arena para tapar y nivelar los ladrillos. En paredes exteriores se le agrega hidrófugo (cerasita) para frenar la humedad de la lluvia."
     },
     "ladrillo_macizo": {
-      name: "Ladrillo macizo (común)",
+      name: "Ladrillo común",
       k: 0.81,
       category: "Mampostería",
       desc: "Ladrillo tradicional de barro cocido. Es pesado y aporta mucha inercia térmica (tarda en calentarse y enfriarse), pero por sí solo no es un buen aislante."
     },
     "ladrillo_hueco": {
-      name: "Ladrillo hueco cerámico",
+      name: "Ladrillo común cerámico",
       k: 0.45,
       category: "Mampostería",
       desc: "El ladrillo más usado en paredes y tabiques (típicamente de 12 o 18 cm). Los huecos de aire ayudan a que aísle mejor que el ladrillo macizo."
     },
     "hormigon_armado": {
-      name: "Hormigón armado convencional",
+      name: "Hormigón armado (convencional)",
       k: 1.63,
       category: "Estructura",
       desc: "Mezcla resistente de cemento, arena, piedra y barras de hierro. Transmite muchísimo el frío y el calor, siendo la principal causa de puentes térmicos si no se lo aísla."
     },
     "hormigon_alivianado": {
-      name: "Hormigón alivianado (contrapiso de cascote)",
+      name: "Hormigón alivianado (cascote)",
       k: 0.93,
       category: "Rellenos y contrapisos",
       desc: "Mezcla liviana hecha con pedazos de ladrillos rotos (cascote). Se usa en contrapisos sobre tierra y para dar pendiente de desagüe en techos y terrazas."
     },
     "hcca": {
-      name: "Hormigón celular (tipo Retak)",
+      name: "Hormigón celular HCCA (Retak)",
       k: 0.13,
       category: "Mampostería aislante",
       desc: "Bloque blanco y muy liviano lleno de microburbujas de aire cerradas. Permite levantar paredes que aíslan muy bien del frío y calor sin necesidad de sumar aislantes extra."
     },
     "yeso": {
-      name: "Placa de yeso (tipo Durlock)",
+      name: "Placa de yeso (Durlock)",
       k: 0.22,
       category: "Placa interior",
       desc: "Placa de cartón yeso para revestimientos y cielorrasos suspendidos. Aporta una terminación lisa y rápida, pero tiene baja capacidad aislante."
@@ -2527,13 +2527,13 @@
       desc: "Panel de virutas de madera orientadas y resina. Utilizado como arriostramiento en construcción en seco (Steel Framing / Wood Framing)."
     },
     "madera": {
-      name: "Madera (pino / machimbre)",
+      name: "Madera (pino)",
       k: 0.20,
       category: "Madera",
       desc: "Madera natural para revestimientos, entablonados y estructuras. Ofrece una moderada aislación térmica y aporta calidez visual."
     },
     "eps": {
-      name: "Poliestireno expandido (EPS / Telgopor)",
+      name: "Poliestireno expandido (EPS)",
       k: 0.037,
       category: "Aislante térmico",
       desc: "Espuma plástica liviana compuesta por perlas esféricas aprisionadas de aire. Es el aislante térmico más usado en muros (EIFS) y contrapisos."
@@ -2551,25 +2551,25 @@
       desc: "Espuma de poliuretano proyectada o en paneles rígidos. Posee la conductividad térmica más baja del mercado, maximizando la aislación con menor espesor."
     },
     "lana_vidrio": {
-      name: "Lana de vidrio (rollo o manta)",
+      name: "Lana de vidrio",
       k: 0.038,
       category: "Aislante térmico",
       desc: "Manta amarilla de fibras de vidrio. Aísla muy bien del frío, calor y ruidos molestos, y además no se prende fuego. Muy usada sobre cielorrasos y bajo techos de chapa."
     },
     "losa": {
-      name: "Losa con viguetas y bovedillas",
+      name: "Losa de hormigón",
       k: 0.83,
       category: "Estructura de techo",
       desc: "El techo tradicional de losa armado con viguetas pretensadas y bloques huecos. Es pesado y junta mucho calor, por lo que necesita sí o sí una buena aislación arriba."
     },
     "chapa_acero": {
-      name: "Chapa acanalada o sinusoidal (galvanizada)",
+      name: "Chapa de acero",
       k: 50.0,
       category: "Cubierta liviana",
       desc: "Chapa metálica para techos. Es económica y rápida de colocar, pero conduce el calor de golpe: si no le ponés un buen aislante abajo, en verano la casa es un horno."
     },
     "teja_ceramica": {
-      name: "Teja cerámica (colonial o francesa)",
+      name: "Teja cerámica/colonial",
       k: 1.00,
       category: "Cubierta inclinada",
       desc: "Tejas de barro cocido para techos en pendiente. Dan sombra y frenan el sol directo, pero igual necesitan llevar aislante térmico y membrana impermeable debajo."
