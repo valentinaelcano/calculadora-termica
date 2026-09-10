@@ -3393,6 +3393,52 @@
       const qTotalW = qWall + qRoof + qWin + qDoor;
       const qTotalKw = qTotalW / 1000;
 
+      // Parámetros económico-energéticos (Preguntas 2 y 3)
+      const pElecOptions = [0.08, 0.10, 0.12, 0.15];
+      const pGasOptions = [0.12, 0.15, 0.18, 0.20];
+      const hDayOptions = [6, 8, 10, 12];
+      const dMonthOptions = [25, 28, 30];
+
+      const pElec = pElecOptions[Math.floor(Math.random() * pElecOptions.length)];
+      const pGas = pGasOptions[Math.floor(Math.random() * pGasOptions.length)];
+      const hDay = hDayOptions[Math.floor(Math.random() * hDayOptions.length)];
+      const dMonth = dMonthOptions[Math.floor(Math.random() * dMonthOptions.length)];
+      const pcGas = 9300; // kcal/m3 constante
+
+      // Eficiencias / COP aleatorios
+      const hasCustomElec = Math.random() < 0.6;
+      let isHeatPump = false;
+      let effElec = 1.0;
+      let cop = 1.0;
+      if (hasCustomElec) {
+        if (Math.random() < 0.5) {
+          isHeatPump = true;
+          cop = [2.5, 3.0, 3.5][Math.floor(Math.random() * 3)];
+        } else {
+          effElec = [0.85, 0.90, 0.95][Math.floor(Math.random() * 3)];
+        }
+      }
+
+      const hasCustomGas = Math.random() < 0.7;
+      let effGas = 0.85;
+      if (hasCustomGas) {
+        effGas = [0.70, 0.75, 0.80, 0.85, 0.90][Math.floor(Math.random() * 5)];
+      }
+
+      const monthlyHours = hDay * dMonth;
+      const thermalKwhMonth = qTotalKw * monthlyHours;
+
+      // Estufa eléctrica
+      const elecFactor = isHeatPump ? cop : effElec;
+      const kwhElecMonth = thermalKwhMonth / elecFactor;
+      const costElecMonth = kwhElecMonth * pElec;
+
+      // Estufa a gas
+      const kwhGasInputMonth = thermalKwhMonth / effGas;
+      const kcalGasMonth = (thermalKwhMonth * 860) / effGas;
+      const m3GasMonth = kcalGasMonth / pcGas;
+      const costGasMonth = m3GasMonth * pGas;
+
       this.state = {
         title: "Pérdidas Térmicas por Transmisión",
         badge: "Práctica de Balance",
@@ -3408,7 +3454,14 @@
         tInC, tOutC, tInK, tOutK, deltaT,
         roofArea, grossWallArea, netWallArea,
         qWall, qRoof, qWin, qTotalW, qTotalKw,
-        userAnswer: "",
+        pElec, pGas, hDay, dMonth, pcGas,
+        hasCustomElec, isHeatPump, effElec, cop, elecFactor,
+        hasCustomGas, effGas,
+        monthlyHours, thermalKwhMonth, kwhElecMonth, costElecMonth,
+        kwhGasInputMonth, kcalGasMonth, m3GasMonth, costGasMonth,
+        userQAns: "",
+        userElecAns: "",
+        userGasAns: "",
         checked: false,
         isCorrect: false,
         showSolution: false,
@@ -3421,17 +3474,32 @@
 
     checkAnswer: function() {
       const st = this.state;
-      const rawVal = parseFloat(st.userAnswer.replace(",", "."));
-      if (isNaN(rawVal)) return;
+      const rawQ = parseFloat(st.userQAns.replace(",", "."));
+      const rawElec = parseFloat(st.userElecAns.replace(",", "."));
+      const rawGas = parseFloat(st.userGasAns.replace(",", "."));
 
-      let valInW = (st.qTotalW > 100 && rawVal < 100) ? rawVal * 1000 : rawVal;
-      const errPct = (Math.abs(valInW - st.qTotalW) / st.qTotalW) * 100;
+      if (isNaN(rawQ)) return;
+
+      let valQInW = (st.qTotalW > 100 && rawQ < 100) ? rawQ * 1000 : rawQ;
+      const errQ = (Math.abs(valQInW - st.qTotalW) / st.qTotalW) * 100;
       
-      st.errorPct = errPct;
+      let elecOk = true;
+      if (!isNaN(rawElec)) {
+        const errElec = (Math.abs(rawElec - st.costElecMonth) / st.costElecMonth) * 100;
+        elecOk = errElec <= 5.0;
+      }
+
+      let gasOk = true;
+      if (!isNaN(rawGas)) {
+        const errGas = (Math.abs(rawGas - st.costGasMonth) / st.costGasMonth) * 100;
+        gasOk = errGas <= 5.0;
+      }
+
+      st.errorPct = errQ;
       st.checked = true;
-      st.isCorrect = errPct <= 5.0;
+      st.isCorrect = errQ <= 5.0 && elecOk && gasOk;
       if (!st.isCorrect) {
-        st.hint = "Revisá las unidades (W vs kW) o el cálculo de las superficies y transmitancias.";
+        st.hint = "Revisá el cálculo de pérdidas térmicas (W/kW), horas de uso mensual y eficiencias/COP de los equipos.";
       }
       this.render();
     },
@@ -3446,17 +3514,30 @@
       if (!container || !this.state) return;
       const st = this.state;
 
+      let elecTechDesc = st.isHeatPump ? `una bomba de calor reversible con \\(\\text{COP} = ${st.cop.toString().replace('.', ',')}\\)` : (st.effElec < 1.0 ? `una estufa eléctrica con rendimiento del \\(${Math.round(st.effElec * 100)}\\%\\)` : `una estufa eléctrica (rendimiento 100%)`);
+      let gasTechDesc = st.effGas < 1.0 ? `con rendimiento del \\(${Math.round(st.effGas * 100)}\\%\\)` : `(rendimiento 100%)`;
+
       let answerBoxHtml = `
         <div style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--border-color);">
-          <div style="font-size: 13px; font-weight: 600; color: var(--text-main); margin-bottom: 8px;">
-            Cálculo numérico preciso
+          <div style="font-size: 13.5px; font-weight: 700; color: var(--text-main); margin-bottom: 10px;">
+            Cálculo preciso
           </div>
-          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">
-            Ingrese el valor calculado para \\(\\dot{Q}_{\\text{total}}\\). Puede expresarlo en vatios (W) o kilovatios (kW):
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px;">
+            <div>
+              <label style="display: block; font-size: 11.5px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">Pérdida térmica total \\(\\dot{Q}_{\\text{total}}\\) (W o kW):</label>
+              <input type="text" id="exUserQInput" value="${st.userQAns}" placeholder="Ej: 3450 o 3.45" style="width: 100%; padding: 7px 10px; font-size: 13px; border-radius: 6px; border: 1.5px solid var(--border-color); background: var(--bg-paper); color: var(--text-main); font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userQAns = this.value">
+            </div>
+            <div>
+              <label style="display: block; font-size: 11.5px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">Costo mensual estufa eléctrica (USD/mes):</label>
+              <input type="text" id="exUserElecInput" value="${st.userElecAns}" placeholder="Ej: 45.20" style="width: 100%; padding: 7px 10px; font-size: 13px; border-radius: 6px; border: 1.5px solid var(--border-color); background: var(--bg-paper); color: var(--text-main); font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userElecAns = this.value">
+            </div>
+            <div>
+              <label style="display: block; font-size: 11.5px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">Costo mensual estufa a gas (USD/mes):</label>
+              <input type="text" id="exUserGasInput" value="${st.userGasAns}" placeholder="Ej: 28.50" style="width: 100%; padding: 7px 10px; font-size: 13px; border-radius: 6px; border: 1.5px solid var(--border-color); background: var(--bg-paper); color: var(--text-main); font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userGasAns = this.value">
+            </div>
           </div>
           <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-            <input type="text" id="exUserAnswerInput" value="${st.userAnswer}" placeholder="Ej: 3450 o 3.45" style="padding: 8px 12px; font-size: 13px; border-radius: 6px; border: 1.5px solid var(--border-color); background: var(--bg-paper); color: var(--text-main); width: 180px; font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userAnswer = this.value">
-            <button class="ex-btn ex-btn-primary" onclick="ExerciseEngine.checkAnswer()">Verificar Respuesta</button>
+            <button class="ex-btn ex-btn-primary" onclick="ExerciseEngine.checkAnswer()">Verificar Respuestas</button>
             <button class="ex-btn ex-btn-secondary" onclick="ExerciseEngine.toggleSolution()">
               ${st.showSolution ? "Ocultar Solución" : "Ver Solución Detallada"}
             </button>
@@ -3466,14 +3547,17 @@
       if (st.checked) {
         if (st.isCorrect) {
           answerBoxHtml += `
-            <div style="margin-top: 10px; padding: 10px 14px; border-radius: 6px; background: rgba(22, 163, 74, 0.1); border: 1px solid #16a34a; color: #15803d; font-size: 12.5px; font-weight: 600;">
-              Respuesta correcta (tolerancia menor al 5%). \\(\\dot{Q}_{\\text{total}} = ${st.qTotalW.toFixed(1).replace('.', ',')}\\text{ W} = ${st.qTotalKw.toFixed(3).replace('.', ',')}\\text{ kW}\\).
+            <div style="margin-top: 12px; padding: 10px 14px; border-radius: 6px; background: rgba(22, 163, 74, 0.1); border: 1px solid #16a34a; color: #15803d; font-size: 12.5px; font-weight: 600;">
+              ¡Respuestas correctas! (Tolerancia menor al 5%).<br>
+              \\(\\dot{Q}_{\\text{total}} = ${st.qTotalW.toFixed(1).replace('.', ',')}\\text{ W} = ${st.qTotalKw.toFixed(3).replace('.', ',')}\\text{ kW}\\).<br>
+              Costo mensual eléctrico = ${st.costElecMonth.toFixed(2).replace('.', ',')} USD/mes.<br>
+              Costo mensual a gas = ${st.costGasMonth.toFixed(2).replace('.', ',')} USD/mes.
             </div>
           `;
         } else {
           answerBoxHtml += `
-            <div style="margin-top: 10px; padding: 10px 14px; border-radius: 6px; background: rgba(220, 38, 38, 0.1); border: 1px solid #dc2626; color: #b91c1c; font-size: 12.5px;">
-              <div style="font-weight: 700;">Respuesta fuera de tolerancia (${st.errorPct ? st.errorPct.toFixed(1).replace('.', ',') : ""}% de error).</div>
+            <div style="margin-top: 12px; padding: 10px 14px; border-radius: 6px; background: rgba(220, 38, 38, 0.1); border: 1px solid #dc2626; color: #b91c1c; font-size: 12.5px;">
+              <div style="font-weight: 700;">Revisá tus cálculos.</div>
               <div style="margin-top: 4px; font-size: 12px;">${st.hint}</div>
             </div>
           `;
@@ -3566,6 +3650,8 @@
           qTotalMath = `$$\\displaystyle \\dot{Q}_{\\text{total}} = \\dot{Q}_{\\text{pared}} + \\dot{Q}_{\\text{techo}} + \\dot{Q}_{\\text{ventanas}} = ${st.qWall.toFixed(1).replace('.', ',')} + ${st.qRoof.toFixed(1).replace('.', ',')} + ${st.qWin.toFixed(1).replace('.', ',')} = \\mathbf{${st.qTotalW.toFixed(1).replace('.', ',')} \\text{ W}}$$`;
         }
 
+        let elecEfficiencyExplanation = st.isHeatPump ? `Con bomba de calor (\\(\\text{COP} = ${st.cop.toString().replace('.', ',')}\\)), la potencia eléctrica consumida es \\(P_{\\text{elec}} = \\frac{\\dot{Q}_{\\text{total}}}{\\text{COP}} = \\frac{${st.qTotalKw.toFixed(3).replace('.', ',')}}{${st.cop.toString().replace('.', ',')}} = ${(st.qTotalKw/st.cop).toFixed(3).replace('.', ',')}\\text{ kW}\\).` : (st.effElec < 1.0 ? `Con rendimiento \\(\\eta = ${Math.round(st.effElec*100)}\\%\\), la potencia eléctrica requerida es \\(P_{\\text{elec}} = \\frac{\\dot{Q}_{\\text{total}}}{\\eta} = \\frac{${st.qTotalKw.toFixed(3).replace('.', ',')}}{${st.effElec.toString().replace('.', ',')}} = ${(st.qTotalKw/st.effElec).toFixed(3).replace('.', ',')}\\text{ kW}\\).` : `Con rendimiento del 100%, la potencia eléctrica consumida coincide con las pérdidas: \\(P_{\\text{elec}} = \\dot{Q}_{\\text{total}} = ${st.qTotalKw.toFixed(3).replace('.', ',')}\\text{ kW}\\).`);
+
         solutionHtml = `
           <div style="margin-top: 20px; border-top: 2px solid var(--border-color); padding-top: 16px;">
             <h4 style="margin: 0 0 14px 0; font-size: 15px; color: var(--text-main); font-weight: 700;">Desarrollo Didáctico y Solución Detallada</h4>
@@ -3636,6 +3722,32 @@
               </div>
             </div>
 
+            <div style="background: var(--bg-paper); border: 1.5px solid var(--border-color); border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
+              <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">8. Costo mensual con sistema eléctrico</div>
+              <div style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
+                Tiempo de uso mensual: \\(${st.hDay}\\text{ h/día} \\cdot ${st.dMonth}\\text{ días/mes} = ${st.monthlyHours}\\text{ horas/mes}\\).<br>
+                ${elecEfficiencyExplanation}<br>
+                Energía eléctrica mensual consumida:
+                $$\\displaystyle E_{\\text{elec}} = P_{\\text{elec}} \\cdot h_{\\text{mes}} = ${ (st.qTotalKw/st.elecFactor).toFixed(3).replace('.', ',') } \\cdot ${st.monthlyHours} = ${st.kwhElecMonth.toFixed(1).replace('.', ',')} \\text{ kWh/mes}$$
+                Costo mensual (a ${st.pElec.toString().replace('.', ',')} USD/kWh):
+                $$\\displaystyle \\text{Costo}_{\\text{elec}} = E_{\\text{elec}} \\cdot p_{\\text{elec}} = ${st.kwhElecMonth.toFixed(1).replace('.', ',')} \\cdot ${st.pElec.toString().replace('.', ',')} = \\mathbf{${st.costElecMonth.toFixed(2).replace('.', ',')} \\text{ USD/mes}}$$
+              </div>
+            </div>
+
+            <div style="background: var(--bg-paper); border: 1.5px solid var(--border-color); border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
+              <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">9. Costo mensual con estufa a gas natural</div>
+              <div style="font-size: 12.5px; color: var(--text-main); line-height: 1.6;">
+                Energía térmica útil requerida en el mes:
+                $$\\displaystyle E_{\\text{térmica}} = \\dot{Q}_{\\text{total}} \\cdot h_{\\text{mes}} = ${st.qTotalKw.toFixed(3).replace('.', ',')} \\cdot ${st.monthlyHours} = ${st.thermalKwhMonth.toFixed(1).replace('.', ',')} \\text{ kWh/mes}$$
+                Convertida a kilocalorías (\\(1\\text{ kWh} = 860\\text{ kcal}\\)) y considerando rendimiento \\(\\eta_{\\text{gas}} = ${Math.round(st.effGas*100)}\\%\\):
+                $$\\displaystyle E_{\\text{gas,kcal}} = \\frac{E_{\\text{térmica}} \\cdot 860}{\\eta_{\\text{gas}}} = \\frac{${st.thermalKwhMonth.toFixed(1).replace('.', ',')} \\cdot 860}{${st.effGas.toString().replace('.', ',')}} = ${st.kcalGasMonth.toFixed(0).replace('.', ',')} \\text{ kcal/mes}$$
+                Volumen de gas natural consumido (\\(PC = 9300\\text{ kcal/m}^3\\)):
+                $$\\displaystyle V_{\\text{gas}} = \\frac{E_{\\text{gas,kcal}}}{9300} = \\frac{${st.kcalGasMonth.toFixed(0).replace('.', ',')}}{9300} = ${st.m3GasMonth.toFixed(1).replace('.', ',')} \\text{ m}^3\\text{/mes}$$
+                Costo mensual (a ${st.pGas.toString().replace('.', ',')} USD/m³):
+                $$\\displaystyle \\text{Costo}_{\\text{gas}} = V_{\\text{gas}} \\cdot p_{\\text{gas}} = ${st.m3GasMonth.toFixed(1).replace('.', ',')} \\cdot ${st.pGas.toString().replace('.', ',')} = \\mathbf{${st.costGasMonth.toFixed(2).replace('.', ',')} \\text{ USD/mes}}$$
+              </div>
+            </div>
+
           </div>
         `;
       }
@@ -3650,8 +3762,13 @@
           </div>
           <div class="latex-panel-body" style="gap: 16px;">
             <p style="font-size: 13.5px; line-height: 1.7; color: var(--text-main); margin: 0; text-align: justify; font-weight: 400;">
-              Se requiere determinar las pérdidas térmicas por transmisión en una vivienda unifamiliar de planta rectangular con dimensiones externas de ${st.L.toFixed(2)} m de largo, ${st.W.toFixed(2)} m de ancho y ${st.H.toFixed(2)} m de altura. Las paredes exteriores están construidas por ${st.wall.desc}. El techo está conformado por ${st.roof.desc}. La vivienda posee ${st.numWin} ventanas de ${st.winSize.label} cada una, compuestas por ${st.winType.desc}${doorTextDesc}. La temperatura en el interior de la residencia se mantiene en ${st.tInC} °C (${st.tInK} K) mientras que la temperatura exterior de diseño es de ${st.tOutC} °C (${st.tOutK} K). Considere que el coeficiente de convección interior es \\(h_{in} = 8\\text{ W/m}^2\\text{K}\\)` + ` y el exterior es ` + `\\(h_{ext} = 28\\text{ W/m}^2\\text{K}\\). Ignorando las pérdidas por el suelo y la infiltración de aire, determine la potencia térmica total en vatios (W) o kilovatios (kW) transmitida hacia el exterior.
+              Se requiere determinar el balance de pérdidas térmicas por transmisión y la evaluación técnico-económica para una vivienda unifamiliar de planta rectangular con dimensiones externas de ${st.L.toFixed(2)} m de largo, ${st.W.toFixed(2)} m de ancho y ${st.H.toFixed(2)} m de altura. Las paredes exteriores están construidas por ${st.wall.desc}. El techo está conformado por ${st.roof.desc}. La vivienda posee ${st.numWin} ventanas de ${st.winSize.label} cada una, compuestas por ${st.winType.desc}${doorTextDesc}. La temperatura en el interior de la residencia se mantiene en ${st.tInC} °C (${st.tInK} K) mientras que la temperatura exterior de diseño es de ${st.tOutC} °C (${st.tOutK} K). Considere que el coeficiente de convección interior es \\(h_{in} = 8\\text{ W/m}^2\\text{K}\\)` + ` y el exterior es ` + `\\(h_{ext} = 28\\text{ W/m}^2\\text{K}\\). Ignorando las pérdidas por el suelo y la infiltración de aire:
             </p>
+            <ol style="font-size: 13px; line-height: 1.6; color: var(--text-main); margin: 0; padding-left: 20px;">
+              <li>Determine la potencia térmica total \\(\\dot{Q}_{\\text{total}}\\) transmitida hacia el exterior en vatios (W) o kilovatios (kW).</li>
+              <li>¿Cuál será el costo mensual (USD/mes) de mantener esta temperatura mediante ${elecTechDesc}, si la tarifa eléctrica es de <strong>${st.pElec.toString().replace('.', ',')} USD/kWh</strong> y se opera durante <strong>${st.hDay} h/día</strong> a lo largo de <strong>${st.dMonth} días/mes</strong>?</li>
+              <li>¿Cuál será el costo mensual (USD/mes) de mantener esta temperatura mediante una estufa a gas natural ${gasTechDesc}, si el precio del \\(\\text{m}^3\\) de gas es de <strong>${st.pGas.toString().replace('.', ',')} USD/m³</strong> y posee un poder calorífico de <strong>9300 kcal/\\(\\text{m}^3\\)</strong> (donde 1 kWh = 860 kcal)?</li>
+            </ol>
             ${answerBoxHtml}
             ${solutionHtml}
           </div>
