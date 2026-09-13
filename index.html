@@ -2171,7 +2171,7 @@
                   <select id="doorMat">
                     <option value="0.18">Madera maciza (&lambda; = 0.18 W/m·K)</option>
                     <option value="0.12">Puerta placa enchapada (&lambda; = 0.12 W/m·K)</option>
-                    <option value="0.035">Chapa de acero inyectada PUR (&lambda; = 0.035 W/m·K)</option>
+                    <option value="0.026">Chapa de acero inyectada PUR (&lambda; = 0.026 W/m·K)</option>
                   </select>
                 </div>
                 <div class="row"><label>Espesor puerta [mm]</label><input type="number" id="doorT" min="0" step="1" value="35"></div>
@@ -2491,8 +2491,8 @@
     "_placeholder": { name: "-- Seleccionar material --", k: 1.0, isPlaceholder: true },
     "rev_fino": { name: "Revoque fino", k: 0.70 },
     "rev_grueso": { name: "Revoque grueso", k: 0.93 },
-    "ladrillo_macizo": { name: "Ladrillo común", k: 0.81 },
-    "ladrillo_hueco": { name: "Ladrillo común cerámico", k: 0.45 },
+    "ladrillo_macizo": { name: "Ladrillo común macizo", k: 0.81 },
+    "ladrillo_hueco": { name: "Ladrillo común", k: 0.45 },
     "hormigon_armado": { name: "Hormigón armado (convencional)", k: 1.63 },
     "hormigon_alivianado": { name: "Hormigón alivianado (cascote)", k: 0.93 },
     "hcca": { name: "Hormigón celular HCCA (Retak)", k: 0.13 },
@@ -2598,13 +2598,13 @@
       desc: "Capa base de cemento, cal y arena para tapar y nivelar los ladrillos. En paredes exteriores se le agrega hidrófugo (cerasita) para frenar la humedad de la lluvia."
     },
     "ladrillo_macizo": {
-      name: "Ladrillo común",
+      name: "Ladrillo común macizo",
       k: 0.81,
       category: "Mampostería",
       desc: "Ladrillo tradicional de barro cocido. Es pesado y aporta mucha inercia térmica (tarda en calentarse y enfriarse), pero por sí solo no es un buen aislante."
     },
     "ladrillo_hueco": {
-      name: "Ladrillo común cerámico",
+      name: "Ladrillo común",
       k: 0.45,
       category: "Mampostería",
       desc: "El ladrillo más usado en paredes y tabiques (típicamente de 12 o 18 cm). Los huecos de aire ayudan a que aísle mejor que el ladrillo macizo."
@@ -3610,39 +3610,39 @@
 
       const wallPresets = [
         {
-          name: "Pared de ladrillo hueco cerámico con revoques",
-          desc: "revoque exterior de 15 mm (\\(\\lambda = 0{,}93\\text{ W/mK}\\)), ladrillo hueco cerámico de 180 mm (\\(\\lambda = 0{,}45\\text{ W/mK}\\)) y revoque interior de 15 mm (\\(\\lambda = 0{,}70\\text{ W/mK}\\))",
+          name: "Pared de ladrillo común con revoques",
+          desc: "revoque exterior de 15 mm (\\(\\lambda = 0{,}93\\text{ W/mK}\\)), ladrillo común de 180 mm (\\(\\lambda = 0{,}45\\text{ W/mK}\\)) y revoque interior de 15 mm (\\(\\lambda = 0{,}70\\text{ W/mK}\\))",
           layers: [
-            { name: "Revoque grueso exterior", eMm: 15, lambda: 0.93 },
-            { name: "Ladrillo hueco cerámico", eMm: 180, lambda: 0.45 },
-            { name: "Revoque fino interior", eMm: 15, lambda: 0.70 }
+            { name: "Revoque grueso", eMm: 15, lambda: 0.93 },
+            { name: "Ladrillo común", eMm: 180, lambda: 0.45 },
+            { name: "Revoque fino", eMm: 15, lambda: 0.70 }
           ]
         },
         {
           name: "Pared de mampostería de ladrillo común macizo",
           desc: "revoque exterior de 20 mm (\\(\\lambda = 0{,}93\\text{ W/mK}\\)), mampostería de ladrillo común macizo de 300 mm (\\(\\lambda = 0{,}81\\text{ W/mK}\\)) y revoque interior de 15 mm (\\(\\lambda = 0{,}70\\text{ W/mK}\\))",
           layers: [
-            { name: "Revoque grueso exterior", eMm: 20, lambda: 0.93 },
+            { name: "Revoque grueso", eMm: 20, lambda: 0.93 },
             { name: "Ladrillo común macizo", eMm: 300, lambda: 0.81 },
-            { name: "Revoque fino interior", eMm: 15, lambda: 0.70 }
+            { name: "Revoque fino", eMm: 15, lambda: 0.70 }
           ]
         },
         {
           name: "Pared de hormigón celular HCCA",
-          desc: "revoque fino exterior de 10 mm (\\(\\lambda = 0{,}85\\text{ W/mK}\\)), bloques de hormigón celular de 150 mm (\\(\\lambda = 0{,}13\\text{ W/mK}\\)) y enlucido de yeso interior de 10 mm (\\(\\lambda = 0{,}22\\text{ W/mK}\\))",
+          desc: "revoque fino exterior de 10 mm (\\(\\lambda = 0{,}85\\text{ W/mK}\\)), bloques de hormigón celular HCCA (Retak) de 150 mm (\\(\\lambda = 0{,}13\\text{ W/mK}\\)) y placa de yeso (Durlock) interior de 10 mm (\\(\\lambda = 0{,}22\\text{ W/mK}\\))",
           layers: [
-            { name: "Revoque fino exterior", eMm: 10, lambda: 0.85 },
-            { name: "Hormigón celular HCCA", eMm: 150, lambda: 0.13 },
-            { name: "Enlucido de yeso interior", eMm: 10, lambda: 0.22 }
+            { name: "Revoque fino", eMm: 10, lambda: 0.85 },
+            { name: "Hormigón celular HCCA (Retak)", eMm: 150, lambda: 0.13 },
+            { name: "Placa de yeso (Durlock)", eMm: 10, lambda: 0.22 }
           ]
         },
         {
           name: "Muro doble aislante con poliestireno expandido",
-          desc: "tabique exterior de ladrillo común de 120 mm (\\(\\lambda = 0{,}81\\text{ W/mK}\\)), capa aislante de poliestireno expandido de 50 mm (\\(\\lambda = 0{,}037\\text{ W/mK}\\)) y tabique interior de ladrillo común de 120 mm (\\(\\lambda = 0{,}81\\text{ W/mK}\\))",
+          desc: "tabique exterior de ladrillo común macizo de 120 mm (\\(\\lambda = 0{,}81\\text{ W/mK}\\)), capa aislante de poliestireno expandido (EPS) de 50 mm (\\(\\lambda = 0{,}037\\text{ W/mK}\\)) y tabique interior de ladrillo común macizo de 120 mm (\\(\\lambda = 0{,}81\\text{ W/mK}\\))",
           layers: [
-            { name: "Ladrillo común exterior", eMm: 120, lambda: 0.81 },
+            { name: "Ladrillo común macizo", eMm: 120, lambda: 0.81 },
             { name: "Poliestireno expandido (EPS)", eMm: 50, lambda: 0.037 },
-            { name: "Ladrillo común interior", eMm: 120, lambda: 0.81 }
+            { name: "Ladrillo común macizo", eMm: 120, lambda: 0.81 }
           ]
         }
       ];
@@ -3650,29 +3650,29 @@
       const roofPresets = [
         {
           name: "Techo de losa de hormigón armado aislada con EPS",
-          desc: "losa de hormigón armado de 120 mm (\\(\\lambda = 1{,}63\\text{ W/mK}\\)), aislación térmica de poliestireno expandido de 50 mm (\\(\\lambda = 0{,}037\\text{ W/mK}\\)) y contrapiso alivianado de 80 mm (\\(\\lambda = 0{,}93\\text{ W/mK}\\))",
+          desc: "losa de hormigón armado (convencional) de 120 mm (\\(\\lambda = 1{,}63\\text{ W/mK}\\)), aislación térmica de poliestireno expandido (EPS) de 50 mm (\\(\\lambda = 0{,}037\\text{ W/mK}\\)) y hormigón alivianado (cascote) de 80 mm (\\(\\lambda = 0{,}93\\text{ W/mK}\\))",
           layers: [
-            { name: "Losa de hormigón armado", eMm: 120, lambda: 1.63 },
-            { name: "Aislación de poliestireno expandido (EPS)", eMm: 50, lambda: 0.037 },
-            { name: "Contrapiso alivianado", eMm: 80, lambda: 0.93 }
+            { name: "Hormigón armado (convencional)", eMm: 120, lambda: 1.63 },
+            { name: "Poliestireno expandido (EPS)", eMm: 50, lambda: 0.037 },
+            { name: "Hormigón alivianado (cascote)", eMm: 80, lambda: 0.93 }
           ]
         },
         {
           name: "Techo liviano de chapa con lana de vidrio y yeso",
-          desc: "cielorraso de placas de yeso de 12,5 mm (\\(\\lambda = 0{,}22\\text{ W/mK}\\)), manta de lana de vidrio de 80 mm (\\(\\lambda = 0{,}038\\text{ W/mK}\\)) y cubierta exterior de chapa de acero de 1 mm (\\(\\lambda = 50{,}0\\text{ W/mK}\\))",
+          desc: "cielorraso de placa de yeso (Durlock) de 12,5 mm (\\(\\lambda = 0{,}22\\text{ W/mK}\\)), manta de lana de vidrio de 80 mm (\\(\\lambda = 0{,}038\\text{ W/mK}\\)) y cubierta exterior de chapa de acero de 1 mm (\\(\\lambda = 50{,}0\\text{ W/mK}\\))",
           layers: [
-            { name: "Cielorraso de placa de yeso", eMm: 12.5, lambda: 0.22 },
-            { name: "Manta de lana de vidrio", eMm: 80, lambda: 0.038 },
-            { name: "Chapa de acero exterior", eMm: 1, lambda: 50.0 }
+            { name: "Placa de yeso (Durlock)", eMm: 12.5, lambda: 0.22 },
+            { name: "Lana de vidrio", eMm: 80, lambda: 0.038 },
+            { name: "Chapa de acero", eMm: 1, lambda: 50.0 }
           ]
         },
         {
           name: "Techo de losa de viguetas con poliuretano",
-          desc: "losa de viguetas con bloques cerámicos de 160 mm (\\(\\lambda = 0{,}45\\text{ W/mK}\\)), revoque de yeso inferior de 15 mm (\\(\\lambda = 0{,}22\\text{ W/mK}\\)) y capa superior de poliuretano extruido de 40 mm (\\(\\lambda = 0{,}026\\text{ W/mK}\\))",
+          desc: "losa de viguetas con ladrillo común de 160 mm (\\(\\lambda = 0{,}45\\text{ W/mK}\\)), revoque de placa de yeso (Durlock) inferior de 15 mm (\\(\\lambda = 0{,}22\\text{ W/mK}\\)) y capa superior de poliuretano expandido (PUR) de 40 mm (\\(\\lambda = 0{,}026\\text{ W/mK}\\))",
           layers: [
-            { name: "Revoque inferior de yeso", eMm: 15, lambda: 0.22 },
-            { name: "Losa de viguetas y bloques cerámicos", eMm: 160, lambda: 0.45 },
-            { name: "Aislación de poliuretano extruido (PUR)", eMm: 40, lambda: 0.026 }
+            { name: "Placa de yeso (Durlock)", eMm: 15, lambda: 0.22 },
+            { name: "Ladrillo común", eMm: 160, lambda: 0.45 },
+            { name: "Poliuretano expandido (PUR)", eMm: 40, lambda: 0.026 }
           ]
         }
       ];
@@ -3704,18 +3704,18 @@
       const doorPresets = [
         {
           name: "Puerta exterior de madera maciza",
-          desc: "una puerta exterior de madera maciza de 0,90 m por 2,00 m con espesor de 45 mm (\\(\\lambda = 0{,}13\\text{ W/mK}\\))",
+          desc: "una puerta exterior de madera (pino) de 0,90 m por 2,00 m con espesor de 45 mm (\\(\\lambda = 0{,}13\\text{ W/mK}\\))",
           w: 0.9, h: 2.0,
-          layers: [ { name: "Tablero de madera maciza", eMm: 45, lambda: 0.13 } ]
+          layers: [ { name: "Madera (pino)", eMm: 45, lambda: 0.13 } ]
         },
         {
           name: "Puerta exterior metálica inyectada con PUR",
-          desc: "una puerta exterior metálica de 0,80 m por 2,00 m compuesta por chapa de acero exterior de 1 mm (\\(\\lambda = 50{,}0\\text{ W/mK}\\)), núcleo aislante de poliuretano de 35 mm (\\(\\lambda = 0{,}026\\text{ W/mK}\\)) y chapa interior de 1 mm (\\(\\lambda = 50{,}0\\text{ W/mK}\\))",
+          desc: "una puerta exterior metálica de 0,80 m por 2,00 m compuesta por chapa de acero de 1 mm (\\(\\lambda = 50{,}0\\text{ W/mK}\\)), núcleo aislante de poliuretano expandido (PUR) de 35 mm (\\(\\lambda = 0{,}026\\text{ W/mK}\\)) y chapa de acero de 1 mm (\\(\\lambda = 50{,}0\\text{ W/mK}\\))",
           w: 0.8, h: 2.0,
           layers: [
-            { name: "Chapa exterior de acero", eMm: 1, lambda: 50.0 },
-            { name: "Núcleo de poliuretano (PUR)", eMm: 35, lambda: 0.026 },
-            { name: "Chapa interior de acero", eMm: 1, lambda: 50.0 }
+            { name: "Chapa de acero", eMm: 1, lambda: 50.0 },
+            { name: "Poliuretano expandido (PUR)", eMm: 35, lambda: 0.026 },
+            { name: "Chapa de acero", eMm: 1, lambda: 50.0 }
           ]
         }
       ];
