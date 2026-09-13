@@ -523,6 +523,23 @@
     gap: 20px;
   }
 
+  .panel-reorder-hint {
+    background: var(--bg-paper);
+    border: 1.5px dashed var(--border-color);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .panel-reorder-hint strong {
+    color: var(--text-main);
+  }
+
   /* Estilos para Tarjetas Colapsables (<details>) */
   details.latex-panel, details.latex-box {
     margin-bottom: 4px;
@@ -1971,6 +1988,12 @@
     
     <div class="col">
       
+      <!-- Aviso de reordenamiento de tarjetas -->
+      <div class="panel-reorder-hint">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><path d="M8 9l4-4 4 4M8 15l4 4 4-4"/></svg>
+        <span><strong>Nota:</strong> Las tarjetas y paneles de esta sección son movibles. Podés arrastrarlas o usar las flechas para acomodarlas según tus necesidades.</span>
+      </div>
+
       <details open class="latex-box definition">
         <summary class="latex-box-title">
           <span>Definición 1.1 (Transmitancia térmica $U$ y resistencia total)</span>
