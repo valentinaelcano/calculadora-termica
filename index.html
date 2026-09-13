@@ -664,6 +664,95 @@
     transition: width 0.3s ease;
   }
 
+  /* Controles de reordenamiento de cuadros / paneles */
+  .panel-head-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .panel-order-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    padding: 2px 4px;
+  }
+
+  .btn-panel-move {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-panel-move:hover:not(:disabled) {
+    background: var(--latex-blue);
+    color: #ffffff;
+  }
+
+  .btn-panel-move:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+  }
+
+  .latex-panel.dragging, .latex-box.dragging {
+    opacity: 0.5;
+    border-style: dashed;
+  }
+
+  .latex-panel.drag-over, .latex-box.drag-over {
+    border: 2px dashed var(--latex-blue) !important;
+    background: var(--bg-subtle);
+  }
+
+  /* Botones de mover capas en tabla */
+  .layer-action-btns {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .btn-order {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: 3px;
+    color: var(--text-main);
+    font-size: 10px;
+    font-weight: bold;
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    padding: 0;
+  }
+
+  .btn-order:hover:not(:disabled) {
+    background: var(--latex-blue);
+    color: #fff;
+    border-color: var(--latex-blue);
+  }
+
+  .btn-order:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+  }
+
   .latex-panel {
     background: var(--bg-card);
     border: 2px solid var(--border-light);
@@ -1074,6 +1163,24 @@
   }
 
   /* Vista Previa de Composición Constructiva - Corte Técnico */
+  details.composition-preview summary {
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+  }
+
+  details.composition-preview summary::-webkit-details-marker,
+  details.composition-preview summary::marker {
+    display: none;
+    content: "";
+  }
+
+  details.composition-preview:not([open]) .comp-header {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
   .composition-preview {
     margin-top: 16px;
     border: 1.5px solid var(--border-main);
@@ -1914,11 +2021,14 @@
           </div>
 
           <!-- Vista Previa de Composición Constructiva de la Pared -->
-          <div class="composition-preview" id="wallPreviewContainer">
-            <div class="comp-header">
+          <details open class="composition-preview" id="wallPreviewContainer">
+            <summary class="comp-header">
               <span class="comp-title">FIGURA 2.1 — Corte constructivo transversal (pared)</span>
-              <span class="comp-meta" id="wallCompMeta">Espesor total: – mm</span>
-            </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span class="comp-meta" id="wallCompMeta">Espesor total: – mm</span>
+                <span class="collapse-icon">▼</span>
+              </div>
+            </summary>
 
             <!-- Barra de Orientación Térmica Permanente -->
             <div class="comp-orientation-bar">
@@ -1944,7 +2054,7 @@
               </div>
             </div>
             <div class="comp-legend-bar" id="wallCompLegend"></div>
-          </div>
+          </details>
         </div>
       </details>
 
@@ -1973,11 +2083,14 @@
           </div>
 
           <!-- Vista Previa de Composición Constructiva del Techo -->
-          <div class="composition-preview" id="roofPreviewContainer">
-            <div class="comp-header">
+          <details open class="composition-preview" id="roofPreviewContainer">
+            <summary class="comp-header">
               <span class="comp-title">FIGURA 3.1 — Corte constructivo transversal (techo)</span>
-              <span class="comp-meta" id="roofCompMeta">Espesor total: – mm</span>
-            </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span class="comp-meta" id="roofCompMeta">Espesor total: – mm</span>
+                <span class="collapse-icon">▼</span>
+              </div>
+            </summary>
 
             <!-- Barra de Orientación Térmica Permanente -->
             <div class="comp-orientation-bar">
@@ -2003,7 +2116,7 @@
               </div>
             </div>
             <div class="comp-legend-bar" id="roofCompLegend"></div>
-          </div>
+          </details>
         </div>
       </details>
 
@@ -2775,6 +2888,118 @@
     if(tableId === 'wallTable') wallLayers = wallLayers.filter(x => x.id !== id);
     if(tableId === 'roofTable') roofLayers = roofLayers.filter(x => x.id !== id);
     renderTables();
+  }
+
+  window.moveLayer = function(tableId, idx, dir) {
+    const list = tableId === 'wallTable' ? wallLayers : roofLayers;
+    const targetIdx = idx + dir;
+    if (targetIdx < 0 || targetIdx >= list.length) return;
+    const temp = list[idx];
+    list[idx] = list[targetIdx];
+    list[targetIdx] = temp;
+    renderTables();
+  };
+
+  window.movePanelUp = function(btn, event) {
+    if (event) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+    const panel = btn.closest('.latex-panel, .latex-box');
+    if (!panel) return;
+    const container = panel.parentElement;
+    let prev = panel.previousElementSibling;
+    while (prev && !prev.matches('.latex-panel, .latex-box')) {
+      prev = prev.previousElementSibling;
+    }
+    if (prev) {
+      container.insertBefore(panel, prev);
+      updatePanelOrderButtons();
+    }
+  };
+
+  window.movePanelDown = function(btn, event) {
+    if (event) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+    const panel = btn.closest('.latex-panel, .latex-box');
+    if (!panel) return;
+    const container = panel.parentElement;
+    let next = panel.nextElementSibling;
+    while (next && !next.matches('.latex-panel, .latex-box')) {
+      next = next.nextElementSibling;
+    }
+    if (next) {
+      container.insertBefore(next, panel);
+      updatePanelOrderButtons();
+    }
+  };
+
+  window.updatePanelOrderButtons = function() {
+    const container = document.querySelector('#tabEnvolvente > .col');
+    if (!container) return;
+    const panels = Array.from(container.children).filter(el => el.matches('.latex-panel, .latex-box'));
+    
+    panels.forEach((panel, idx) => {
+      const btnUp = panel.querySelector('.btn-panel-up');
+      const btnDown = panel.querySelector('.btn-panel-down');
+      if (btnUp) btnUp.disabled = (idx === 0);
+      if (btnDown) btnDown.disabled = (idx === panels.length - 1);
+    });
+  };
+
+  function enablePanelDragAndDrop() {
+    const container = document.querySelector('#tabEnvolvente > .col');
+    if (!container) return;
+
+    let draggedItem = null;
+
+    container.querySelectorAll('.latex-panel, .latex-box').forEach(panel => {
+      panel.setAttribute('draggable', 'true');
+
+      panel.addEventListener('dragstart', (e) => {
+        draggedItem = panel;
+        panel.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', '');
+      });
+
+      panel.addEventListener('dragend', () => {
+        draggedItem = null;
+        panel.classList.remove('dragging');
+        container.querySelectorAll('.latex-panel, .latex-box').forEach(p => p.classList.remove('drag-over'));
+        updatePanelOrderButtons();
+      });
+
+      panel.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        if (panel !== draggedItem) {
+          panel.classList.add('drag-over');
+        }
+      });
+
+      panel.addEventListener('dragleave', () => {
+        panel.classList.remove('drag-over');
+      });
+
+      panel.addEventListener('drop', (e) => {
+        e.preventDefault();
+        panel.classList.remove('drag-over');
+        if (draggedItem && draggedItem !== panel) {
+          const panels = Array.from(container.children).filter(el => el.matches('.latex-panel, .latex-box'));
+          const draggedIdx = panels.indexOf(draggedItem);
+          const targetIdx = panels.indexOf(panel);
+          if (draggedIdx < targetIdx) {
+            container.insertBefore(draggedItem, panel.nextElementSibling);
+          } else {
+            container.insertBefore(draggedItem, panel);
+          }
+          updatePanelOrderButtons();
+        }
+      });
+    });
   }
 
   const typeDefs = {
@@ -3951,6 +4176,8 @@
   syncWinGap();
   renderTables();
   updateCity();
+  updatePanelOrderButtons();
+  enablePanelDragAndDrop();
 })();
 </script>
 </body>
