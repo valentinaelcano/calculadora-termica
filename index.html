@@ -3889,6 +3889,10 @@
         userElecAns: "",
         userGasAns: "",
         checked: false,
+        noneEntered: false,
+        qResult: null,
+        elecResult: null,
+        gasResult: null,
         isCorrect: false,
         showSolution: false,
         errorPct: null,
@@ -3900,32 +3904,80 @@
 
     checkAnswer: function() {
       const st = this.state;
-      const rawQ = parseFloat(st.userQAns.replace(",", "."));
-      const rawElec = parseFloat(st.userElecAns.replace(",", "."));
-      const rawGas = parseFloat(st.userGasAns.replace(",", "."));
 
-      if (isNaN(rawQ)) return;
+      const parseVal = (str) => {
+        if (!str) return NaN;
+        const cleaned = str.toString().trim().replace(',', '.');
+        if (!cleaned) return NaN;
+        const val = parseFloat(cleaned);
+        return isNaN(val) ? NaN : val;
+      };
 
-      let valQInW = (st.qTotalW > 100 && rawQ < 100) ? rawQ * 1000 : rawQ;
-      const errQ = (Math.abs(valQInW - st.qTotalW) / st.qTotalW) * 100;
-      
-      let elecOk = true;
-      if (!isNaN(rawElec)) {
+      const rawQ = parseVal(st.userQAns);
+      const rawElec = parseVal(st.userElecAns);
+      const rawGas = parseVal(st.userGasAns);
+
+      const hasQ = !isNaN(rawQ);
+      const hasElec = !isNaN(rawElec);
+      const hasGas = !isNaN(rawGas);
+
+      if (!hasQ && !hasElec && !hasGas) {
+        st.checked = true;
+        st.noneEntered = true;
+        st.qResult = null;
+        st.elecResult = null;
+        st.gasResult = null;
+        st.isCorrect = false;
+        this.render();
+        return;
+      }
+
+      st.noneEntered = false;
+
+      // Validación Pregunta 1 (Q)
+      if (hasQ) {
+        let valQInW = (st.qTotalW > 100 && rawQ < 100) ? rawQ * 1000 : rawQ;
+        const errQ = (Math.abs(valQInW - st.qTotalW) / st.qTotalW) * 100;
+        st.qResult = {
+          isCorrect: errQ <= 5.0,
+          errPct: errQ
+        };
+      } else {
+        st.qResult = null;
+      }
+
+      // Validación Pregunta 2 (Costo eléctrico)
+      if (hasElec) {
         const errElec = (Math.abs(rawElec - st.costElecMonth) / st.costElecMonth) * 100;
-        elecOk = errElec <= 5.0;
+        st.elecResult = {
+          isCorrect: errElec <= 5.0,
+          errPct: errElec
+        };
+      } else {
+        st.elecResult = null;
       }
 
-      let gasOk = true;
-      if (!isNaN(rawGas)) {
+      // Validación Pregunta 3 (Costo gas)
+      if (hasGas) {
         const errGas = (Math.abs(rawGas - st.costGasMonth) / st.costGasMonth) * 100;
-        gasOk = errGas <= 5.0;
+        st.gasResult = {
+          isCorrect: errGas <= 5.0,
+          errPct: errGas
+        };
+      } else {
+        st.gasResult = null;
       }
 
-      st.errorPct = errQ;
       st.checked = true;
-      st.isCorrect = errQ <= 5.0 && elecOk && gasOk;
+      const answeredCount = (hasQ ? 1 : 0) + (hasElec ? 1 : 0) + (hasGas ? 1 : 0);
+      const correctCount = (st.qResult?.isCorrect ? 1 : 0) + (st.elecResult?.isCorrect ? 1 : 0) + (st.gasResult?.isCorrect ? 1 : 0);
+
+      st.answeredCount = answeredCount;
+      st.correctCount = correctCount;
+      st.isCorrect = (answeredCount > 0 && correctCount === answeredCount);
+
       if (!st.isCorrect) {
-        st.hint = "Revisá el cálculo de pérdidas térmicas (W/kW), horas de uso mensual y eficiencias/COP de los equipos.";
+        st.hint = "Revisá los cálculos marcados en rojo. Verificá pérdidas térmicas (W/kW), horas de uso mensual y eficiencias/COP.";
       }
       this.render();
     },
@@ -3943,6 +3995,33 @@
       let elecTechDesc = st.isHeatPump ? `una bomba de calor reversible con \\(\\text{COP} = ${st.cop.toString().replace('.', ',')}\\)` : (st.effElec < 1.0 ? `una estufa eléctrica con rendimiento del \\(${Math.round(st.effElec * 100)}\\%\\)` : `una estufa eléctrica (rendimiento 100%)`);
       let gasTechDesc = st.effGas < 1.0 ? `con rendimiento del \\(${Math.round(st.effGas * 100)}\\%\\)` : `(rendimiento 100%)`;
 
+      const getFieldStyle = (res) => {
+        if (!st.checked || st.noneEntered || !res) {
+          return {
+            border: '1.5px solid var(--border-color)',
+            bg: 'var(--bg-paper)',
+            badge: ''
+          };
+        }
+        if (res.isCorrect) {
+          return {
+            border: '1.5px solid #16a34a',
+            bg: 'rgba(22, 163, 74, 0.06)',
+            badge: '<div style="font-size: 11px; color: #16a34a; font-weight: 600; margin-top: 4px;">✓ Correcto</div>'
+          };
+        } else {
+          return {
+            border: '1.5px solid #dc2626',
+            bg: 'rgba(220, 38, 38, 0.06)',
+            badge: '<div style="font-size: 11px; color: #dc2626; font-weight: 600; margin-top: 4px;">✗ Revisión requerida (Tol. < 5%)</div>'
+          };
+        }
+      };
+
+      const qStyle = getFieldStyle(st.qResult);
+      const elecStyle = getFieldStyle(st.elecResult);
+      const gasStyle = getFieldStyle(st.gasResult);
+
       let answerBoxHtml = `
         <div style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--border-color);">
           <div style="font-size: 13.5px; font-weight: 700; color: var(--text-main); margin-bottom: 10px;">
@@ -3951,15 +4030,18 @@
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px;">
             <div>
               <label style="display: block; font-size: 11.5px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">Potencia transmitida (W o kW):</label>
-              <input type="text" id="exUserQInput" class="numeric-only" inputmode="decimal" value="${st.userQAns}" placeholder="Ej: 3450 o 3.45" style="width: 100%; padding: 7px 10px; font-size: 13px; border-radius: 6px; border: 1.5px solid var(--border-color); background: var(--bg-paper); color: var(--text-main); font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userQAns = this.value">
+              <input type="text" id="exUserQInput" class="numeric-only" inputmode="decimal" value="${st.userQAns}" placeholder="Ej: 3450 o 3,45" style="width: 100%; padding: 7px 10px; font-size: 13px; border-radius: 6px; border: ${qStyle.border}; background: ${qStyle.bg}; color: var(--text-main); font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userQAns = this.value">
+              ${qStyle.badge}
             </div>
             <div>
               <label style="display: block; font-size: 11.5px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">Costo mensual estufa eléctrica (USD/mes):</label>
-              <input type="text" id="exUserElecInput" class="numeric-only" inputmode="decimal" value="${st.userElecAns}" placeholder="Ej: 45.20" style="width: 100%; padding: 7px 10px; font-size: 13px; border-radius: 6px; border: 1.5px solid var(--border-color); background: var(--bg-paper); color: var(--text-main); font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userElecAns = this.value">
+              <input type="text" id="exUserElecInput" class="numeric-only" inputmode="decimal" value="${st.userElecAns}" placeholder="Ej: 45,20" style="width: 100%; padding: 7px 10px; font-size: 13px; border-radius: 6px; border: ${elecStyle.border}; background: ${elecStyle.bg}; color: var(--text-main); font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userElecAns = this.value">
+              ${elecStyle.badge}
             </div>
             <div>
               <label style="display: block; font-size: 11.5px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">Costo mensual estufa a gas (USD/mes):</label>
-              <input type="text" id="exUserGasInput" class="numeric-only" inputmode="decimal" value="${st.userGasAns}" placeholder="Ej: 28.50" style="width: 100%; padding: 7px 10px; font-size: 13px; border-radius: 6px; border: 1.5px solid var(--border-color); background: var(--bg-paper); color: var(--text-main); font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userGasAns = this.value">
+              <input type="text" id="exUserGasInput" class="numeric-only" inputmode="decimal" value="${st.userGasAns}" placeholder="Ej: 28,50" style="width: 100%; padding: 7px 10px; font-size: 13px; border-radius: 6px; border: ${gasStyle.border}; background: ${gasStyle.bg}; color: var(--text-main); font-family: var(--font-mono); outline: none;" oninput="ExerciseEngine.state.userGasAns = this.value">
+              ${gasStyle.badge}
             </div>
           </div>
           <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
@@ -3971,19 +4053,32 @@
       `;
 
       if (st.checked) {
-        if (st.isCorrect) {
+        if (st.noneEntered) {
+          answerBoxHtml += `
+            <div style="margin-top: 12px; padding: 10px 14px; border-radius: 6px; background: rgba(234, 179, 8, 0.1); border: 1px solid #eab308; color: var(--text-main); font-size: 12.5px; font-weight: 600;">
+              Por favor, ingresá al menos una respuesta para verificar.
+            </div>
+          `;
+        } else if (st.isCorrect) {
+          const bannerTitle = st.answeredCount === 3
+            ? "¡Excelente! Las 3 respuestas son correctas."
+            : `¡Muy bien! Las ${st.answeredCount} respuesta(s) ingresada(s) son correctas. Podés completar las restantes cuando desees.`;
+
           answerBoxHtml += `
             <div style="margin-top: 12px; padding: 10px 14px; border-radius: 6px; background: rgba(22, 163, 74, 0.1); border: 1px solid #16a34a; color: #15803d; font-size: 12.5px; font-weight: 600;">
-              ¡Respuestas correctas! (Tolerancia menor al 5%).<br>
-              \\(\\dot{Q}_{\\text{total}} = ${st.qTotalW.toFixed(1).replace('.', ',')}\\text{ W} = ${st.qTotalKw.toFixed(3).replace('.', ',')}\\text{ kW}\\).<br>
-              Costo mensual eléctrico = ${st.costElecMonth.toFixed(2).replace('.', ',')} USD/mes.<br>
-              Costo mensual a gas = ${st.costGasMonth.toFixed(2).replace('.', ',')} USD/mes.
+              ${bannerTitle} (Tolerancia < 5%).<br>
+              <span style="font-weight: 400; font-size: 12px;">
+                Valores calculados de referencia:<br>
+                • \\(\\dot{Q}_{\\text{total}} = ${st.qTotalW.toFixed(1).replace('.', ',')}\\text{ W} = ${st.qTotalKw.toFixed(3).replace('.', ',')}\\text{ kW}\\)<br>
+                • Costo mensual eléctrico = ${st.costElecMonth.toFixed(2).replace('.', ',')} USD/mes<br>
+                • Costo mensual a gas = ${st.costGasMonth.toFixed(2).replace('.', ',')} USD/mes
+              </span>
             </div>
           `;
         } else {
           answerBoxHtml += `
             <div style="margin-top: 12px; padding: 10px 14px; border-radius: 6px; background: rgba(220, 38, 38, 0.1); border: 1px solid #dc2626; color: #b91c1c; font-size: 12.5px;">
-              <div style="font-weight: 700;">Revisá tus cálculos.</div>
+              <div style="font-weight: 700;">Revisá ${st.answeredCount - st.correctCount} de ${st.answeredCount} respuesta(s) ingresada(s).</div>
               <div style="margin-top: 4px; font-size: 12px;">${st.hint}</div>
             </div>
           `;
