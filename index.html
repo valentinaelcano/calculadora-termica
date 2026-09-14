@@ -3266,11 +3266,11 @@
     ctx.textBaseline = 'middle';
     
     ctx.fillStyle = textMuted;
-    ctx.font = '600 10px "JetBrains Mono", monospace';
+    ctx.font = '600 10px "Inter", system-ui, sans-serif';
     ctx.fillText('TOTAL', cx, cy - 8);
 
     ctx.fillStyle = textColor;
-    ctx.font = '700 14px "JetBrains Mono", monospace';
+    ctx.font = '700 14px "Inter", system-ui, sans-serif';
     ctx.fillText(fmt(total, 0) + ' kWh', cx, cy + 8);
 
     // 4. Porcentajes directamente sobre cada porción (sin líneas blancas)
@@ -3288,12 +3288,12 @@
       ctx.save();
       if (pct >= 3) {
         ctx.fillStyle = '#ffffff';
-        ctx.font = '700 11.5px sans-serif';
+        ctx.font = '700 11.5px "Inter", system-ui, sans-serif';
         ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
         ctx.shadowBlur = 4;
       } else {
         ctx.fillStyle = textColor;
-        ctx.font = '700 10.5px sans-serif';
+        ctx.font = '700 10.5px "Inter", system-ui, sans-serif';
       }
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
