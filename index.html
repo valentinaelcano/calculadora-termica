@@ -735,6 +735,13 @@
     background: var(--bg-subtle);
   }
 
+  .latex-panel-head[draggable="true"], .latex-box-title[draggable="true"] {
+    cursor: grab;
+  }
+  .latex-panel-head[draggable="true"]:active, .latex-box-title[draggable="true"]:active {
+    cursor: grabbing;
+  }
+
   /* Botones de mover capas en tabla */
   .layer-action-btns {
     display: inline-flex;
@@ -2039,7 +2046,7 @@
             <button class="btn-add" onclick="addLayer('wall')">+ Agregar capa a pared</button>
             <button class="btn-catalog" onclick="openCatalogModal('wall')">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1px; margin-right:5px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-              Catálogo técnico de materiales
+              Catálogo de materiales
             </button>
           </div>
 
@@ -2101,7 +2108,7 @@
             <button class="btn-add" onclick="addLayer('roof')">+ Agregar capa a techo</button>
             <button class="btn-catalog" onclick="openCatalogModal('roof')">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1px; margin-right:5px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-              Catálogo técnico de materiales
+              Catálogo de materiales
             </button>
           </div>
 
@@ -2979,26 +2986,35 @@
     let draggedItem = null;
 
     container.querySelectorAll('.latex-panel, .latex-box').forEach(panel => {
-      panel.setAttribute('draggable', 'true');
+      const header = panel.querySelector('.latex-panel-head, .latex-box-title');
+      if (header) {
+        header.setAttribute('draggable', 'true');
 
-      panel.addEventListener('dragstart', (e) => {
-        draggedItem = panel;
-        panel.classList.add('dragging');
-        e.dataTransfer.effectAllowed = 'move';
-        e.dataTransfer.setData('text/plain', '');
-      });
+        header.addEventListener('dragstart', (e) => {
+          if (e.target.closest('button, input, select, textarea, a')) {
+            e.preventDefault();
+            return;
+          }
+          draggedItem = panel;
+          panel.classList.add('dragging');
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', '');
+        });
 
-      panel.addEventListener('dragend', () => {
-        draggedItem = null;
-        panel.classList.remove('dragging');
-        container.querySelectorAll('.latex-panel, .latex-box').forEach(p => p.classList.remove('drag-over'));
-        updatePanelOrderButtons();
-      });
+        header.addEventListener('dragend', () => {
+          if (draggedItem) {
+            draggedItem.classList.remove('dragging');
+            draggedItem = null;
+          }
+          container.querySelectorAll('.latex-panel, .latex-box').forEach(p => p.classList.remove('drag-over'));
+          updatePanelOrderButtons();
+        });
+      }
 
       panel.addEventListener('dragover', (e) => {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'move';
-        if (panel !== draggedItem) {
+        if (draggedItem && panel !== draggedItem) {
           panel.classList.add('drag-over');
         }
       });
