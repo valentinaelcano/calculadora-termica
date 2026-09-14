@@ -2521,8 +2521,8 @@
     "_placeholder": { name: "-- Seleccionar material --", k: 1.0, isPlaceholder: true },
     "rev_fino": { name: "Revoque fino", k: 0.70 },
     "rev_grueso": { name: "Revoque grueso", k: 0.93 },
-    "ladrillo_macizo": { name: "Ladrillo común macizo", k: 0.81 },
-    "ladrillo_hueco": { name: "Ladrillo común", k: 0.45 },
+    "ladrillo_macizo": { name: "Ladrillo común", k: 0.81 },
+    "ladrillo_hueco": { name: "Ladrillo hueco", k: 0.45 },
     "hormigon_armado": { name: "Hormigón armado (convencional)", k: 1.63 },
     "hormigon_alivianado": { name: "Hormigón alivianado (cascote)", k: 0.93 },
     "hcca": { name: "Hormigón celular HCCA (Retak)", k: 0.13 },
@@ -2628,13 +2628,13 @@
       desc: "Capa base de cemento, cal y arena para tapar y nivelar los ladrillos. En paredes exteriores se le agrega hidrófugo (cerasita) para frenar la humedad de la lluvia."
     },
     "ladrillo_macizo": {
-      name: "Ladrillo común macizo",
+      name: "Ladrillo común",
       k: 0.81,
       category: "Mampostería",
       desc: "Ladrillo tradicional de barro cocido. Es pesado y aporta mucha inercia térmica (tarda en calentarse y enfriarse), pero por sí solo no es un buen aislante."
     },
     "ladrillo_hueco": {
-      name: "Ladrillo común",
+      name: "Ladrillo hueco",
       k: 0.45,
       category: "Mampostería",
       desc: "El ladrillo más usado en paredes y tabiques (típicamente de 12 o 18 cm). Los huecos de aire ayudan a que aísle mejor que el ladrillo macizo."
@@ -3649,20 +3649,20 @@
 
       const wallPresets = [
         {
-          name: "Pared de ladrillo común con revoques",
-          desc: "revoque exterior de 15 mm (\\(\\lambda = 0{,}93\\text{ W/mK}\\)), ladrillo común de 180 mm (\\(\\lambda = 0{,}45\\text{ W/mK}\\)) y revoque interior de 15 mm (\\(\\lambda = 0{,}70\\text{ W/mK}\\))",
+          name: "Pared de ladrillo hueco con revoques",
+          desc: "revoque exterior de 15 mm (\\(\\lambda = 0{,}93\\text{ W/mK}\\)), ladrillo hueco de 180 mm (\\(\\lambda = 0{,}45\\text{ W/mK}\\)) y revoque interior de 15 mm (\\(\\lambda = 0{,}70\\text{ W/mK}\\))",
           layers: [
             { name: "Revoque grueso", eMm: 15, lambda: 0.93 },
-            { name: "Ladrillo común", eMm: 180, lambda: 0.45 },
+            { name: "Ladrillo hueco", eMm: 180, lambda: 0.45 },
             { name: "Revoque fino", eMm: 15, lambda: 0.70 }
           ]
         },
         {
-          name: "Pared de mampostería de ladrillo común macizo",
-          desc: "revoque exterior de 20 mm (\\(\\lambda = 0{,}93\\text{ W/mK}\\)), mampostería de ladrillo común macizo de 300 mm (\\(\\lambda = 0{,}81\\text{ W/mK}\\)) y revoque interior de 15 mm (\\(\\lambda = 0{,}70\\text{ W/mK}\\))",
+          name: "Pared de mampostería de ladrillo común",
+          desc: "revoque exterior de 20 mm (\\(\\lambda = 0{,}93\\text{ W/mK}\\)), mampostería de ladrillo común de 300 mm (\\(\\lambda = 0{,}81\\text{ W/mK}\\)) y revoque interior de 15 mm (\\(\\lambda = 0{,}70\\text{ W/mK}\\))",
           layers: [
             { name: "Revoque grueso", eMm: 20, lambda: 0.93 },
-            { name: "Ladrillo común macizo", eMm: 300, lambda: 0.81 },
+            { name: "Ladrillo común", eMm: 300, lambda: 0.81 },
             { name: "Revoque fino", eMm: 15, lambda: 0.70 }
           ]
         },
@@ -3677,11 +3677,11 @@
         },
         {
           name: "Muro doble aislante con poliestireno expandido",
-          desc: "tabique exterior de ladrillo común macizo de 120 mm (\\(\\lambda = 0{,}81\\text{ W/mK}\\)), capa aislante de poliestireno expandido (EPS) de 50 mm (\\(\\lambda = 0{,}037\\text{ W/mK}\\)) y tabique interior de ladrillo común macizo de 120 mm (\\(\\lambda = 0{,}81\\text{ W/mK}\\))",
+          desc: "tabique exterior de ladrillo común de 120 mm (\\(\\lambda = 0{,}81\\text{ W/mK}\\)), capa aislante de poliestireno expandido (EPS) de 50 mm (\\(\\lambda = 0{,}037\\text{ W/mK}\\)) y tabique interior de ladrillo común de 120 mm (\\(\\lambda = 0{,}81\\text{ W/mK}\\))",
           layers: [
-            { name: "Ladrillo común macizo", eMm: 120, lambda: 0.81 },
+            { name: "Ladrillo común", eMm: 120, lambda: 0.81 },
             { name: "Poliestireno expandido (EPS)", eMm: 50, lambda: 0.037 },
-            { name: "Ladrillo común macizo", eMm: 120, lambda: 0.81 }
+            { name: "Ladrillo común", eMm: 120, lambda: 0.81 }
           ]
         }
       ];
@@ -3707,10 +3707,10 @@
         },
         {
           name: "Techo de losa de viguetas con poliuretano",
-          desc: "losa de viguetas con ladrillo común de 160 mm (\\(\\lambda = 0{,}45\\text{ W/mK}\\)), revoque de placa de yeso (Durlock) inferior de 15 mm (\\(\\lambda = 0{,}22\\text{ W/mK}\\)) y capa superior de poliuretano expandido (PUR) de 40 mm (\\(\\lambda = 0{,}026\\text{ W/mK}\\))",
+          desc: "losa de viguetas con ladrillo hueco de 160 mm (\\(\\lambda = 0{,}45\\text{ W/mK}\\)), revoque de placa de yeso (Durlock) inferior de 15 mm (\\(\\lambda = 0{,}22\\text{ W/mK}\\)) y capa superior de poliuretano expandido (PUR) de 40 mm (\\(\\lambda = 0{,}026\\text{ W/mK}\\))",
           layers: [
             { name: "Placa de yeso (Durlock)", eMm: 15, lambda: 0.22 },
-            { name: "Ladrillo común", eMm: 160, lambda: 0.45 },
+            { name: "Ladrillo hueco", eMm: 160, lambda: 0.45 },
             { name: "Poliuretano expandido (PUR)", eMm: 40, lambda: 0.026 }
           ]
         }
